@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Sidebar from "./SideBar";
 import "./sidebar.css";
 import "./admin.css";
+import { useSettings } from "../SettingsContext";
 
 export default function Admin() {
   const [menu, setMenu] = useState([]);
@@ -23,6 +24,8 @@ export default function Admin() {
   const [editCatName, setEditCatName] = useState("");
   const [openCatMenu, setOpenCatMenu] = useState(null);
   const catMenuRef = useRef(null);
+
+  const { settings } = useSettings();
 
   useEffect(() => {
     fetch(
@@ -263,7 +266,7 @@ export default function Admin() {
                   <div className="card-body">
                     <div className="card-info">
                       <div className="card-name">{item.name}</div>
-                      <div className="card-price">₹{item.price}</div>
+                      <div className="card-price">{settings.currency}{item.price}</div>
                       {item.stock === 0 && <span className="card-stock-alert out">Out of Stock</span>}
                       {item.stock > 0 && item.stock < 5 && (
                         <span className="card-stock-alert low">Low Stock ({item.stock} left)</span>
@@ -292,7 +295,7 @@ export default function Admin() {
                 <input name="name" placeholder="e.g. Cappuccino" value={formData.name} onChange={handleChange} required />
               </div>
               <div className="form-field">
-                <label>Price (₹)</label>
+                <label>Price ({settings.currency})</label>
                 <input type="number" name="price" placeholder="e.g. 120" value={formData.price} onChange={handleChange} required />
               </div>
               <div className="form-field">

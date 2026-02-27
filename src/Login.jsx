@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
+import { useSettings } from "./SettingsContext";
 
 export default function Login() {
 
@@ -10,7 +11,8 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
+  
+  const { settings } = useSettings();
 
   const handleLogin = async () => {
 
@@ -65,9 +67,10 @@ export default function Login() {
 
       <div className="login-wrapper">
 
-        <h1>Welcome to Cafe & Snacks </h1>
-
-        <p>Fresh Coffee • Tasty Snacks • Happy Moments</p>
+        <h1>Welcome to {settings?.cafeName || "Cafe"} </h1>
+        {/* <h1>{settings?.cafeName || "Cafe"}</h1> */}
+        <p>{settings.tagline}</p>
+        {/* <p>Fresh Coffee • Tasty Snacks • Happy Moments</p> */}
 
 
         <div className="login-card">

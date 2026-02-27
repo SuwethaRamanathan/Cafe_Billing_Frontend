@@ -1,4 +1,3 @@
-
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useSettings } from "../SettingsContext";
@@ -9,7 +8,9 @@ export default function SideBar() {
   const location  = useLocation();
   const [showLogout,  setShowLogout]  = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const { settings } = useSettings();
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -42,7 +43,9 @@ export default function SideBar() {
           <span className="ham-line" />
           <span className="ham-line" />
         </button>
-        <div className="mobile-logo-name">Cafe &amp; Snacks</div>
+        <div className="mobile-logo-name">
+          <h1>{settings?.cafeName || "Cafe"}</h1>
+          </div>
       </div>
 
       {sidebarOpen && (
