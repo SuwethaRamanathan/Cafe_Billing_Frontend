@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 import { useSettings } from "../SettingsContext";
+import html2pdf from "html2pdf.js";
+
 function Cashier() {
   const navigate = useNavigate();
   const { settings } = useSettings();  
@@ -111,6 +113,21 @@ function Cashier() {
       .then(res => res.json())
       .then(data => setMenu(data));
   };
+
+  const downloadBill = () => {
+  const element = document.getElementById("pos-receipt");
+  if (!element) return;
+
+  const opt = {
+    margin:       5,
+    filename:     `Bill_${orderNumber}.pdf`,
+    image:        { type: "jpeg", quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: "mm", format: [80, 200], orientation: "portrait" } // thermal style
+  };
+
+  html2pdf().set(opt).from(element).save();
+};
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -385,9 +402,19 @@ function Cashier() {
               <button className="pos-cancel-btn" onClick={() => setShowPreview(false)}>
                 Back
               </button>
+
+                <button
+    className="pos-download-btn"
+    onClick={downloadBill}
+    disabled={cart.length === 0}
+  >
+    Download PDF
+  </button>
+
               <button className="pos-print-btn" onClick={confirmPrint} disabled={isPrinting}>
                 {isPrinting ? "Processing..." : "Print Bill"}
               </button>
+              
             </div>
           </div>
         </div>

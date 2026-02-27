@@ -916,3 +916,19 @@ body {
     font-size: 15px !important;
   }
 }
+
+.pos-download-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 8px;
+  transition: 0.2s;
+}
+
+.pos-download-btn:hover {
+  background: #1e4ed8;
+}
