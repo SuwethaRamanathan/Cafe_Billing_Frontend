@@ -537,3 +537,25 @@ body {
 .btn-save:hover {
   background: #a8421a;
 }
+
+.category-wrapper {
+  position: relative;
+  z-index: 10;   
+}
+
+.cat-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ecdfd4;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(26,10,0,0.18);
+  z-index: 9999;   
+  min-width: 130px;
+}
+
+.main-content {
+  overflow-y: auto;
+  position: relative; 
+}
