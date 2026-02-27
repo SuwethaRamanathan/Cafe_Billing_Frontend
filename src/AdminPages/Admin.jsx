@@ -28,8 +28,19 @@ export default function Admin() {
   const { settings } = useSettings();
 
   useEffect(() => {
-    fetch(
-      `${import.meta.env.VITE_API_URL}/api/menu`).then(r => r.json()).then(setMenu);
+    // fetch(
+    //   `${import.meta.env.VITE_API_URL}/api/menu`).then(r => r.json()).then(setMenu);
+    fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
+  .then(r => r.json())
+  .then(data => {
+    const normalized = data.map(item => ({
+      ...item,
+      stock: Number(item.stock),
+      price: Number(item.price)
+    }));
+    setMenu(normalized);
+  });
+
     fetch(
       `${import.meta.env.VITE_API_URL}/api/categories`).then(r => r.json()).then(setCategories);
   }, []);
@@ -56,7 +67,14 @@ export default function Admin() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      setMenu(menu.map(item => item._id === editId ? data : item));
+
+      // setMenu(menu.map(item => item._id === editId ? data : item));
+      setMenu(menu.map(item =>
+  item._id === editId
+    ? { ...data, stock: Number(data.stock), price: Number(data.price) }
+    : item
+));
+
       setEditId(null);
     } else {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`, {
@@ -65,7 +83,13 @@ export default function Admin() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      setMenu([...menu, data]);
+
+      // setMenu([...menu, data]);
+      setMenu([...menu, {
+  ...data,
+  stock: Number(data.stock),
+  price: Number(data.price)
+}]);
     }
     setFormData({ name: "", price: "", stock: "", category: "", image: "" });
     setShowForm(false);
