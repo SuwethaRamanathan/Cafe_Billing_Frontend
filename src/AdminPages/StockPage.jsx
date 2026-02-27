@@ -19,7 +19,8 @@ function StockPage({ mode }) {
   });
 
   const fetchGroceries = () => {
-    fetch("http://localhost:5000/api/groceries")
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/groceries`)
       .then(res => res.json())
       .then(data =>
         setGroceries(data.map(item => ({
@@ -59,7 +60,8 @@ function StockPage({ mode }) {
     if (!newGrocery.name || !newGrocery.unit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
       setSuccessMsg(" Please fill all fields"); return;
     }
-    await fetch("http://localhost:5000/api/groceries", {
+    await fetch(
+      `${import.meta.env.VITE_API_URL}/api/groceries`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newGrocery)
@@ -71,7 +73,8 @@ function StockPage({ mode }) {
   };
 
   const exportExcel = async () => {
-    const res  = await fetch("http://localhost:5000/api/groceries/export");
+    const res  = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/groceries/export`);
     const blob = await res.blob();
     const url  = window.URL.createObjectURL(blob);
     const a    = document.createElement("a");
@@ -84,7 +87,8 @@ function StockPage({ mode }) {
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
-    const res  = await fetch("http://localhost:5000/api/groceries/import", { method: "POST", body: formData });
+    const res  = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/groceries/import`, { method: "POST", body: formData });
     const data = await res.json();
     setSuccessMsg(` ${data.msg}`);
     fetchGroceries();
@@ -115,7 +119,8 @@ function StockPage({ mode }) {
     const modifiedItems = groceries.filter(g => g.modified);
     if (modifiedItems.length === 0) { setSuccessMsg(" No changes made"); return; }
     for (let item of modifiedItems) {
-      await fetch(`http://localhost:5000/api/groceries/${item._id}`, {
+      await fetch(
+        `${import.meta.env.VITE_API_URL}/api/groceries/${item._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quantity: item.quantity })
@@ -135,7 +140,8 @@ function StockPage({ mode }) {
     const selectedItems = groceries.filter(g => g.selected);
     if (selectedItems.length === 0) { setSuccessMsg(" No items selected"); return; }
     for (let item of selectedItems) {
-      await fetch(`http://localhost:5000/api/groceries/${item._id}`, { method: "DELETE" });
+      await fetch(
+        `${import.meta.env.VITE_API_URL}/api/groceries/${item._id}`, { method: "DELETE" });
     }
     setShowDeleteMode(false);
     setSuccessMsg(` ${selectedItems.length} item(s) deleted!`);

@@ -22,13 +22,14 @@ function Cashier() {
 
   
   useEffect(() => {
-    fetch("http://localhost:5000/api/menu")
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/menu`)
       .then(res => res.json())
       .then(data => setMenu(data));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/categories")
+    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
       .then(res => res.json())
       .then(data => setCategories(data));
   }, []);
@@ -88,7 +89,8 @@ function Cashier() {
     if (cart.length === 0) return;
     setIsPrinting(true);
 
-    const res = await fetch("http://localhost:5000/api/orders", {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: cart, total: grand }),
@@ -104,7 +106,8 @@ function Cashier() {
     setDiscount("");
     setShowPreview(false);
 
-    fetch("http://localhost:5000/api/menu")
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/menu`)
       .then(res => res.json())
       .then(data => setMenu(data));
   };

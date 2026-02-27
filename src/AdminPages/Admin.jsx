@@ -25,8 +25,10 @@ export default function Admin() {
   const catMenuRef = useRef(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/menu").then(r => r.json()).then(setMenu);
-    fetch("http://localhost:5000/api/categories").then(r => r.json()).then(setCategories);
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/menu`).then(r => r.json()).then(setMenu);
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/categories`).then(r => r.json()).then(setCategories);
   }, []);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function Admin() {
     e.preventDefault();
     const token = localStorage.getItem("token");
     if (editId) {
-      const res = await fetch(`http://localhost:5000/api/menu/${editId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${editId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(formData),
@@ -54,7 +56,7 @@ export default function Admin() {
       setMenu(menu.map(item => item._id === editId ? data : item));
       setEditId(null);
     } else {
-      const res = await fetch("http://localhost:5000/api/menu", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(formData),
@@ -74,7 +76,7 @@ export default function Admin() {
 
   const deleteItem = async () => {
     const token = localStorage.getItem("token");
-    await fetch(`http://localhost:5000/api/menu/${deleteId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${deleteId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -85,7 +87,7 @@ export default function Admin() {
   const addCategory = async () => {
     if (!newCategory.trim()) return;
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:5000/api/categories", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify({ name: newCategory }),
@@ -100,7 +102,7 @@ export default function Admin() {
   const updateCategory = async () => {
     if (!editCatName.trim()) return;
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/categories/${editCat._id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/${editCat._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify({ name: editCatName.trim() }),
@@ -121,7 +123,7 @@ export default function Admin() {
 
   const deleteCategory = async () => {
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:5000/api/categories/${catToDelete._id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/${catToDelete._id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });

@@ -26,7 +26,8 @@ function SettingsPage() {
   const [activeTab,  setActiveTab]  = useState("cafe");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/settings")
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/settings`)
       .then(res => res.json())
       .then(data => {
         setForm({
@@ -63,7 +64,7 @@ function SettingsPage() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch("http://localhost:5000/api/settings", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/settings`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
