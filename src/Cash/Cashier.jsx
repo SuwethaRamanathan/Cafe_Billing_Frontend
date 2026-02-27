@@ -408,13 +408,13 @@ function Cashier() {
     onClick={downloadBill}
     disabled={cart.length === 0}
   >
-    Download PDF
+    Download Bill
   </button>
 
               <button className="pos-print-btn" onClick={confirmPrint} disabled={isPrinting}>
                 {isPrinting ? "Processing..." : "Print Bill"}
               </button>
-              
+
             </div>
           </div>
         </div>
