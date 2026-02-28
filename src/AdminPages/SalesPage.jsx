@@ -933,6 +933,9 @@ function SalesPage() {
             {/* LEFT — PIE */}
             <div className="analytics-chart-card">
               <h3 className="analytics-title">Best Selling Items</h3>
+              <div className="analytics-period">
+  {filterLabel} ({getDateRangeString()})
+</div>
 
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
