@@ -530,7 +530,7 @@
   grid-template-columns: 1.6fr 1fr;
   gap: 24px;
   margin-bottom: 28px;
-   align-items: stretch;
+   align-items: center;
 }
 
 .analytics-chart-card {
@@ -548,11 +548,9 @@
 
 /* RIGHT STATS */
 .analytics-stats-grid {
-  margin-top: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
-  align-content: start;
 }
 
 .stat-card {

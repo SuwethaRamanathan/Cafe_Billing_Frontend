@@ -952,7 +952,7 @@ function SalesPage() {
                       <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip cursor={false}/>
                   <Legend verticalAlign="bottom" />
                 </PieChart>
               </ResponsiveContainer>
