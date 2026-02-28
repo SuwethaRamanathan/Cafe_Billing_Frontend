@@ -33,6 +33,8 @@ function SalesPage() {
   const [filter, setFilter] = useState("today");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+ 
+  const COLORS = ["#c0521a", "#8a7060", "#b0998a", "#1a0a00", "#dcb9a1"]; 
 
   useEffect(() => {
     fetch(
@@ -92,7 +94,7 @@ function SalesPage() {
     return `${start.toLocaleDateString("en-GB")} → ${today.toLocaleDateString("en-GB")}`;
   };
 
-  // ── PDF Download — captures the HIDDEN full div, not the scrollable table ──
+//  ── PDF Download — captures the HIDDEN full div, not the scrollable table ──
   const downloadPDF = async () => {
     if (filtered.length === 0) { alert("No records to download!"); return; }
 
@@ -132,7 +134,7 @@ function SalesPage() {
       yPos += pdfH;
     }
 
-    // Use showSaveFilePicker if browser supports it (shows Save As dialog)
+  // Use showSaveFilePicker if browser supports it (shows Save As dialog)
     const pdfBlob = pdf.output("blob");
     if (window.showSaveFilePicker) {
       try {
@@ -148,8 +150,7 @@ function SalesPage() {
         if (e.name === "AbortError") return; // user cancelled the file dialog
       }
     }
-
-    // Fallback for browsers that don't support showSaveFilePicker (Firefox, Safari)
+//  Fallback for browsers that don't support showSaveFilePicker (Firefox, Safari)
     const url = URL.createObjectURL(pdfBlob);
     const a   = document.createElement("a");
     a.href     = url;
@@ -159,32 +160,61 @@ function SalesPage() {
   };
 
   // 1. Prepare data for Revenue Trend (Line Chart)
-const getTrendData = () => {
-  const map = {};
-  filtered.forEach(o => {
-    const dateLabel = new Date(o.date).toLocaleDateString("en-GB", { day: '2-digit', month: 'short' });
-    map[dateLabel] = (map[dateLabel] || 0) + o.total;
-  });
-  return Object.keys(map).map(date => ({ date, amount: map[date] }));
-};
+// const getTrendData = () => {
+//   const map = {};
+//   filtered.forEach(o => {
+//     const dateLabel = new Date(o.date).toLocaleDateString("en-GB", { day: '2-digit', month: 'short' });
+//     map[dateLabel] = (map[dateLabel] || 0) + o.total;
+//   });
+//   return Object.keys(map).map(date => ({ date, amount: map[date] }));
+// };
 
 // 2. Prepare data for Top Selling Items (Bar Chart)
-const getTopItemsData = () => {
-  const itemMap = {};
-  filtered.forEach(o => {
-    o.items.forEach(item => {
-      itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
-    });
-  });
-  return Object.keys(itemMap)
-    .map(name => ({ name, qty: itemMap[name] }))
-    .sort((a, b) => b.qty - a.qty)
-    .slice(0, 5); // Top 5
-};
+// const getTopItemsData = () => {
+//   const itemMap = {};
+//   filtered.forEach(o => {
+//     o.items.forEach(item => {
+//       itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
+//     });
+//   });
+//   return Object.keys(itemMap)
+//     .map(name => ({ name, qty: itemMap[name] }))
+//     .sort((a, b) => b.qty - a.qty)
+//     .slice(0, 5); // Top 5
+// };
 
-const trendData = getTrendData();
-const topItemsData = getTopItemsData();
+// const trendData = getTrendData();
+// const topItemsData = getTopItemsData();
 // const COLORS = ['#c0521a', '#8a7060', '#ecdfd4', '#1a0a00', '#b0998a'];
+
+  const getTrendData = () => {
+    const map = {};
+    filtered.forEach((o) => {
+      const label = new Date(o.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+      map[label] = (map[label] || 0) + o.total;
+    });
+    return Object.keys(map).map((date) => ({ date, amount: map[date] }));
+  };
+
+  const getTopItemsData = () => {
+    const itemMap = {};
+    filtered.forEach((o) => {
+      o.items.forEach((item) => {
+        itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
+      });
+    });
+    // Convert to array, sort, and slice top 5
+    return Object.keys(itemMap)
+      .map((name) => ({ 
+        name, 
+        value: itemMap[name] 
+      }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5);
+  };
+
+  const trendData = getTrendData();
+  const topItemsData = getTopItemsData();
 
   return (
     <div className="sales-page-wrap">
@@ -203,9 +233,9 @@ const topItemsData = getTopItemsData();
           </div>
         </div>
 
-        <div className="pdf-stats-row">
-          <div className="pdf-stat-box">
-            <div className="pdf-stat-label">Total Revenue</div>
+   <div className="pdf-stats-row">
+     <div className="pdf-stat-box">
+     <div className="pdf-stat-label">Total Revenue</div>
             <div className="pdf-stat-val">{settings.currency}{totalRevenue.toLocaleString()}</div>
           </div>
           <div className="pdf-stat-box">
@@ -216,21 +246,21 @@ const topItemsData = getTopItemsData();
             <div className="pdf-stat-label">Average Bill</div>
             <div className="pdf-stat-val">{settings.currency}{avgBill}</div>
           </div>
-          <div className="pdf-stat-box">
-            <div className="pdf-stat-label">Highest Bill</div>
-            <div className="pdf-stat-val">{settings.currency}{highestBill}</div>
-          </div>
-        </div>
+           <div className="pdf-stat-box">
+             <div className="pdf-stat-label">Highest Bill</div>
+             <div className="pdf-stat-val">{settings.currency}{highestBill}</div>
+           </div>
+         </div>
 
-        <table className="pdf-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Bill No.</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Amount ({settings.currency})</th>
-              <th>Status</th>
+         <table className="pdf-table">
+           <thead>
+             <tr>
+               <th>#</th>
+               <th>Bill No.</th>
+               <th>Date</th>
+               <th>Time</th>
+               <th>Amount ({settings.currency})</th>
+             <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -330,7 +360,7 @@ const topItemsData = getTopItemsData();
             </div>
           </div>
   
-           {/* <div className="analytics-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+            <div className="analytics-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
            
             <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
               <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
@@ -352,9 +382,10 @@ const topItemsData = getTopItemsData();
                   />
                 </LineChart>
               </ResponsiveContainer>
-            </div>   {/* revenue trend chart */}
+            </div>  
+             {/* revenue trend chart */}
 
-            {/* <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
+            <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
               <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
                 Best Selling Items (Qty)
               </h3>
@@ -372,7 +403,7 @@ const topItemsData = getTopItemsData();
               </ResponsiveContainer>
             </div>
           </div>    
-          ==>top items */}
+          {/* ==>top items */}
    
           <div className="sales-table-card">
             <div className="sales-table-toprow">
@@ -429,3 +460,4 @@ const topItemsData = getTopItemsData();
 }
 
 export default SalesPage;
+
