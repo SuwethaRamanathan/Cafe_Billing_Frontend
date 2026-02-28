@@ -34,7 +34,7 @@ function SalesPage() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
  
-  // const COLORS = ["#c0521a", "#8a7060", "#b0998a", "#1a0a00", "#dcb9a1"]; 
+  const COLORS = ["#c0521a", "#8a7060", "#b0998a", "#1a0a00", "#dcb9a1"]; 
 
   useEffect(() => {
     fetch(
@@ -170,20 +170,37 @@ function SalesPage() {
 // };
 
 // 2. Prepare data for Top Selling Items (Bar Chart)
-const getTopItemsData = () => {
-  const itemMap = {};
-  filtered.forEach(o => {
-    o.items.forEach(item => {
-      itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
-    });
-  });
-  return Object.keys(itemMap)
-    .map(name => ({ name, qty: itemMap[name] }))
-    .sort((a, b) => b.qty - a.qty)
-    .slice(0, 5); // Top 5
-};
+// const getTopItemsData = () => {
+//   const itemMap = {};
+//   filtered.forEach(o => {
+//     o.items.forEach(item => {
+//       itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
+//     });
+//   });
+//   return Object.keys(itemMap)
+//     .map(name => ({ name, qty: itemMap[name] }))
+//     .sort((a, b) => b.qty - a.qty)
+//     .slice(0, 5); // Top 5
+// };
 
 // const trendData = getTrendData();
+const getTopItemsData = () => {
+    const itemMap = {};
+    filtered.forEach((o) => {
+      o.items.forEach((item) => {
+        itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
+      });
+    });
+
+    // --- CLEANED UP: Removed the unused 'index' parameter ---
+    return Object.keys(itemMap)
+      .map((name) => ({ 
+        name, 
+        value: itemMap[name] 
+      }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5);
+  };
 const topItemsData = getTopItemsData();
 
   return (
@@ -333,7 +350,7 @@ const topItemsData = getTopItemsData();
             <div className="analytics-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
            
             <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
-              <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
+              {/* <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
                 Revenue Trend
               </h3>
               <ResponsiveContainer width="100%" height="90%">
@@ -352,14 +369,14 @@ const topItemsData = getTopItemsData();
                   />
                 </LineChart>
               </ResponsiveContainer>
-            </div>  
+            </div>   */}
              {/* revenue trend chart */}
 
             <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
               <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
                 Best Selling Items (Qty)
               </h3>
-              <ResponsiveContainer width="100%" height="90%">
+              {/* <ResponsiveContainer width="100%" height="90%">
                 <BarChart data={topItemsData}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis dataKey="name" />
@@ -370,6 +387,25 @@ const topItemsData = getTopItemsData();
                     shape={<CustomBar />} 
                   />
                 </BarChart>
+              </ResponsiveContainer> */}
+              <ResponsiveContainer width="100%" height="90%">
+                <PieChart>
+                  <Pie
+                    data={topItemsData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    label
+                  >
+                    {topItemsData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend verticalAlign="bottom" height={36}/>
+                </PieChart>
               </ResponsiveContainer>
             </div>
           </div>    
@@ -422,7 +458,7 @@ const topItemsData = getTopItemsData();
               </div>
             )}
           </div>
-
+        </div>
         </div>
       </div>
     </div>
