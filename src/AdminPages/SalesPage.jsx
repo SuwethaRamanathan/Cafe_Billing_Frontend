@@ -330,7 +330,7 @@ const topItemsData = getTopItemsData();
             </div>
           </div>
   
-           <div className="analytics-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+           {/* <div className="analytics-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
            
             <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
               <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
@@ -354,7 +354,7 @@ const topItemsData = getTopItemsData();
               </ResponsiveContainer>
             </div>   {/* revenue trend chart */}
 
-            <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
+            {/* <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
               <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
                 Best Selling Items (Qty)
               </h3>
@@ -371,8 +371,8 @@ const topItemsData = getTopItemsData();
                 </BarChart>
               </ResponsiveContainer>
             </div>
-          </div>   
-          {/* ==>top items */}
+          </div>    
+          ==>top items */}
    
           <div className="sales-table-card">
             <div className="sales-table-toprow">
