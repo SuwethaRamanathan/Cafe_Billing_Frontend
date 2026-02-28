@@ -160,14 +160,14 @@ function SalesPage() {
   };
 
   // 1. Prepare data for Revenue Trend (Line Chart)
-const getTrendData = () => {
-  const map = {};
-  filtered.forEach(o => {
-    const dateLabel = new Date(o.date).toLocaleDateString("en-GB", { day: '2-digit', month: 'short' });
-    map[dateLabel] = (map[dateLabel] || 0) + o.total;
-  });
-  return Object.keys(map).map(date => ({ date, amount: map[date] }));
-};
+// const getTrendData = () => {
+//   const map = {};
+//   filtered.forEach(o => {
+//     const dateLabel = new Date(o.date).toLocaleDateString("en-GB", { day: '2-digit', month: 'short' });
+//     map[dateLabel] = (map[dateLabel] || 0) + o.total;
+//   });
+//   return Object.keys(map).map(date => ({ date, amount: map[date] }));
+// };
 
 // 2. Prepare data for Top Selling Items (Bar Chart)
 const getTopItemsData = () => {
@@ -183,39 +183,8 @@ const getTopItemsData = () => {
     .slice(0, 5); // Top 5
 };
 
-const trendData = getTrendData();
+// const trendData = getTrendData();
 const topItemsData = getTopItemsData();
-
-// const COLORS = ['#c0521a', '#8a7060', '#ecdfd4', '#1a0a00', '#b0998a'];
-
-  // const getTrendData = () => {
-  //   const map = {};
-  //   filtered.forEach((o) => {
-  //     const label = new Date(o.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
-  //     map[label] = (map[label] || 0) + o.total;
-  //   });
-  //   return Object.keys(map).map((date) => ({ date, amount: map[date] }));
-  // };
-
-  // const getTopItemsData = () => {
-  //   const itemMap = {};
-  //   filtered.forEach((o) => {
-  //     o.items.forEach((item) => {
-  //       itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
-  //     });
-  //   });
-    // Convert to array, sort, and slice top 5
-  //   return Object.keys(itemMap)
-  //     .map((name) => ({ 
-  //       name, 
-  //       value: itemMap[name] 
-  //     }))
-  //     .sort((a, b) => b.value - a.value)
-  //     .slice(0, 5);
-  // };
-
-  // const trendData = getTrendData();
-  // const topItemsData = getTopItemsData();
 
   return (
     <div className="sales-page-wrap">
