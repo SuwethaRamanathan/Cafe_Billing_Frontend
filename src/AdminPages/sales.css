@@ -516,3 +516,9 @@
   padding-top: 14px;
   margin-top: 8px;
 }
+
+@media (max-width: 1000px) {
+  .analytics-row {
+    grid-template-columns: 1fr !important;
+  }
+}

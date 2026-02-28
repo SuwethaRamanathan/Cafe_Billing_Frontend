@@ -3,9 +3,26 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Sidebar from "./SideBar";
 import { useSettings } from "../SettingsContext";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 import "./sidebar.css";
 import "./sales.css";
+
+const CustomBar = (props) => {
+  const { x, y, width, height, index } = props;
+  const COLORS = ["#c0521a", "#8a7060", "#ecdfd4", "#1a0a00", "#b0998a"];
+  return (
+    <rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      fill={COLORS[index % COLORS.length]}
+      rx={5}
+      ry={5}
+    />
+  );
+};
 
 function SalesPage() {
   const pdfContentRef = useRef(); // points to the HIDDEN full-content div
@@ -140,6 +157,34 @@ function SalesPage() {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  // 1. Prepare data for Revenue Trend (Line Chart)
+const getTrendData = () => {
+  const map = {};
+  filtered.forEach(o => {
+    const dateLabel = new Date(o.date).toLocaleDateString("en-GB", { day: '2-digit', month: 'short' });
+    map[dateLabel] = (map[dateLabel] || 0) + o.total;
+  });
+  return Object.keys(map).map(date => ({ date, amount: map[date] }));
+};
+
+// 2. Prepare data for Top Selling Items (Bar Chart)
+const getTopItemsData = () => {
+  const itemMap = {};
+  filtered.forEach(o => {
+    o.items.forEach(item => {
+      itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
+    });
+  });
+  return Object.keys(itemMap)
+    .map(name => ({ name, qty: itemMap[name] }))
+    .sort((a, b) => b.qty - a.qty)
+    .slice(0, 5); // Top 5
+};
+
+const trendData = getTrendData();
+const topItemsData = getTopItemsData();
+// const COLORS = ['#c0521a', '#8a7060', '#ecdfd4', '#1a0a00', '#b0998a'];
 
   return (
     <div className="sales-page-wrap">
@@ -284,7 +329,51 @@ function SalesPage() {
               </div>
             </div>
           </div>
+  
+           <div className="analytics-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+           
+            <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
+              <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
+                Revenue Trend
+              </h3>
+              <ResponsiveContainer width="100%" height="90%">
+                <LineChart data={trendData}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="amount"
+                    stroke="#c0521a"
+                    strokeWidth={3}
+                    dot={{ r: 5 }}
+                    activeDot={{ r: 8 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>   {/* revenue trend chart */}
 
+            <div className="sales-table-card" style={{ padding: "20px", height: "350px" }}>
+              <h3 className="sales-table-heading" style={{ marginBottom: "20px" }}>
+                Best Selling Items (Qty)
+              </h3>
+              <ResponsiveContainer width="100%" height="90%">
+                <BarChart data={topItemsData}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip cursor={{ fill: "transparent" }} />
+                  <Bar 
+                    dataKey="qty" 
+                    shape={<CustomBar />} 
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>   
+          {/* ==>top items */}
+   
           <div className="sales-table-card">
             <div className="sales-table-toprow">
               <div className="sales-table-heading">
