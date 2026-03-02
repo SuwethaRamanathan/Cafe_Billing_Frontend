@@ -24,7 +24,9 @@ export default function Admin() {
   const [editCatName, setEditCatName] = useState("");
   const [openCatMenu, setOpenCatMenu] = useState(null);
   const catMenuRef = useRef(null);
+  const [recipe, setRecipe] = useState([]);
 
+  const [groceries, setGroceries] = useState([]);
   const { settings } = useSettings();
 
   useEffect(() => {
@@ -40,6 +42,11 @@ export default function Admin() {
     }));
     setMenu(normalized);
   });
+
+  fetch(`${import.meta.env.VITE_API_URL}/api/groceries`)
+  .then(r => r.json())
+  .then(setGroceries);
+
 
     fetch(
       `${import.meta.env.VITE_API_URL}/api/categories`).then(r => r.json()).then(setCategories);
@@ -60,11 +67,14 @@ export default function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
+
+    const payload = { ...formData, recipe }; 
+    
     if (editId) {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${editId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
 
@@ -80,7 +90,7 @@ export default function Admin() {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
 
@@ -92,14 +102,31 @@ export default function Admin() {
 }]);
     }
     setFormData({ name: "", price: "", stock: "", category: "", image: "" });
+    setRecipe([]);  
     setShowForm(false);
   };
 
   const editItem = (item) => {
     setEditId(item._id);
     setFormData({ name: item.name, price: item.price, stock: item.stock, category: item.category, image: item.image });
+    setRecipe(item.recipe || []);
     setShowForm(true);
   };
+
+ const addIngredient = () => {
+  setRecipe([...recipe, { grocery: "", qty: "" }]);
+};
+
+const updateIngredient = (i, field, value) => {
+  const copy = [...recipe];
+  copy[i][field] = value;
+  setRecipe(copy);
+};
+
+const removeIngredient = (i) => {
+  setRecipe(recipe.filter((_, idx) => idx !== i));
+};
+
 
   const deleteItem = async () => {
     const token = localStorage.getItem("token");
@@ -269,7 +296,7 @@ export default function Admin() {
               {activeCategory === "All" ? "All Items" : activeCategory.name} ({filteredItems.length})
             </div>
             <button className="btn-primary"
-              onClick={() => { setShowForm(true); setEditId(null); setFormData({ name: "", price: "", stock: "", category: "", image: "" }); }}>
+              onClick={() => { setShowForm(true); setEditId(null); setFormData({ name: "", price: "", stock: "", category: "", image: "" }); setRecipe([]);}}>
               + Add New Item
             </button>
           </div>
@@ -337,6 +364,41 @@ export default function Admin() {
                 <label>Image URL</label>
                 <input name="image" placeholder="https://..." value={formData.image} onChange={handleChange} required />
               </div>
+
+              <div className="form-field">
+  <label>Recipe Ingredients</label>
+
+  {recipe.map((r, i) => (
+    <div key={i} style={{ display:"flex", gap:"8px", marginBottom:"6px" }}>
+      
+      <select
+        value={r.grocery}
+        onChange={e => updateIngredient(i, "grocery", e.target.value)}
+      >
+        <option value="">Select</option>
+        {groceries.map(g => (
+          <option key={g._id} value={g._id}>
+            {g.name} ({g.baseUnit})
+          </option>
+        ))}
+      </select>
+
+      <input
+        type="number"
+        placeholder="Qty"
+        value={r.qty}
+        onChange={e => updateIngredient(i, "qty", e.target.value)}
+      />
+
+      <button type="button" onClick={() => removeIngredient(i)}>✕</button>
+    </div>
+  ))}
+
+  <button type="button" onClick={addIngredient}>
+    + Add Ingredient
+  </button>
+</div>
+
               <div className="form-row">
                 <button type="submit" className="btn-save">{editId ? "Update Item" : "Save Item"}</button>
                 <button type="button" className="btn-cancel" onClick={() => setShowForm(false)}>Cancel</button>

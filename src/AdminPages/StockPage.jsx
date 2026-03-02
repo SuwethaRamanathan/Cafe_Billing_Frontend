@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import ExcelJS from "exceljs";
 import Sidebar from "./SideBar";
 import "./sidebar.css";
 import "./stock.css";
 
 function StockPage({ mode }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [groceries, setGroceries]       = useState([]);
   const [searchTerm, setSearchTerm]     = useState("");
