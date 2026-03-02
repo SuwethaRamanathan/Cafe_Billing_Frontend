@@ -27,11 +27,12 @@ function StockPage({ mode }) {
           ...item,
           selected: false,
           isEditing: false,
-          editedQuantity: item.quantity,
+          editedQuantity: item.displayQty ??item.quantity,
           modified: false
         })))
       );
   };
+
 
   useEffect(() => { fetchGroceries(); }, []);
 
@@ -46,7 +47,8 @@ function StockPage({ mode }) {
   );
 
   const totalItems    = groceries.length;
-  const lowStockItems = groceries.filter(g => g.quantity > 0 && g.quantity <= 5).length;
+  // const lowStockItems = groceries.filter(g => g.quantity > 0 && g.quantity <= 5).length;
+  const lowStockItems = groceries.filter(g => (g.displayQty ?? g.quantity) <= 5 && (g.displayQty ?? g.quantity) > 0)
   const outOfStock    = groceries.filter(g => g.quantity === 0).length;
   const healthyItems  = groceries.filter(g => g.quantity > 5).length;
 
@@ -255,10 +257,33 @@ function StockPage({ mode }) {
                 </div>
                 <div className="stock-form-field">
                   <label>Unit</label>
-                  <select
+                  {/* <select
                     value={newGrocery.unit}
                     onChange={e => setNewGrocery({ ...newGrocery, unit: e.target.value })}
-                  >
+                  > */}
+
+                  <select
+  value={newGrocery.purchaseUnit}
+  onChange={e => {
+    const unit = e.target.value;
+
+    let baseUnit = "";
+    let factor = 1;
+
+    if (unit === "Litre") { baseUnit = "ml"; factor = 1000; }
+    if (unit === "Kilogram") { baseUnit = "g"; factor = 1000; }
+    if (unit === "Gram") { baseUnit = "g"; factor = 1; }
+    if (unit === "Millilitre") { baseUnit = "ml"; factor = 1; }
+    if (unit === "Packets") { baseUnit = "piece"; factor = 1; }
+
+    setNewGrocery({
+      ...newGrocery,
+      purchaseUnit: unit,
+      baseUnit,
+      conversionFactor: factor
+    });
+  }}
+>
                     <option value="">Select unit</option>
                     <option>Kilogram</option>
                     <option>Litre</option>
@@ -367,7 +392,7 @@ function StockPage({ mode }) {
 
                       <span className="stock-row-name">{g.name}</span>
 
-                      <span className="stock-row-unit">{g.unit}</span>
+                      <span className="stock-row-unit">{g.purchaseUnit}</span>
 
                       <span className="stock-qty-cell">
                         {isUpdateMode && !showDeleteMode ? (
@@ -389,7 +414,7 @@ function StockPage({ mode }) {
                           ) : (
                             <div className="stock-qty-view">
                               <span className={`stock-qty-num ${g.modified ? "qty-modified" : ""}`}>
-                                {g.quantity}
+                                {g.displayQty}
                               </span>
                               <button
                                 className="stock-qty-edit-btn"
@@ -399,7 +424,7 @@ function StockPage({ mode }) {
                             </div>
                           )
                         ) : (
-                          <span className="stock-qty-plain">{g.quantity}</span>
+                          <span className="stock-qty-plain">{g.displayQty}</span>
                         )}
                       </span>
 
