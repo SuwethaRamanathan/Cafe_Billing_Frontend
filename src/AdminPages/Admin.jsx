@@ -364,7 +364,7 @@ const removeIngredient = (i) => {
                 <label>Image URL</label>
                 <input name="image" placeholder="https://..." value={formData.image} onChange={handleChange} required />
               </div>
-              
+
             <div className="form-field">
   <label>Recipe Ingredients</label>
 
@@ -377,14 +377,14 @@ const removeIngredient = (i) => {
         <option value="">Select</option>
         {groceries.map(g => (
           <option key={g._id} value={g._id}>
-            {g.name} ({g.baseUnit})
+            {g.name} ({g.purchaseUnit})
           </option>
         ))}
       </select>
 
       <input
         type="number"
-        placeholder="Qty"
+        placeholder="Qty (ml/g/piece)"
         value={r.qty}
         onChange={e => updateIngredient(i, "qty", e.target.value)}
       />
