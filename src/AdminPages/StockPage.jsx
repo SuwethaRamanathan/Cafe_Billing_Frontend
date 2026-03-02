@@ -14,9 +14,18 @@ function StockPage({ mode }) {
   const [showDeleteMode, setShowDeleteMode] = useState(false);
   const [successMsg, setSuccessMsg]     = useState("");
 
-  const [newGrocery, setNewGrocery] = useState({
-    name: "", unit: "", quantity: "", lastPurchasedDate: ""
-  });
+  // const [newGrocery, setNewGrocery] = useState({
+  //   name: "", unit: "", quantity: "", lastPurchasedDate: ""
+  // });
+
+   const [newGrocery, setNewGrocery] = useState({
+  name: "",
+  purchaseUnit: "",
+  baseUnit: "",
+  conversionFactor: 1,
+  quantity: "",
+  lastPurchasedDate: ""
+});
 
   const fetchGroceries = () => {
     fetch(
@@ -48,9 +57,14 @@ function StockPage({ mode }) {
 
   const totalItems    = groceries.length;
   // const lowStockItems = groceries.filter(g => g.quantity > 0 && g.quantity <= 5).length;
-  const lowStockItems = groceries.filter(g => (g.displayQty ?? g.quantity) <= 5 && (g.displayQty ?? g.quantity) > 0)
-  const outOfStock    = groceries.filter(g => g.quantity === 0).length;
-  const healthyItems  = groceries.filter(g => g.quantity > 5).length;
+  // const lowStockItems = groceries.filter(g => (g.displayQty ?? g.quantity) <= 5 && (g.displayQty ?? g.quantity) > 0)
+  const lowStockItems = groceries.filter(
+  g => (g.displayQty ?? g.quantity) <= 5 && (g.displayQty ?? g.quantity) > 0
+).length;
+const outOfStock = groceries.filter(g => (g.displayQty ?? g.quantity) === 0).length;
+const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).length;
+  // const outOfStock    = groceries.filter(g => g.quantity === 0).length;
+  // const healthyItems  = groceries.filter(g => g.quantity > 5).length;
 
   const getStockStatus = (qty) => {
     if (qty === 0)  return { label: "Out of Stock", cls: "badge-out" };
@@ -59,7 +73,7 @@ function StockPage({ mode }) {
   };
 
   const addGrocery = async () => {
-    if (!newGrocery.name || !newGrocery.unit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
+    if (!newGrocery.name || !newGrocery.purchaseUnit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
       setSuccessMsg(" Please fill all fields"); return;
     }
     await fetch(
