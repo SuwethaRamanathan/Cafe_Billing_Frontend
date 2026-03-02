@@ -82,7 +82,15 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newGrocery)
     });
-    setNewGrocery({ name: "", unit: "", quantity: "", lastPurchasedDate: "" });
+    // setNewGrocery({ name: "", unit: "", quantity: "", lastPurchasedDate: "" });
+    setNewGrocery({
+  name: "",
+  purchaseUnit: "",
+  baseUnit: "",
+  conversionFactor: 1,
+  quantity: "",
+  lastPurchasedDate: ""
+});
     setShowForm(false);
     setSuccessMsg(" New raw material added!");
     fetchGroceries();
@@ -290,12 +298,20 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
     if (unit === "Millilitre") { baseUnit = "ml"; factor = 1; }
     if (unit === "Packets") { baseUnit = "piece"; factor = 1; }
 
+    // setNewGrocery({
+    //   ...newGrocery,
+    //   purchaseUnit: unit,
+    //   baseUnit,
+    //   conversionFactor: factor
+    // });
     setNewGrocery({
-      ...newGrocery,
-      purchaseUnit: unit,
-      baseUnit,
-      conversionFactor: factor
-    });
+  name: "",
+  purchaseUnit: "",
+  baseUnit: "",
+  conversionFactor: 1,
+  quantity: "",
+  lastPurchasedDate: ""
+});
   }}
 >
                     <option value="">Select unit</option>
@@ -428,7 +444,8 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                           ) : (
                             <div className="stock-qty-view">
                               <span className={`stock-qty-num ${g.modified ? "qty-modified" : ""}`}>
-                                {g.displayQty}
+                                {/* {g.displayQty} */}
+                                {g.displayQty ?? g.quantity ?? 0}
                               </span>
                               <button
                                 className="stock-qty-edit-btn"
