@@ -304,14 +304,12 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
     //   baseUnit,
     //   conversionFactor: factor
     // });
-    setNewGrocery({
-  name: "",
-  purchaseUnit: "",
-  baseUnit: "",
-  conversionFactor: 1,
-  quantity: "",
-  lastPurchasedDate: ""
-});
+    setNewGrocery(prev => ({
+ ...prev,
+    purchaseUnit: unit,
+    baseUnit,
+    conversionFactor: factor
+}));
   }}
 >
                     <option value="">Select unit</option>
@@ -455,7 +453,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                             </div>
                           )
                         ) : (
-                          <span className="stock-qty-plain">{g.displayQty}</span>
+                          <span className="stock-qty-plain">{g.displayQty?? g.quantity ?? 0}</span>
                         )}
                       </span>
 
