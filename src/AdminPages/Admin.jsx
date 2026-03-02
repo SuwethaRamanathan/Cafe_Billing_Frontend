@@ -364,13 +364,12 @@ const removeIngredient = (i) => {
                 <label>Image URL</label>
                 <input name="image" placeholder="https://..." value={formData.image} onChange={handleChange} required />
               </div>
-
-              <div className="form-field">
+              
+            <div className="form-field">
   <label>Recipe Ingredients</label>
 
   {recipe.map((r, i) => (
-    <div key={i} style={{ display:"flex", gap:"8px", marginBottom:"6px" }}>
-      
+    <div key={i} className="recipe-row">
       <select
         value={r.grocery}
         onChange={e => updateIngredient(i, "grocery", e.target.value)}
@@ -390,11 +389,21 @@ const removeIngredient = (i) => {
         onChange={e => updateIngredient(i, "qty", e.target.value)}
       />
 
-      <button type="button" onClick={() => removeIngredient(i)}>✕</button>
+      <button
+        type="button"
+        className="recipe-remove-btn"
+        onClick={() => removeIngredient(i)}
+      >
+        ✕
+      </button>
     </div>
   ))}
 
-  <button type="button" onClick={addIngredient}>
+  <button
+    type="button"
+    className="recipe-add-btn"
+    onClick={addIngredient}
+  >
     + Add Ingredient
   </button>
 </div>
