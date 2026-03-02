@@ -523,8 +523,6 @@
   }
 }
 
-/* ===== ANALYTICS GRID ===== */
-
 .analytics-grid {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
@@ -546,7 +544,6 @@
   margin-bottom: 12px;
 }
 
-/* RIGHT STATS */
 .analytics-stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -557,7 +554,6 @@
   background: #fff;
   border-radius: 14px;
   padding: 14px;
-  /* box-shadow: 0 4px 14px rgba(0,0,0,0.06); */
   box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 
   display: flex;
@@ -570,9 +566,6 @@
 }
 
 .stat-label {
-  /* font-size: 13px;
-  color: #8a7060;
-  margin-bottom: 6px; */
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: .5px;
@@ -590,10 +583,8 @@
 .stat-sub {
   font-size: 12px;
   color: #b0998a;
-  /* margin-top: 4px; */
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .analytics-grid {
     grid-template-columns: 1fr;

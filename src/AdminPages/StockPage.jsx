@@ -263,7 +263,7 @@ function StockPage({ mode }) {
                     <option>Kilogram</option>
                     <option>Litre</option>
                     <option>Gram</option>
-                    <option>Piece</option>
+                    <option>Packets</option>
                     <option>Millilitre</option>
                   </select>
                 </div>
