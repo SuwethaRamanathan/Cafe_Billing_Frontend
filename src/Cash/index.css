@@ -1,4 +1,4 @@
-
+/* 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -931,4 +931,1037 @@ body {
 
 .pos-download-btn:hover {
   background: #1e4ed8;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: #fdf6ee;
+  color: #1a0a00;
+  overflow: hidden;
+}
+
+.pos-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #fdf6ee;
+  overflow: hidden;
+}
+
+.pos-header {
+  height: 64px;
+  background: #ffffff;
+  border-bottom: 1px solid #ecdfd4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  gap: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  z-index: 50;
+}
+
+.pos-header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.pos-logo-icon {
+  width: 40px;
+  height: 40px;
+  background: #c0521a;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 3px 10px rgba(192,82,26,0.30);
+}
+
+.pos-logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a0a00;
+  line-height: 1.2;
+}
+
+.pos-search-wrap {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.pos-search-input {
+  width: 100%;
+  padding: 10px 34px 10px 36px;
+  border: 1.5px solid #ecdfd4;
+  border-radius: 50px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: #1a0a00;
+  background: #fdf6ee;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.pos-search-input:focus {
+  border-color: #c0521a;
+  background: #ffffff;
+}
+
+.pos-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8a7060;
+  pointer-events: none;
+}
+
+.pos-search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #8a7060;
+  font-size: 13px;
+}
+
+.pos-search-clear:hover { color: #d93025; }
+
+.pos-header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.pos-cashier-name {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0a00;
+}
+
+.pos-logout-btn {
+  padding: 9px 20px;
+  background: #fdf6ee;
+  color: #c0521a;
+  border: 1.5px solid #ecdfd4;
+  border-radius: 50px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.pos-logout-btn:hover {
+  background: #c0521a;
+  color: #ffffff;
+  border-color: #c0521a;
+}
+
+/* ── BODY: side-by-side on desktop, stacked on mobile ── */
+.pos-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.pos-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fdf6ee;
+}
+
+.pos-cat-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #ecdfd4;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.pos-cat-bar::-webkit-scrollbar { height: 0; }
+
+.pos-cat-btn {
+  padding: 9px 18px;
+  border-radius: 50px;
+  border: 1.5px solid #ecdfd4;
+  background: #ffffff;
+  color: #8a7060;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, color 0.18s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pos-cat-btn:hover,
+.pos-cat-btn.active {
+  border-color: #c0521a;
+  background: #c0521a;
+  color: #ffffff;
+}
+
+.pos-menu-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  align-content: flex-start;
+}
+
+.pos-menu-grid::-webkit-scrollbar { width: 5px; }
+.pos-menu-grid::-webkit-scrollbar-thumb { background: #ecdfd4; border-radius: 6px; }
+
+.pos-no-items {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #8a7060;
+  font-size: 16px;
+}
+
+.pos-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(26,10,0,0.08);
+  border: 1.5px solid #ecdfd4;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+}
+
+.pos-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(26,10,0,0.14);
+}
+
+.pos-card.pos-card-out {
+  opacity: 0.68;
+  filter: grayscale(0.35);
+  border-color: #f5c6c2;
+  cursor: not-allowed;
+}
+
+.pos-card.pos-card-out:hover {
+  transform: none;
+  box-shadow: 0 2px 12px rgba(26,10,0,0.08);
+}
+
+.pos-stock-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #c0521a;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.20);
+}
+
+.pos-stock-badge.badge-low { background: white; color: black; }
+.pos-stock-badge.badge-out { background: #d93025; }
+
+.pos-card-img-wrap {
+  height: 148px;
+  overflow: hidden;
+  background: #f5ede3;
+  flex-shrink: 0;
+}
+
+.pos-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.pos-card:hover .pos-card-img-wrap img { transform: scale(1.05); }
+
+.pos-card-body {
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pos-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a0a00;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.pos-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.pos-card-price {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #c0521a;
+}
+
+.pos-add-btn {
+  width: 64px;
+  padding: 9px 0;
+  text-align: center;
+  background: #c0521a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.pos-add-btn:hover { background: #a8421a; }
+
+.pos-card-out-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #d93025;
+  background: #fde8e8;
+  padding: 3px 9px;
+  border-radius: 50px;
+}
+
+/* ── BILLING PANEL ── */
+.pos-right {
+  width: 360px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-left: 1px solid #ecdfd4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: -4px 0 20px rgba(26,10,0,0.05);
+}
+
+.pos-bill-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid #ecdfd4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.pos-bill-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #1a0a00;
+}
+
+.pos-bill-sub {
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  color: #8a7060;
+  margin-top: 2px;
+}
+
+.pos-clear-btn {
+  padding: 6px 14px;
+  background: #fde8e8;
+  color: #d93025;
+  border: 1.5px solid #f5c6c2;
+  border-radius: 50px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+
+.pos-clear-btn:hover { background: #d93025; color: #ffffff; }
+
+.pos-cart-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.pos-cart-list::-webkit-scrollbar { width: 4px; }
+.pos-cart-list::-webkit-scrollbar-thumb { background: #ecdfd4; border-radius: 4px; }
+
+.pos-cart-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  border-bottom: 1px solid #f5ede3;
+  transition: background 0.15s;
+}
+
+.pos-cart-row:hover { background: #fdf6ee; }
+.pos-cart-row:last-child { border-bottom: none; }
+
+.pos-cart-info { flex: 1; min-width: 0; }
+
+.pos-cart-name {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a0a00;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pos-cart-unit-price {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: #8a7060;
+  margin-top: 1px;
+}
+
+.pos-qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pos-qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1.5px solid #ecdfd4;
+  background: #ffffff;
+  color: #8a7060;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.pos-qty-btn:hover {
+  background: #fdf6ee;
+  border-color: #c0521a;
+  color: #c0521a;
+}
+
+.pos-qty-btn-plus:hover {
+  background: #c0521a;
+  border-color: #c0521a;
+  color: #ffffff;
+}
+
+.pos-qty-num {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0a00;
+  min-width: 20px;
+  text-align: center;
+}
+
+.pos-cart-row-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.pos-cart-total {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0a00;
+}
+
+.pos-bill-summary {
+  padding: 16px 20px 20px;
+  border-top: 1px solid #ecdfd4;
+  flex-shrink: 0;
+}
+
+.pos-discount-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pos-discount-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #8a7060;
+  flex-shrink: 0;
+}
+
+.pos-discount-input-wrap {
+  position: relative;
+  width: 90px;
+}
+
+.pos-discount-input {
+  width: 100%;
+  padding: 8px 26px 8px 10px;
+  border: 1.5px solid #ecdfd4;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a0a00;
+  outline: none;
+  text-align: center;
+  background: #fdf6ee;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.pos-discount-input:focus {
+  border-color: #c0521a;
+  background: #ffffff;
+}
+
+.pos-discount-input::-webkit-inner-spin-button,
+.pos-discount-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+.pos-discount-pct-symbol {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 700;
+  color: #c0521a;
+  pointer-events: none;
+}
+
+.pos-discount-saved {
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #16a34a;
+  background: #dcfce7;
+  padding: 3px 10px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.pos-summary-divider {
+  height: 1px;
+  background: #ecdfd4;
+  margin: 10px 0;
+}
+
+.pos-summary-line {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: #8a7060;
+  margin-bottom: 6px;
+}
+
+.pos-summary-discount { color: #16a34a; font-weight: 700; }
+
+.pos-summary-grand {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a0a00;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.pos-generate-btn {
+  width: 100%;
+  padding: 14px;
+  background: #c0521a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+  box-shadow: 0 4px 14px rgba(192,82,26,0.30);
+}
+
+.pos-generate-btn:hover:not(:disabled) {
+  background: #a8421a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(192,82,26,0.40);
+}
+
+.pos-generate-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── MODALS ── */
+.pos-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,5,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.pos-preview-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 400px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+  animation: modalIn 0.22s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalIn {
+  from { transform: scale(0.94) translateY(16px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.pos-receipt { padding: 28px 28px 20px; flex: 1; }
+.receipt-header { text-align: center; margin-bottom: 12px; }
+
+.receipt-cafe-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a0a00;
+}
+
+.receipt-tagline {
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  color: #8a7060;
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+.receipt-divider {
+  font-size: 12px;
+  color: #c9b8ad;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 8px 0;
+  font-family: monospace;
+}
+
+.receipt-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: #8a7060;
+  margin: 6px 0;
+}
+
+.receipt-col-head {
+  display: grid;
+  grid-template-columns: 1fr 50px 80px;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a7060;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 0;
+  border-bottom: 1px solid #ecdfd4;
+  margin-bottom: 4px;
+}
+
+.receipt-col-head span:nth-child(2) { text-align: center; }
+.receipt-col-head span:nth-child(3) { text-align: right; }
+
+.receipt-row {
+  display: grid;
+  grid-template-columns: 1fr 50px 80px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f5ede3;
+}
+
+.receipt-item-name { font-weight: 600; color: #1a0a00; }
+.receipt-item-qty  { text-align: center; color: #8a7060; font-size: 13px; }
+.receipt-item-total { text-align: right; font-weight: 700; color: #1a0a00; }
+
+.receipt-summary-line {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  color: #8a7060;
+  margin: 4px 0;
+}
+
+.receipt-discount-line { color: #16a34a; font-weight: 700; }
+
+.receipt-grand {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a0a00;
+  margin: 4px 0 8px;
+}
+
+.receipt-saving {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  color: #16a34a;
+  font-weight: 700;
+  background: #dcfce7;
+  padding: 5px;
+  border-radius: 6px;
+  margin: 6px 0;
+}
+
+.receipt-footer {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: #8a7060;
+  line-height: 1.8;
+  margin-top: 4px;
+}
+
+.pos-preview-actions {
+  display: flex;
+  gap: 10px;
+  padding: 16px 28px 22px;
+  border-top: 1px solid #ecdfd4;
+  flex-shrink: 0;
+}
+
+.pos-cancel-btn {
+  flex: 1;
+  padding: 13px;
+  background: #fdf6ee;
+  color: #8a7060;
+  border: 1.5px solid #ecdfd4;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.pos-cancel-btn:hover { background: #ecdfd4; color: #1a0a00; }
+
+.pos-print-btn {
+  flex: 2;
+  padding: 13px;
+  background: #c0521a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+  box-shadow: 0 4px 14px rgba(192,82,26,0.28);
+}
+
+.pos-print-btn:hover:not(:disabled) { background: #a8421a; transform: translateY(-1px); }
+.pos-print-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.pos-confirm-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 28px;
+  width: 360px;
+  max-width: 95vw;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+  animation: modalIn 0.22s ease;
+}
+
+.pos-confirm-icon { font-size: 34px; margin-bottom: 10px; }
+
+.pos-confirm-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: #1a0a00;
+  margin-bottom: 10px;
+}
+
+.pos-confirm-text {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  color: #8a7060;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.pos-confirm-warn { color: #e65100; font-weight: 700; }
+.pos-confirm-actions { display: flex; gap: 10px; }
+
+.pos-danger-btn {
+  flex: 1;
+  padding: 13px;
+  background: #d93025;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.pos-danger-btn:hover { background: #b71c1c; }
+
+.pos-download-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 13px 18px;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  flex: 1;
+  transition: background 0.2s;
+}
+
+.pos-download-btn:hover {
+  background: #1e4ed8;
+}
+
+/* ── PRINT ── */
+@media print {
+  body * { visibility: hidden; }
+  #pos-receipt, #pos-receipt * { visibility: visible; }
+  #pos-receipt {
+    position: fixed;
+    top: 0; left: 0;
+    width: 80mm;
+    padding: 10mm;
+    background: white;
+  }
+  .pos-preview-actions { display: none; }
+}
+
+/* ────────────────────────────────────────────
+   TABLET (≤ 900px): Stack menu on top, bill below.
+   Menu is scrollable, bill panel has fixed height.
+   Items display at full size with all info visible.
+──────────────────────────────────────────── */
+@media (max-width: 900px) {
+
+  .pos-body {
+    flex-direction: column;
+    overflow-y: auto;  /* whole page scrolls */
+  }
+
+  /* Menu panel: natural height, scrollable internally */
+  .pos-left {
+    flex: unset;
+    height: auto;
+    min-height: 0;
+    border-bottom: 2px solid #ecdfd4;
+    overflow: visible; /* let content flow */
+  }
+
+  .pos-menu-grid {
+    overflow-y: visible; /* no clipping — items show fully */
+    height: auto;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    padding: 14px !important;
+    gap: 14px !important;
+  }
+
+  .pos-card-img-wrap {
+    height: 120px !important;
+  }
+
+  /* Billing panel: fixed to bottom of viewport */
+  .pos-right {
+    width: 100% !important;
+    max-height: 55vh;
+    min-height: 280px;
+    border-left: none;
+    border-top: 2px solid #ecdfd4;
+    box-shadow: 0 -4px 20px rgba(26,10,0,0.08);
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    background: #ffffff;
+    z-index: 10;
+  }
+
+  .pos-header {
+    padding: 0 14px !important;
+    height: 56px !important;
+  }
+
+  .pos-logo-name {
+    font-size: 16px !important;
+  }
+
+  .pos-search-wrap {
+    max-width: 220px !important;
+  }
+
+  .pos-bill-summary {
+    padding: 10px 16px 14px !important;
+  }
+
+  .pos-bill-header {
+    padding: 12px 16px 10px !important;
+  }
+
+  .pos-summary-grand {
+    font-size: 17px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .pos-generate-btn {
+    padding: 12px !important;
+    font-size: 14px !important;
+  }
+
+  .pos-cart-row {
+    padding: 9px 16px !important;
+  }
+}
+
+/* ── MOBILE (≤ 600px) ── */
+@media (max-width: 600px) {
+
+  .pos-body {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .pos-menu-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+
+  .pos-card-img-wrap {
+    height: 100px !important;
+  }
+
+  .pos-card-name {
+    font-size: 13px !important;
+  }
+
+  .pos-card-price {
+    font-size: 13px !important;
+  }
+
+  .pos-add-btn {
+    width: 54px !important;
+    font-size: 12px !important;
+    padding: 7px 0 !important;
+  }
+
+  /* Keep search visible but smaller */
+  .pos-search-wrap {
+    max-width: 160px !important;
+  }
+
+  .pos-logo-sub {
+    display: none;
+  }
+
+  .pos-cat-btn {
+    padding: 7px 12px !important;
+    font-size: 13px !important;
+  }
+
+  .pos-discount-row {
+    gap: 6px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .pos-bill-title {
+    font-size: 17px !important;
+  }
+
+  .pos-summary-line {
+    font-size: 13px !important;
+  }
+
+  .pos-summary-grand {
+    font-size: 16px !important;
+  }
+
+  /* Billing panel height on small phones */
+  .pos-right {
+    max-height: 60vh !important;
+    min-height: 300px !important;
+  }
 }

@@ -381,7 +381,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                 </div>
               )}
             </div>
-
+             <div className="stock-table-scroll"> 
             <div className={`stock-col-head ${isUpdateMode ? "update-cols" : "view-cols"} ${showDeleteMode ? "with-check" : ""}`}>
               {showDeleteMode && <span></span>}
               <span>#</span>
@@ -477,6 +477,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                 })
               )}
             </div>
+          </div>
           </div>
 
         </div>

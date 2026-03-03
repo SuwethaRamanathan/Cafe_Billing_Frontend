@@ -1,4 +1,4 @@
- *{
+ /* *{
   box-sizing:border-box;
 }
 
@@ -59,6 +59,97 @@
   border-radius:20px;
   font-weight:bold;
   cursor:pointer;
+}
+
+@media(max-width:800px){
+  .login-page{
+    flex-direction:column;
+  }
+  .login-image{
+    height:40vh;
+  }
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap');
+
+*{
+  box-sizing:border-box;
+}
+
+.login-page{
+  display:flex;
+  height:100vh;
+  font-family: 'Lato', sans-serif;
+}
+
+.login-image{
+  flex:1;
+  background:url("https://images.unsplash.com/photo-1509042239860-f550ce710b93")
+  center/cover no-repeat;
+}
+
+.login-wrapper{
+  flex:1;
+  background:#f4f4f4;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:40px;
+  text-align:center;
+}
+
+.login-wrapper h1{
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a0a00;
+  margin-bottom:5px;
+}
+
+.login-wrapper p{
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  margin-bottom:25px;
+  color:#666;
+}
+
+.login-card{
+  background:white;
+  width:320px;
+  padding:28px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.login-card input{
+  width:100%;
+  padding:12px 14px;
+  margin:10px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  color: #1a0a00;
+}
+
+.login-card button{
+  width:100%;
+  padding:12px;
+  background:linear-gradient(45deg,#542611,#977c57);
+  color:white;
+  border:none;
+  border-radius:20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor:pointer;
+  margin-top: 6px;
+  transition: opacity 0.2s;
+}
+
+.login-card button:hover {
+  opacity: 0.9;
 }
 
 @media(max-width:800px){
