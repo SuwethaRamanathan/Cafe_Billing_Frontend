@@ -1812,93 +1812,176 @@ body {
   .pos-preview-actions { display: none; }
 }
 
-/* ────────────────────────────────────────────
-   TABLET (≤ 900px): Stack menu on top, bill below.
-   Menu is scrollable, bill panel has fixed height.
-   Items display at full size with all info visible.
-──────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   MOBILE (≤ 900px)
+   Strategy:
+   - pos-wrap becomes a normal scrollable page (no overflow:hidden)
+   - pos-header stays sticky at top
+   - pos-left (menu) takes its natural height — cards fully visible
+   - pos-right (billing) is FIXED to the bottom of the viewport
+   - padding-bottom on pos-left pushes content above the fixed panel
+───────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
 
-  .pos-body {
-    flex-direction: column;
-    overflow: hidden; /* children handle their own scroll */
+  /* Unlock the page so it can scroll */
+  body {
+    overflow: auto !important;
   }
 
-  /* Menu panel: takes available space, grid scrolls inside */
-  .pos-left {
-    flex: 1;
-    min-height: 0;
-    border-bottom: 2px solid #ecdfd4;
-    overflow: hidden;
+  .pos-wrap {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
     display: flex;
     flex-direction: column;
   }
 
-  /* Menu grid scrolls vertically inside pos-left */
-  .pos-menu-grid {
-    overflow-y: auto !important;  /* scrollable */
-    flex: 1;
-    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)) !important;
-    padding: 14px !important;
-    gap: 14px !important;
-    align-content: flex-start;
-  }
-
-  .pos-card-img-wrap {
-    height: 120px !important;
-  }
-
-  /* Billing panel: fixed height at bottom */
-  .pos-right {
-    width: 100% !important;
-    height: 46vh;
-    min-height: 280px;
-    flex-shrink: 0;
-    border-left: none;
-    border-top: 2px solid #ecdfd4;
-    box-shadow: 0 -4px 20px rgba(26,10,0,0.08);
-    background: #ffffff;
-    overflow: hidden;
-  }
-
   .pos-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 52px !important;
     padding: 0 14px !important;
-    height: 56px !important;
   }
 
   .pos-logo-name {
-    font-size: 16px !important;
+    font-size: 15px !important;
   }
 
   .pos-search-wrap {
-    max-width: 220px !important;
+    max-width: 180px !important;
   }
 
-  .pos-bill-summary {
-    padding: 10px 16px 14px !important;
+  /* Body becomes a normal column, no overflow constraint */
+  .pos-body {
+    flex-direction: column;
+    flex: 1;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Left panel: natural height, fully visible, no clipping */
+  .pos-left {
+    flex: unset !important;
+    height: auto !important;
+    overflow: visible !important;
+    /* Push content above the fixed billing panel (approx 300px tall) */
+    padding-bottom: 310px;
+  }
+
+  .pos-cat-bar {
+    position: sticky;
+    top: 52px;
+    z-index: 50;
+    background: #ffffff;
+  }
+
+  /* Grid: 2 columns, normal flow — items fully visible, page scrolls */
+  .pos-menu-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    overflow: visible !important;
+    height: auto !important;
+    padding: 12px !important;
+    gap: 12px !important;
+    align-content: start;
+  }
+
+  .pos-card-img-wrap {
+    height: 110px !important;
+  }
+
+  .pos-card-name {
+    font-size: 14px !important;
+  }
+
+  .pos-card-price {
+    font-size: 13px !important;
+  }
+
+  .pos-add-btn {
+    width: 58px !important;
+    font-size: 12px !important;
+    padding: 7px 0 !important;
+  }
+
+  /* Billing panel: fixed at bottom of viewport */
+  .pos-right {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 300px;
+    border-left: none !important;
+    border-top: 2px solid #ecdfd4;
+    box-shadow: 0 -6px 24px rgba(26,10,0,0.12);
+    background: #ffffff;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Cart list inside billing: compact scrollable area */
+  .pos-cart-list {
+    max-height: 80px;
+    overflow-y: auto;
+    flex-shrink: 1;
   }
 
   .pos-bill-header {
-    padding: 12px 16px 10px !important;
+    padding: 10px 16px 8px !important;
+  }
+
+  .pos-bill-title {
+    font-size: 16px !important;
+  }
+
+  .pos-bill-sub {
+    font-size: 11px !important;
+  }
+
+  .pos-cart-row {
+    padding: 7px 14px !important;
+  }
+
+  .pos-cart-name {
+    font-size: 13px !important;
+  }
+
+  .pos-bill-summary {
+    padding: 8px 14px 12px !important;
+    flex-shrink: 0;
+  }
+
+  .pos-summary-divider {
+    margin: 6px 0 !important;
+  }
+
+  .pos-summary-line {
+    font-size: 12px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .pos-discount-row {
+    margin-bottom: 6px !important;
   }
 
   .pos-summary-grand {
-    font-size: 17px !important;
+    font-size: 16px !important;
     margin-bottom: 10px !important;
   }
 
   .pos-generate-btn {
-    padding: 12px !important;
+    padding: 11px !important;
     font-size: 14px !important;
-  }
-
-  .pos-cart-row {
-    padding: 9px 16px !important;
   }
 }
 
-/* ── MOBILE (≤ 600px) ── */
-@media (max-width: 600px) {
+/* ── Small phones (≤ 480px): single column cards ── */
+@media (max-width: 480px) {
 
   .pos-menu-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1907,62 +1990,23 @@ body {
   }
 
   .pos-card-img-wrap {
-    height: 100px !important;
-  }
-
-  .pos-card-name {
-    font-size: 13px !important;
-  }
-
-  .pos-card-price {
-    font-size: 13px !important;
-  }
-
-  .pos-add-btn {
-    width: 54px !important;
-    font-size: 12px !important;
-    padding: 7px 0 !important;
+    height: 95px !important;
   }
 
   .pos-search-wrap {
-    max-width: 160px !important;
-  }
-
-  .pos-logo-sub {
-    display: none;
+    max-width: 140px !important;
   }
 
   .pos-cat-btn {
-    padding: 7px 12px !important;
-    font-size: 13px !important;
+    padding: 6px 10px !important;
+    font-size: 12px !important;
   }
 
-  .pos-discount-row {
-    gap: 6px !important;
-    margin-bottom: 8px !important;
-  }
-
-  .pos-bill-title {
-    font-size: 17px !important;
-  }
-
-  .pos-summary-line {
-    font-size: 13px !important;
-  }
-
-  .pos-summary-grand {
-    font-size: 16px !important;
-  }
-
-  /* More room for billing on small phones */
   .pos-right {
-    height: 50vh !important;
-    min-height: 300px !important;
+    max-height: 280px !important;
   }
 
-  /* Less room for menu, but still scrollable */
   .pos-left {
-    flex: 1;
-    min-height: 0;
+    padding-bottom: 290px !important;
   }
 }

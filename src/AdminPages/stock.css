@@ -1082,7 +1082,7 @@
   background: #ffffff;
   border: 1.5px solid #ecdfd4;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: hidden;   /* keeps card border-radius clean */
   box-shadow: 0 2px 12px rgba(26, 10, 0, 0.06);
   display: flex;
   flex-direction: column;
@@ -1126,15 +1126,17 @@
 }
 
 /* 
-  KEY FIX: wrap both col-head and table-body in a single scrollable container
-  so they scroll together horizontally. The .stock-table-scroll wrapper
-  handles overflow-x, and the body handles overflow-y.
+  KEY FIX: .stock-table-scroll wraps BOTH col-head AND table-body.
+  It handles all horizontal scrolling. The body only scrolls vertically.
+  Both head and body move together when user swipes horizontally.
 */
 .stock-table-scroll {
   overflow-x: auto;
+  overflow-y: hidden;
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .stock-table-scroll::-webkit-scrollbar { height: 5px; }
@@ -1154,8 +1156,8 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   flex-shrink: 0;
-  /* display:grid is set via modifier classes below */
   display: grid;
+  width: 100%;
 }
 
 .stock-col-head.view-cols,
@@ -1178,9 +1180,12 @@
 
 .stock-table-body {
   overflow-y: auto;
-  overflow-x: hidden; /* horizontal scroll is on .stock-table-scroll */
+  overflow-x: visible; /* scroll wrapper handles horizontal */
   max-height: 460px;
   flex: 1;
+  /* Must set a min-width so rows don't collapse below their grid min-width */
+  min-width: max-content;
+  width: 100%;
 }
 
 .stock-table-body::-webkit-scrollbar { width: 5px; }
@@ -1443,7 +1448,6 @@
 
   .stock-table-body {
     max-height: 320px !important;
-    overflow-x: hidden;
     overflow-y: auto;
   }
 
