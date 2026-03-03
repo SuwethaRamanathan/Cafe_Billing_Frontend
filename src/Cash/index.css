@@ -937,9 +937,6 @@ body {
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ══════════════════════════════════
-   DESKTOP — locked height, side split
-══════════════════════════════════ */
 body {
   font-family: 'Lato', sans-serif;
   background: #fdf6ee;
@@ -949,7 +946,6 @@ body {
 
 .pos-wrap { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
-/* HEADER */
 .pos-header { height: 64px; background: #fff; border-bottom: 1px solid #ecdfd4; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; gap: 20px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); z-index: 50; }
 .pos-header-logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .pos-logo-icon { width: 40px; height: 40px; background: #c0521a; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 3px 10px rgba(192,82,26,0.30); }
@@ -965,7 +961,6 @@ body {
 .pos-logout-btn { padding: 9px 20px; background: #fdf6ee; color: #c0521a; border: 1.5px solid #ecdfd4; border-radius: 50px; font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.18s, color 0.18s, border-color 0.18s; }
 .pos-logout-btn:hover { background: #c0521a; color: #fff; border-color: #c0521a; }
 
-/* BODY */
 .pos-body { display: flex; flex: 1; overflow: hidden; }
 
 .pos-left { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #fdf6ee; }
@@ -975,13 +970,11 @@ body {
 .pos-cat-btn { padding: 9px 18px; border-radius: 50px; border: 1.5px solid #ecdfd4; background: #fff; color: #8a7060; font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: border-color 0.18s, background 0.18s, color 0.18s; }
 .pos-cat-btn:hover, .pos-cat-btn.active { border-color: #c0521a; background: #c0521a; color: #fff; }
 
-/* Menu grid — desktop: fills remaining height, scrolls */
 .pos-menu-grid { flex: 1; overflow-y: auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; align-content: flex-start; }
 .pos-menu-grid::-webkit-scrollbar { width: 5px; }
 .pos-menu-grid::-webkit-scrollbar-thumb { background: #ecdfd4; border-radius: 6px; }
 .pos-no-items { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #8a7060; font-size: 16px; }
 
-/* CARD */
 .pos-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(26,10,0,0.08); border: 1.5px solid #ecdfd4; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; cursor: pointer; position: relative; }
 .pos-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(26,10,0,0.14); }
 .pos-card.pos-card-out { opacity: 0.68; filter: grayscale(0.35); border-color: #f5c6c2; cursor: not-allowed; }
@@ -1000,7 +993,6 @@ body {
 .pos-add-btn:hover { background: #a8421a; }
 .pos-card-out-label { display: inline-block; font-size: 12px; font-weight: 700; color: #d93025; background: #fde8e8; padding: 3px 9px; border-radius: 50px; }
 
-/* BILLING PANEL — desktop: right side */
 .pos-right { width: 360px; flex-shrink: 0; background: #fff; border-left: 1px solid #ecdfd4; display: flex; flex-direction: column; overflow: hidden; box-shadow: -4px 0 20px rgba(26,10,0,0.05); }
 .pos-bill-header { padding: 18px 20px 14px; border-bottom: 1px solid #ecdfd4; display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0; }
 .pos-bill-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: #1a0a00; }
@@ -1040,10 +1032,12 @@ body {
 .pos-generate-btn:hover:not(:disabled) { background: #a8421a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(192,82,26,0.40); }
 .pos-generate-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
 
-/* MODALS */
 .pos-modal-overlay { position: fixed; inset: 0; background: rgba(10,5,0,0.55); display: flex; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(4px); }
 .pos-preview-modal { background: #fff; border-radius: 16px; width: 400px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.22); animation: modalIn 0.22s ease; display: flex; flex-direction: column; }
+
 @keyframes modalIn { from { transform: scale(0.94) translateY(16px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+
+
 .pos-receipt { padding: 28px 28px 20px; flex: 1; }
 .receipt-header { text-align: center; margin-bottom: 12px; }
 .receipt-cafe-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #1a0a00; }
@@ -1086,27 +1080,14 @@ body {
   .pos-preview-actions { display: none; }
 }
 
-/* ══════════════════════════════════════════════════════
-   MOBILE ≤ 900px
-   
-   Problem: pos-wrap, pos-body, pos-left all have
-   overflow:hidden + height constraints that clip content.
-   
-   Fix: On mobile, override ALL of them to use natural
-   height. The page itself becomes scrollable.
-   The billing panel is position:fixed at the bottom.
-   Cards are fully visible in a 2-column grid.
-══════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
 
-  /* 1. Unlock body scroll */
   body {
     overflow-y: scroll !important;
     overflow-x: hidden !important;
     height: auto !important;
   }
 
-  /* 2. pos-wrap: natural height, not viewport locked */
   .pos-wrap {
     height: auto !important;
     min-height: 100vh !important;
@@ -1115,7 +1096,6 @@ body {
     flex-direction: column !important;
   }
 
-  /* 3. Header: sticky at top */
   .pos-header {
     position: sticky !important;
     top: 0 !important;
@@ -1127,7 +1107,6 @@ body {
   .pos-logo-name { font-size: 15px !important; }
   .pos-search-wrap { max-width: 160px !important; }
 
-  /* 4. Body: block layout, not flex with overflow:hidden */
   .pos-body {
     display: block !important;
     height: auto !important;
@@ -1135,17 +1114,14 @@ body {
     flex: none !important;
   }
 
-  /* 5. Left panel: block, natural height, NO overflow:hidden */
   .pos-left {
     display: block !important;
     height: auto !important;
     overflow: visible !important;
     flex: none !important;
-    /* Space for fixed billing panel at bottom */
     padding-bottom: 300px !important;
   }
 
-  /* 6. Category bar: sticky below header */
   .pos-cat-bar {
     position: sticky !important;
     top: 54px !important;
@@ -1153,7 +1129,6 @@ body {
     background: #fff !important;
   }
 
-  /* 7. Menu grid: 2 columns, natural height, NO overflow */
   .pos-menu-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -1166,7 +1141,6 @@ body {
     align-content: start !important;
   }
 
-  /* 8. Cards: natural height so card body (name/price/button) is visible */
   .pos-card {
     height: auto !important;
     overflow: visible !important;
@@ -1181,7 +1155,6 @@ body {
   .pos-card-price { font-size: 13px !important; }
   .pos-add-btn { width: 52px !important; font-size: 11px !important; padding: 6px 0 !important; }
 
-  /* 9. Billing panel: FIXED at bottom, always visible */
   .pos-right {
     position: fixed !important;
     bottom: 0 !important;
@@ -1225,7 +1198,6 @@ body {
   .pos-summary-grand { font-size: 15px !important; margin-bottom: 8px !important; }
   .pos-generate-btn { padding: 10px !important; font-size: 13px !important; }
 
-  /* Category buttons smaller */
   .pos-cat-btn { padding: 7px 12px !important; font-size: 12px !important; }
 }
 

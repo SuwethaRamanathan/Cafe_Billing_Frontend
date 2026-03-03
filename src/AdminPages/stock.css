@@ -735,7 +735,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* height: 100vh; */
   overflow: hidden;
 }
 
@@ -834,13 +833,10 @@
 .stock-table-actions { display: flex; gap: 8px; }
 
 .stock-table-scroll {
-  /* display: block; */
   flex:1;
   overflow-x: auto;
   overflow-y: auto;
   max-height: 520px;
-  /* border-radius: 0 0 16px 16px; */
-  /* -webkit-overflow-scrolling: touch; */
 }
 .stock-table-scroll::-webkit-scrollbar { height: 5px; }
 .stock-table-scroll::-webkit-scrollbar-thumb { background: #ecdfd4; border-radius: 6px; }
@@ -857,7 +853,6 @@
 
 .stock-table-body {
   display: block;
-  /* overflow: visible; */
 }
 .stock-table-body::-webkit-scrollbar { width: 5px; }
 .stock-table-body::-webkit-scrollbar-thumb { background: #ecdfd4; border-radius: 6px; }

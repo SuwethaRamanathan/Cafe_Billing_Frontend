@@ -620,7 +620,6 @@
   font-size: 16px;
 }
 
-/* ── MOBILE: Settings topbar must show ── */
 @media (max-width: 900px) {
   .settings-main { margin-left: 0; }
   .settings-form-grid { grid-template-columns: 1fr; }
@@ -630,7 +629,6 @@
 
 @media (max-width: 768px) {
   .settings-topbar {
-    /* Must remain visible on mobile — topbar padding handled by sidebar.css padding-top: 56px on .settings-page-wrap */
     display: flex !important;
     position: sticky !important;
     top: 0 !important;

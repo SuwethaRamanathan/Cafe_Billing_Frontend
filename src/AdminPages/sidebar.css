@@ -420,7 +420,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap');
 
-/* ── MOBILE TOPBAR (hidden on desktop) ── */
+/*  (hidden on desktop)  */
 .mobile-topbar {
   display: none;
   position: fixed;
@@ -672,7 +672,6 @@
 .btn-cancel:hover { background: #ecdfd4; color: #1a0a00; }
 .btn-cancel-full { flex: unset; width: 100%; }
 
-/* ─── RESPONSIVE — TABLET & MOBILE (≤ 768px) ─── */
 
 @media (max-width: 768px) {
 
@@ -687,7 +686,6 @@
     transform: translateX(0);
   }
 
-  /* All main page wrappers need top padding for mobile topbar */
   .admin-page,
   .stock-page-wrap,
   .sales-page-wrap,
@@ -805,7 +803,6 @@
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
-  /* ── Stock table: scroll head + body together ── */
   .stock-table-card {
     overflow-x: auto;
   }
@@ -827,7 +824,6 @@
     overflow-y: auto;
   }
 
-  /* Settings topbar must stay visible on mobile */
   .settings-topbar {
     position: sticky !important;
     top: 0 !important;
