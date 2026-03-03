@@ -854,11 +854,13 @@
 .stock-table-count { font-size: 13px; font-weight: 600; color: #8a7060; background: #fdf6ee; padding: 3px 10px; border-radius: 50px; border: 1px solid #ecdfd4; }
 .stock-table-actions { display: flex; gap: 8px; }
 
-/* ✅ Scroll wrapper: horizontal scroll, contains BOTH head + body */
+/* ✅ Scroll wrapper: horizontal scroll contains BOTH head + body.
+   overflow-y:auto lets the body's vertical scroll work inside. */
 .stock-table-scroll {
   display: block;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
+  max-height: 520px;
   border-radius: 0 0 16px 16px;
   -webkit-overflow-scrolling: touch;
 }
@@ -876,12 +878,10 @@
 .stock-col-head.update-cols, .stock-table-row.update-cols { grid-template-columns: 44px 1.8fr 100px 130px 130px 130px 130px; min-width: 800px; }
 .stock-col-head.with-check,  .stock-table-row.with-check  { grid-template-columns: 36px 44px 1.8fr 100px 130px 130px 130px 130px !important; min-width: 860px; }
 
-/* ✅ Body: vertical scroll only */
+/* ✅ Body: vertical overflow visible — wrapper handles both axes */
 .stock-table-body {
   display: block;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 460px;
+  overflow: visible;
 }
 .stock-table-body::-webkit-scrollbar { width: 5px; }
 .stock-table-body::-webkit-scrollbar-thumb { background: #ecdfd4; border-radius: 6px; }
@@ -949,7 +949,7 @@
   .stock-form-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .stock-table-toprow { padding: 12px 14px !important; flex-direction: column; align-items: flex-start !important; gap: 10px; }
   .stock-table-actions { flex-wrap: wrap; }
-  .stock-table-body { max-height: 340px !important; }
+  .stock-table-scroll { max-height: 380px !important; }
   .stock-col-head, .stock-table-row { font-size: 12px !important; padding: 10px 14px !important; }
 }
 
