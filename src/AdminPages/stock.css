@@ -964,10 +964,10 @@
   background: #ffffff;
   border: 1.5px solid #ecdfd4;
   border-radius: 16px;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   box-shadow: 0 2px 12px rgba(26, 10, 0, 0.06);
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -1006,11 +1006,13 @@
 }
 
 .st-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
   color: #1a0a00;
   line-height: 1.1;
+  font-variant-numeric: slashed-zero;
+  letter-spacing: -0.5px;
 }
 
 .stock-add-form {
@@ -1424,8 +1426,9 @@
     width: 100% !important;
   }
 
+  /* Always 2 columns on mobile — never 1 — so table has room */
   .stock-stat-row {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px;
   }
 
@@ -1464,7 +1467,7 @@
 
 @media (max-width: 480px) {
   .stock-stat-row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 
   .stock-form-grid {

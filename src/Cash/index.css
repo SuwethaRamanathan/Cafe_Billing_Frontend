@@ -1821,43 +1821,44 @@ body {
 
   .pos-body {
     flex-direction: column;
-    overflow-y: auto;  /* whole page scrolls */
+    overflow: hidden; /* children handle their own scroll */
   }
 
-  /* Menu panel: natural height, scrollable internally */
+  /* Menu panel: takes available space, grid scrolls inside */
   .pos-left {
-    flex: unset;
-    height: auto;
+    flex: 1;
     min-height: 0;
     border-bottom: 2px solid #ecdfd4;
-    overflow: visible; /* let content flow */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
+  /* Menu grid scrolls vertically inside pos-left */
   .pos-menu-grid {
-    overflow-y: visible; /* no clipping — items show fully */
-    height: auto;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    overflow-y: auto !important;  /* scrollable */
+    flex: 1;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)) !important;
     padding: 14px !important;
     gap: 14px !important;
+    align-content: flex-start;
   }
 
   .pos-card-img-wrap {
     height: 120px !important;
   }
 
-  /* Billing panel: fixed to bottom of viewport */
+  /* Billing panel: fixed height at bottom */
   .pos-right {
     width: 100% !important;
-    max-height: 55vh;
+    height: 46vh;
     min-height: 280px;
+    flex-shrink: 0;
     border-left: none;
     border-top: 2px solid #ecdfd4;
     box-shadow: 0 -4px 20px rgba(26,10,0,0.08);
-    flex-shrink: 0;
-    position: sticky;
-    bottom: 0;
     background: #ffffff;
-    z-index: 10;
+    overflow: hidden;
   }
 
   .pos-header {
@@ -1899,11 +1900,6 @@ body {
 /* ── MOBILE (≤ 600px) ── */
 @media (max-width: 600px) {
 
-  .pos-body {
-    flex-direction: column;
-    overflow-y: auto;
-  }
-
   .pos-menu-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     padding: 10px !important;
@@ -1928,7 +1924,6 @@ body {
     padding: 7px 0 !important;
   }
 
-  /* Keep search visible but smaller */
   .pos-search-wrap {
     max-width: 160px !important;
   }
@@ -1959,9 +1954,15 @@ body {
     font-size: 16px !important;
   }
 
-  /* Billing panel height on small phones */
+  /* More room for billing on small phones */
   .pos-right {
-    max-height: 60vh !important;
+    height: 50vh !important;
     min-height: 300px !important;
+  }
+
+  /* Less room for menu, but still scrollable */
+  .pos-left {
+    flex: 1;
+    min-height: 0;
   }
 }
