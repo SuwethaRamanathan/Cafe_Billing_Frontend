@@ -377,7 +377,8 @@ const removeIngredient = (i) => {
         <option value="">Select</option>
         {groceries.map(g => (
           <option key={g._id} value={g._id}>
-            {g.name} ({g.purchaseUnit})
+            {g.name} 
+            {/* ({g.purchaseUnit}) */}
           </option>
         ))}
       </select>
