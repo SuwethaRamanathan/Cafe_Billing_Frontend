@@ -257,26 +257,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
   </div>
 )} */}
 
-          {newGrocery.purchaseUnit === "Packets" && (
-  <div className="stock-form-field">
-    <label>Pieces per Packet</label>
-    <input
-      type="number"
-      min="1"
-      placeholder="e.g. 20"
-      value={newGrocery.conversionFactor}
-      onChange={(e) =>
-        setNewGrocery({
-          ...newGrocery,
-          conversionFactor: Number(e.target.value)
-        })
-      }
-    />
-    <small className="stock-help-text">
-Example: Bread packet = 20 slices
-</small>
-  </div>
-)}
+          
 
             {isViewMode && (
               <>
@@ -378,6 +359,28 @@ Example: Bread packet = 20 slices
                     <option>Millilitre</option>
                   </select>
                 </div>
+
+                {newGrocery.purchaseUnit === "Packets" && (
+  <div className="stock-form-field">
+    <label>Pieces per Packet</label>
+    <input
+      type="number"
+      min="1"
+      placeholder="e.g. 20"
+      value={newGrocery.conversionFactor}
+      onChange={(e) =>
+        setNewGrocery({
+          ...newGrocery,
+          conversionFactor: Number(e.target.value)
+        })
+      }
+    />
+    <small className="stock-help-text">
+Example: Bread packet = 20 slices
+</small>
+  </div>
+)}
+
                 <div className="stock-form-field">
                   <label>Quantity</label>
                   <input
