@@ -15,7 +15,6 @@ function StockPage({ mode }) {
   const [successMsg, setSuccessMsg]     = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [menu, setMenu] = useState([]);
 
    const [newGrocery, setNewGrocery] = useState({
   name: "",
@@ -206,16 +205,15 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                 const value = e.target.value;
                 setSearchTerm(value);
                 if (!value) { setSuggestions([]); setShowSuggestions(false); return; }
-                const matches = menu.filter(item =>
+                const matches = groceries.filter(item =>
                   item.name.toLowerCase().includes(value.toLowerCase())
                 );
                 setSuggestions(matches.slice(0, 6));
                 setShowSuggestions(true);
               }}
                 className="stock-search-input"
-                
               />
-
+          
               {searchTerm && (
                 <button className="stock-search-clear" onClick={() => {setSearchTerm(""); setSuggestions([]); setShowSuggestions(false);}}>✕</button>
               )}
