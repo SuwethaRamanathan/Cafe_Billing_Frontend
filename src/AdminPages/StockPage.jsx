@@ -375,9 +375,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
         })
       }
     />
-    <small className="stock-help-text">
-Example: Bread packet = 20 slices
-</small>
+   
   </div>
 )}
 
