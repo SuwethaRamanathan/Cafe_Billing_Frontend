@@ -240,6 +240,23 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
               </button>
             )}
 
+            {newGrocery.purchaseUnit === "Packets" && (
+  <div className="stock-form-field">
+    <label>Pieces per Packet</label>
+    <input
+      type="number"
+      placeholder="e.g. 20"
+      value={newGrocery.conversionFactor}
+      onChange={e =>
+        setNewGrocery({
+          ...newGrocery,
+          conversionFactor: Number(e.target.value)
+        })
+      }
+    />
+  </div>
+)}
+
             {isViewMode && (
               <>
                 <button className="stock-btn-green" onClick={exportExcel}>
