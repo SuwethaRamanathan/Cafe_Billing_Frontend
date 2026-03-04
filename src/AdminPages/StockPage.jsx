@@ -13,10 +13,9 @@ function StockPage({ mode }) {
   const [showForm, setShowForm]         = useState(false);
   const [showDeleteMode, setShowDeleteMode] = useState(false);
   const [successMsg, setSuccessMsg]     = useState("");
-
-  // const [newGrocery, setNewGrocery] = useState({
-  //   name: "", unit: "", quantity: "", lastPurchasedDate: ""
-  // });
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [menu, setMenu] = useState([]);
 
    const [newGrocery, setNewGrocery] = useState({
   name: "",
@@ -203,12 +202,35 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                 type="text"
                 placeholder="Search raw material..."
                 value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
+                onChange={e =>  {
+                const value = e.target.value;
+                setSearchTerm(value);
+                if (!value) { setSuggestions([]); setShowSuggestions(false); return; }
+                const matches = menu.filter(item =>
+                  item.name.toLowerCase().includes(value.toLowerCase())
+                );
+                setSuggestions(matches.slice(0, 6));
+                setShowSuggestions(true);
+              }}
                 className="stock-search-input"
+                
               />
+
               {searchTerm && (
-                <button className="stock-search-clear" onClick={() => setSearchTerm("")}>✕</button>
+                <button className="stock-search-clear" onClick={() => {setSearchTerm(""); setSuggestions([]); setShowSuggestions(false);}}>✕</button>
               )}
+
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="search-dropdown">
+                {suggestions.map(item => (
+                  <div key={item._id} className="search-dropdown-item"
+                    onClick={() => { setSearchTerm(item.name); setShowSuggestions(false); }}>
+                    {item.name}
+                  </div>
+                ))}
+              </div>
+            )}
+
             </div>
 
             {isUpdateMode && !showDeleteMode && (

@@ -21,7 +21,8 @@ function Cashier() {
   const [showLogout, setShowLogout]         = useState(false);
   const [discount, setDiscount]             = useState("");
   const [isPrinting, setIsPrinting]         = useState(false);
-
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   
   useEffect(() => {
     fetch(
@@ -163,12 +164,36 @@ function Cashier() {
             type="text"
             placeholder="Search menu items..."
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={(e) => {
+                const value = e.target.value;
+                setSearch(value);
+                if (!value) { setSuggestions([]); setShowSuggestions(false); return; }
+                const matches = menu.filter(item =>
+                  item.name.toLowerCase().includes(value.toLowerCase())
+                );
+                setSuggestions(matches.slice(0, 6));
+                setShowSuggestions(true);
+              }}
             className="pos-search-input"
           />
-          {search && (
-            <button className="pos-search-clear" onClick={() => setSearch("")}>✕</button>
-          )}
+         
+            {search && (
+              <button className="search-clear"
+                onClick={() => { setSearch(""); setSuggestions([]); setShowSuggestions(false); }}>
+                ✕
+              </button>
+            )}
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="search-dropdown">
+                {suggestions.map(item => (
+                  <div key={item._id} className="search-dropdown-item"
+                    onClick={() => { setSearch(item.name); setShowSuggestions(false); }}>
+                    {item.name}
+                  </div>
+                ))}
+              </div>
+            )}
+
         </div>
 
         <div className="pos-header-right">
