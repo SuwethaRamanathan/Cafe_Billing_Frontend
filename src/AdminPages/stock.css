@@ -854,6 +854,16 @@
 .stock-form-field input:focus, .stock-form-field select:focus { border-color: #c0521a; background: #fff; }
 .stock-form-submit { justify-content: flex-end; }
 
+.stock-help-text{
+  font-size:12px;
+  color:#8a7060;
+  margin-top:4px;
+  display:block;
+}
+
+.stock-form-field input[type="number"]{
+  appearance: textfield;
+}
 
 .stock-table-card {
   background: #fff;
