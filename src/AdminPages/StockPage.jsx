@@ -54,15 +54,11 @@ function StockPage({ mode }) {
   );
 
   const totalItems    = groceries.length;
-  // const lowStockItems = groceries.filter(g => g.quantity > 0 && g.quantity <= 5).length;
-  // const lowStockItems = groceries.filter(g => (g.displayQty ?? g.quantity) <= 5 && (g.displayQty ?? g.quantity) > 0)
   const lowStockItems = groceries.filter(
   g => (g.displayQty ?? g.quantity) <= 5 && (g.displayQty ?? g.quantity) > 0
 ).length;
 const outOfStock = groceries.filter(g => (g.displayQty ?? g.quantity) === 0).length;
 const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).length;
-  // const outOfStock    = groceries.filter(g => g.quantity === 0).length;
-  // const healthyItems  = groceries.filter(g => g.quantity > 5).length;
 
   const getStockStatus = (qty) => {
     if (qty === 0)  return { label: "Out of Stock", cls: "badge-out" };
@@ -80,7 +76,6 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newGrocery)
     });
-    // setNewGrocery({ name: "", unit: "", quantity: "", lastPurchasedDate: "" });
     setNewGrocery({
   name: "",
   purchaseUnit: "",
@@ -240,25 +235,6 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
               </button>
             )}
 
-            {/* {newGrocery.purchaseUnit === "Packets" && (
-  <div className="stock-form-field">
-    <label>Pieces per Packet</label>
-    <input
-      type="number"
-      placeholder="e.g. 20"
-      value={newGrocery.conversionFactor}
-      onChange={e =>
-        setNewGrocery({
-          ...newGrocery,
-          conversionFactor: Number(e.target.value)
-        })
-      }
-    />
-  </div>
-)} */}
-
-          
-
             {isViewMode && (
               <>
                 <button className="stock-btn-green" onClick={exportExcel}>
@@ -318,11 +294,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                 </div>
                 <div className="stock-form-field">
                   <label>Unit</label>
-                  {/* <select
-                    value={newGrocery.unit}
-                    onChange={e => setNewGrocery({ ...newGrocery, unit: e.target.value })}
-                  > */}
-
+                  
                   <select
   value={newGrocery.purchaseUnit}
   onChange={e => {
@@ -336,13 +308,6 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
     if (unit === "Gram") { baseUnit = "g"; factor = 1; }
     if (unit === "Millilitre") { baseUnit = "ml"; factor = 1; }
     if (unit === "Packets") { baseUnit = "piece"; factor = 1; }
-
-    // setNewGrocery({
-    //   ...newGrocery,
-    //   purchaseUnit: unit,
-    //   baseUnit,
-    //   conversionFactor: factor
-    // });
     setNewGrocery(prev => ({
  ...prev,
     purchaseUnit: unit,
