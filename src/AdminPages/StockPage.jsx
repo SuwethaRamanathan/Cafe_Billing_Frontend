@@ -313,6 +313,37 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
           {isUpdateMode && showForm && !showDeleteMode && (
             
             <div className="stock-add-form">
+              <div className="stock-form-title">Add Units For Products</div>
+
+{/* <input
+placeholder="Unit Name"
+onChange={e=>setNewUnit({...newUnit,name:e.target.value})}
+/> */}
+
+<input
+placeholder="Purchase Unit"
+onChange={e=>setNewUnit({...newUnit,purchaseUnit:e.target.value})}
+/>
+
+<input
+placeholder="Reduce Unit"
+onChange={e=>setNewUnit({...newUnit,reduceUnit:e.target.value})}
+/>
+
+<input
+placeholder="Display Unit"
+onChange={e=>setNewUnit({...newUnit,displayUnit:e.target.value})}
+/>
+
+<input
+type="number"
+placeholder="Conversion Factor"
+onChange={e=>setNewUnit({...newUnit,conversionFactor:e.target.value})}
+/>
+
+<button onClick={addUnit}>
+Add Unit
+</button>
               <div className="stock-form-title">Add New Raw Material</div>
               <div className="stock-form-grid">
                 <div className="stock-form-field">
@@ -415,37 +446,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                 </div>
               </div>
 
-             <div className="stock-form-title">Add Units For Products</div>
-
-<input
-placeholder="Unit Name"
-onChange={e=>setNewUnit({...newUnit,name:e.target.value})}
-/>
-
-<input
-placeholder="Purchase Unit"
-onChange={e=>setNewUnit({...newUnit,purchaseUnit:e.target.value})}
-/>
-
-<input
-placeholder="Reduce Unit"
-onChange={e=>setNewUnit({...newUnit,reduceUnit:e.target.value})}
-/>
-
-<input
-placeholder="Display Unit"
-onChange={e=>setNewUnit({...newUnit,displayUnit:e.target.value})}
-/>
-
-<input
-type="number"
-placeholder="Conversion Factor"
-onChange={e=>setNewUnit({...newUnit,conversionFactor:e.target.value})}
-/>
-
-<button onClick={addUnit}>
-Add Unit
-</button>
+             
 
             </div>
           )}
