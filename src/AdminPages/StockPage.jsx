@@ -16,13 +16,22 @@ function StockPage({ mode }) {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-   const [newGrocery, setNewGrocery] = useState({
+  const [newGrocery, setNewGrocery] = useState({
   name: "",
   purchaseUnit: "",
   baseUnit: "",
   conversionFactor: 1,
   quantity: "",
   lastPurchasedDate: ""
+});
+
+  const [units,setUnits] = useState([]);
+  const [newUnit,setNewUnit] = useState({
+ name:"",
+ purchaseUnit:"",
+ reduceUnit:"",
+ displayUnit:"",
+ conversionFactor:1
 });
 
   const fetchGroceries = () => {
@@ -42,6 +51,12 @@ function StockPage({ mode }) {
 
 
   useEffect(() => { fetchGroceries(); }, []);
+
+  useEffect(()=>{
+ fetch(`${import.meta.env.VITE_API_URL}/api/units`)
+ .then(r=>r.json())
+ .then(setUnits);
+},[]);
 
   useEffect(() => {
     if (!successMsg) return;
@@ -65,6 +80,21 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
     if (qty <= 5)   return { label: "Low Stock",    cls: "badge-low" };
     return               { label: "In Stock",      cls: "badge-ok"  };
   };
+
+  const addUnit = async ()=>{
+
+ await fetch(
+ `${import.meta.env.VITE_API_URL}/api/units`,
+ {
+   method:"POST",
+   headers:{ "Content-Type":"application/json"},
+   body:JSON.stringify(newUnit)
+ }
+ );
+
+ fetchUnits();
+
+}
 
   const addGrocery = async () => {
     if (!newGrocery.name || !newGrocery.purchaseUnit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
@@ -281,6 +311,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
           )}
 
           {isUpdateMode && showForm && !showDeleteMode && (
+            
             <div className="stock-add-form">
               <div className="stock-form-title">Add New Raw Material</div>
               <div className="stock-form-grid">
@@ -295,7 +326,7 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                 <div className="stock-form-field">
                   <label>Unit</label>
                   
-                  <select
+                  {/* <select
   value={newGrocery.purchaseUnit}
   onChange={e => {
     const unit = e.target.value;
@@ -322,7 +353,23 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                     <option>Gram</option>
                     <option>Packets</option>
                     <option>Millilitre</option>
-                  </select>
+                  </select> */}
+
+                  <select
+value={newGrocery.unitId}
+onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
+>
+
+<option value="">Select Unit</option>
+
+{units.map(u=>(
+<option key={u._id} value={u._id}>
+{u.purchaseUnit}
+</option>
+))}
+
+</select>
+
                 </div>
 
                 {newGrocery.purchaseUnit === "Packets" && (
@@ -367,6 +414,39 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
                   </button>
                 </div>
               </div>
+
+             <div className="stock-form-title">Add Units For Products</div>
+
+<input
+placeholder="Unit Name"
+onChange={e=>setNewUnit({...newUnit,name:e.target.value})}
+/>
+
+<input
+placeholder="Purchase Unit"
+onChange={e=>setNewUnit({...newUnit,purchaseUnit:e.target.value})}
+/>
+
+<input
+placeholder="Reduce Unit"
+onChange={e=>setNewUnit({...newUnit,reduceUnit:e.target.value})}
+/>
+
+<input
+placeholder="Display Unit"
+onChange={e=>setNewUnit({...newUnit,displayUnit:e.target.value})}
+/>
+
+<input
+type="number"
+placeholder="Conversion Factor"
+onChange={e=>setNewUnit({...newUnit,conversionFactor:e.target.value})}
+/>
+
+<button onClick={addUnit}>
+Add Unit
+</button>
+
             </div>
           )}
 
