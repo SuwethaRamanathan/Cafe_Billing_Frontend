@@ -17,11 +17,18 @@ function StockPage({ mode }) {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const [newGrocery, setNewGrocery] = useState({
+//   const [newGrocery, setNewGrocery] = useState({
+//   name: "",
+//   purchaseUnit: "",
+//   baseUnit: "",
+//   conversionFactor: 1,
+//   quantity: "",
+//   lastPurchasedDate: ""
+// });
+
+const [newGrocery, setNewGrocery] = useState({
   name: "",
-  purchaseUnit: "",
-  baseUnit: "",
-  conversionFactor: 1,
+  unitId: "",
   quantity: "",
   lastPurchasedDate: ""
 });
@@ -36,6 +43,8 @@ function StockPage({ mode }) {
 });
  
  const [showUnitForm, setShowUnitForm] = useState(false);
+
+ const selectedUnit = units.find(u => u._id === newGrocery.unitId);
 
   const fetchGroceries = () => {
     fetch(
@@ -132,7 +141,10 @@ const addUnit = async () => {
 };
 
   const addGrocery = async () => {
-    if (!newGrocery.name || !newGrocery.unit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
+    // if (!newGrocery.name || !newGrocery.purchaseUnit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
+    //   setSuccessMsg(" Please fill all fields"); return;
+    // }
+    if (!newGrocery.name || !newGrocery.unitId || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
       setSuccessMsg(" Please fill all fields"); return;
     }
     await fetch(
@@ -481,12 +493,19 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
 
                 <div className="stock-form-field">
                   <label>Quantity</label>
+                  <div className="qty-with-unit">
+
                   <input
                     type="number"
                     placeholder="e.g. 10"
                     value={newGrocery.quantity}
                     onChange={e => setNewGrocery({ ...newGrocery, quantity: e.target.value })}
                   />
+                  {selectedUnit && (
+      <span className="qty-unit-label">
+        {selectedUnit.purchaseUnit}
+      </span>
+    )} </div>
                 </div>
                 <div className="stock-form-field">
                   <label>Last Purchased Date</label>

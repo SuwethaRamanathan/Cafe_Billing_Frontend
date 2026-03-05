@@ -1127,6 +1127,20 @@ body {
   background: #ffffff;
 }
 
+.qty-with-unit{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.qty-unit-label{
+  background:#f4f4f4;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:14px;
+  color:#555;
+}
+
 .btn-save {
   flex: 1;
   padding: 13px;
