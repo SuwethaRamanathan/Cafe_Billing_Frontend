@@ -132,7 +132,7 @@ const addUnit = async () => {
 };
 
   const addGrocery = async () => {
-    if (!newGrocery.name || !newGrocery.purchaseUnit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
+    if (!newGrocery.name || !newGrocery.unit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
       setSuccessMsg(" Please fill all fields"); return;
     }
     await fetch(
@@ -310,9 +310,6 @@ const addUnit = async () => {
               </>
             )}
  
-  
-
-
             {isViewMode && (
               <>
                 <button className="stock-btn-green" onClick={exportExcel}>
@@ -446,37 +443,7 @@ const addUnit = async () => {
                 </div>
                 <div className="stock-form-field">
                   <label>Unit</label>
-                  
-                  {/* <select
-  value={newGrocery.purchaseUnit}
-  onChange={e => {
-    const unit = e.target.value;
-
-    let baseUnit = "";
-    let factor = 1;
-
-    if (unit === "Litre") { baseUnit = "ml"; factor = 1000; }
-    if (unit === "Kilogram") { baseUnit = "g"; factor = 1000; }
-    if (unit === "Gram") { baseUnit = "g"; factor = 1; }
-    if (unit === "Millilitre") { baseUnit = "ml"; factor = 1; }
-    if (unit === "Packets") { baseUnit = "piece"; factor = 1; }
-    setNewGrocery(prev => ({
- ...prev,
-    purchaseUnit: unit,
-    baseUnit,
-    conversionFactor: factor
-}));
-  }}
->
-                    <option value="">Select unit</option>
-                    <option>Kilogram</option>
-                    <option>Litre</option>
-                    <option>Gram</option>
-                    <option>Packets</option>
-                    <option>Millilitre</option>
-                  </select> */}
-
-                  <select
+                <select
 value={newGrocery.unitId}
 onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
 >
