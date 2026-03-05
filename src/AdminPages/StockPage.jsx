@@ -39,7 +39,7 @@ const [newGrocery, setNewGrocery] = useState({
  purchaseUnit:"",
  reduceUnit:"",
  displayUnit:"",
- conversionFactor:1
+ conversionFactor:""
 });
  
  const [showUnitForm, setShowUnitForm] = useState(false);
@@ -130,7 +130,7 @@ const addUnit = async () => {
     purchaseUnit: "",
     reduceUnit: "",
     displayUnit: "",
-    conversionFactor: 1
+    conversionFactor: ""
   });
 
   fetch(`${import.meta.env.VITE_API_URL}/api/units`)
@@ -396,7 +396,7 @@ const addUnit = async () => {
       </div>
 
       <div className="stock-form-field">
-        <label>Unit for Reducing Product Stock </label>
+        <label>Unit for Reducing Stock </label>
         <input
           placeholder="e.g. Gram"
           value={newUnit.reduceUnit}
