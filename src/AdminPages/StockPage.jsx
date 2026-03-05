@@ -396,7 +396,7 @@ const addUnit = async () => {
       </div>
 
       <div className="stock-form-field">
-        <label>Unit for Reducing Stock </label>
+        <label>Unit for Reducing Stock</label>
         <input
           placeholder="e.g. Gram"
           value={newUnit.reduceUnit}
@@ -407,7 +407,7 @@ const addUnit = async () => {
       </div>
 
       <div className="stock-form-field">
-        <label> Unit for Displaying Product</label>
+        <label> Unit for Displaying Stock</label>
         <input
           placeholder="e.g. Kilogram"
           value={newUnit.displayUnit}
@@ -421,7 +421,7 @@ const addUnit = async () => {
         <label>Conversion Factor</label>
         <input
           type="number"
-          placeholder="e.g. 1000(1 Kilogram = 1000 Gram)"
+          placeholder="e.g.1000(1 Kilogram=1000 Gram)"
           value={newUnit.conversionFactor}
           onChange={e =>
             setNewUnit({
