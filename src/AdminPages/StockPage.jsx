@@ -438,6 +438,46 @@ const addUnit = async () => {
 
   </div>
 )}
+
+         {units.length > 0 && (
+
+<div className="unit-table-card">
+
+<div className="unit-table-title">
+Available Units
+</div>
+
+<div className="unit-table-head">
+<span>#</span>
+<span>Purchase Unit</span>
+<span>Reduce Unit</span>
+<span>Display Unit</span>
+<span>Conversion</span>
+</div>
+
+<div className="unit-table-body">
+
+{units.map((u,i)=>(
+<div key={u._id} className="unit-table-row">
+
+<span>{i+1}</span>
+
+<span>{u.purchaseUnit}</span>
+
+<span>{u.reduceUnit}</span>
+
+<span>{u.displayUnit}</span>
+
+<span>1 {u.purchaseUnit} = {u.conversionFactor} {u.reduceUnit}</span>
+
+</div>
+))}
+
+</div>
+
+</div>
+
+)}
           
           {isUpdateMode && showForm && !showDeleteMode && (
             

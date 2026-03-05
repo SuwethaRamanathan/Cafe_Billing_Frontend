@@ -126,6 +126,36 @@
   appearance: textfield;
 }
 
+.unit-table-card{
+margin-top:20px;
+background:white;
+border-radius:10px;
+padding:15px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.unit-table-title{
+font-weight:600;
+margin-bottom:10px;
+font-size:16px;
+}
+
+.unit-table-head{
+display:grid;
+grid-template-columns:40px 1fr 1fr 1fr 1.5fr;
+font-weight:600;
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+
+.unit-table-row{
+display:grid;
+grid-template-columns:40px 1fr 1fr 1fr 1.5fr;
+padding:8px 0;
+border-bottom:1px solid #f3f3f3;
+font-size:14px;
+}
+
 .stock-table-card {
   background: #fff;
   border: 1.5px solid #ecdfd4;
