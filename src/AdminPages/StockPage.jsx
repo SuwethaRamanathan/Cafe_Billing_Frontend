@@ -672,6 +672,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                               <span className={`stock-qty-num ${g.modified ? "qty-modified" : ""}`}>
                                 {/* {g.displayQty} */}
                                 {g.displayQty ?? g.quantity ?? 0}
+                                 <small className="qty-unit">{g.displayUnit}</small>
                               </span>
                               <button
                                 className="stock-qty-edit-btn"
@@ -681,7 +682,9 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                             </div>
                           )
                         ) : (
-                          <span className="stock-qty-plain">{g.displayQty?? g.quantity ?? 0}</span>
+                          <span className="stock-qty-plain">{g.displayQty?? g.quantity ?? 0}
+                           <small className="qty-unit">{g.displayUnit}</small>
+                          </span>
                         )}
                       </span>
 

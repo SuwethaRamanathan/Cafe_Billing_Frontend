@@ -156,6 +156,12 @@ border-bottom:1px solid #f3f3f3;
 font-size:14px;
 }
 
+.qty-unit{
+ margin-left:4px;
+ color:#888;
+ font-size:12px;
+}
+
 .stock-table-card {
   background: #fff;
   border: 1.5px solid #ecdfd4;
