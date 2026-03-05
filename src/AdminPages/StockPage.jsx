@@ -157,7 +157,7 @@ const addUnit = async () => {
   name: "",
   purchaseUnit: "",
   baseUnit: "",
-  conversionFactor: 1,
+  conversionFactor: "",
   quantity: "",
   lastPurchasedDate: ""
 });
@@ -385,7 +385,7 @@ const addUnit = async () => {
     <div className="stock-form-grid">
 
       <div className="stock-form-field">
-        <label>Purchase Unit</label>
+        <label>Purchased Unit of Product</label>
         <input
           placeholder="e.g. Kilogram"
           value={newUnit.purchaseUnit}
@@ -396,7 +396,7 @@ const addUnit = async () => {
       </div>
 
       <div className="stock-form-field">
-        <label>Reduce Unit</label>
+        <label>Unit for Reducing Product Stock </label>
         <input
           placeholder="e.g. Gram"
           value={newUnit.reduceUnit}
@@ -407,9 +407,9 @@ const addUnit = async () => {
       </div>
 
       <div className="stock-form-field">
-        <label>Display Unit</label>
+        <label> Unit for Displaying Product</label>
         <input
-          placeholder="e.g. Kg"
+          placeholder="e.g. Kilogram"
           value={newUnit.displayUnit}
           onChange={e =>
             setNewUnit({ ...newUnit, displayUnit: e.target.value })
@@ -421,7 +421,7 @@ const addUnit = async () => {
         <label>Conversion Factor</label>
         <input
           type="number"
-          placeholder="e.g. 1000"
+          placeholder="e.g. 1000(1 Kilogram = 1000 Gram)"
           value={newUnit.conversionFactor}
           onChange={e =>
             setNewUnit({
@@ -519,7 +519,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
 
                 </div>
 
-                {newGrocery.purchaseUnit === "Packets" && (
+                {/* {newGrocery.purchaseUnit === "Packets" && (
   <div className="stock-form-field">
     <label>Pieces per Packet</label>
     <input
@@ -536,7 +536,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
     />
    
   </div>
-)}
+)} */}
 
                 <div className="stock-form-field">
                   <label>Quantity</label>
