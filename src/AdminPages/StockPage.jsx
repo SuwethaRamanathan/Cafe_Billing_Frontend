@@ -11,6 +11,7 @@ function StockPage({ mode }) {
   const [groceries, setGroceries]       = useState([]);
   const [searchTerm, setSearchTerm]     = useState("");
   const [showForm, setShowForm]         = useState(false);
+  
   const [showDeleteMode, setShowDeleteMode] = useState(false);
   const [successMsg, setSuccessMsg]     = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -33,6 +34,8 @@ function StockPage({ mode }) {
  displayUnit:"",
  conversionFactor:1
 });
+ 
+ const [showUnitForm, setShowUnitForm] = useState(false);
 
   const fetchGroceries = () => {
     fetch(
@@ -81,20 +84,52 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
     return               { label: "In Stock",      cls: "badge-ok"  };
   };
 
-  const addUnit = async ()=>{
+//   const addUnit = async ()=>{
 
- await fetch(
- `${import.meta.env.VITE_API_URL}/api/units`,
- {
-   method:"POST",
-   headers:{ "Content-Type":"application/json"},
-   body:JSON.stringify(newUnit)
- }
- );
+//  await fetch(
+//  `${import.meta.env.VITE_API_URL}/api/units`,
+//  {
+//    method:"POST",
+//    headers:{ "Content-Type":"application/json"},
+//    body:JSON.stringify(newUnit)
+//  }
+//  );
 
- fetchUnits();
+//  fetchUnits();
 
-}
+// }
+
+const addUnit = async () => {
+
+  if (!newUnit.purchaseUnit || !newUnit.reduceUnit || !newUnit.displayUnit) {
+    setSuccessMsg("Please fill all unit fields");
+    return;
+  }
+
+  await fetch(
+    `${import.meta.env.VITE_API_URL}/api/units`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newUnit)
+    }
+  );
+
+  setSuccessMsg("Unit added successfully");
+
+  setNewUnit({
+    purchaseUnit: "",
+    reduceUnit: "",
+    displayUnit: "",
+    conversionFactor: 1
+  });
+
+  fetch(`${import.meta.env.VITE_API_URL}/api/units`)
+    .then(r => r.json())
+    .then(setUnits);
+
+  setShowUnitForm(false);
+};
 
   const addGrocery = async () => {
     if (!newGrocery.name || !newGrocery.purchaseUnit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
@@ -257,13 +292,26 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
             </div>
 
             {isUpdateMode && !showDeleteMode && (
+              <>
               <button
                 className="stock-btn-primary"
                 onClick={() => setShowForm(!showForm)}
               >
                 {showForm ? "✕ Close" : "+ Add Material"}
               </button>
+
+              <button
+      className="stock-btn-blue"
+      onClick={() => setShowUnitForm(!showUnitForm)}
+    >
+      {showUnitForm ? "✕ Close" : "+ Add Unit"}
+    </button>
+
+              </>
             )}
+ 
+  
+
 
             {isViewMode && (
               <>
@@ -310,40 +358,82 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
             </div>
           )}
 
+              {isUpdateMode && showUnitForm && !showDeleteMode && (
+
+  <div className="stock-add-form">
+
+    <div className="stock-form-title">
+      Add Units For Products
+    </div>
+
+    <div className="stock-form-grid">
+
+      <div className="stock-form-field">
+        <label>Purchase Unit</label>
+        <input
+          placeholder="e.g. Kilogram"
+          value={newUnit.purchaseUnit}
+          onChange={e =>
+            setNewUnit({ ...newUnit, purchaseUnit: e.target.value })
+          }
+        />
+      </div>
+
+      <div className="stock-form-field">
+        <label>Reduce Unit</label>
+        <input
+          placeholder="e.g. Gram"
+          value={newUnit.reduceUnit}
+          onChange={e =>
+            setNewUnit({ ...newUnit, reduceUnit: e.target.value })
+          }
+        />
+      </div>
+
+      <div className="stock-form-field">
+        <label>Display Unit</label>
+        <input
+          placeholder="e.g. Kg"
+          value={newUnit.displayUnit}
+          onChange={e =>
+            setNewUnit({ ...newUnit, displayUnit: e.target.value })
+          }
+        />
+      </div>
+
+      <div className="stock-form-field">
+        <label>Conversion Factor</label>
+        <input
+          type="number"
+          placeholder="e.g. 1000"
+          value={newUnit.conversionFactor}
+          onChange={e =>
+            setNewUnit({
+              ...newUnit,
+              conversionFactor: Number(e.target.value)
+            })
+          }
+        />
+      </div>
+
+      <div className="stock-form-field stock-form-submit">
+        <button
+          className="stock-btn-primary"
+          onClick={addUnit}
+        >
+          Add Unit
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+)}
+          
           {isUpdateMode && showForm && !showDeleteMode && (
             
             <div className="stock-add-form">
-              <div className="stock-form-title">Add Units For Products</div>
-
-{/* <input
-placeholder="Unit Name"
-onChange={e=>setNewUnit({...newUnit,name:e.target.value})}
-/> */}
-
-<input
-placeholder="Purchase Unit"
-onChange={e=>setNewUnit({...newUnit,purchaseUnit:e.target.value})}
-/>
-
-<input
-placeholder="Reduce Unit"
-onChange={e=>setNewUnit({...newUnit,reduceUnit:e.target.value})}
-/>
-
-<input
-placeholder="Display Unit"
-onChange={e=>setNewUnit({...newUnit,displayUnit:e.target.value})}
-/>
-
-<input
-type="number"
-placeholder="Conversion Factor"
-onChange={e=>setNewUnit({...newUnit,conversionFactor:e.target.value})}
-/>
-
-<button onClick={addUnit}>
-Add Unit
-</button>
+              
               <div className="stock-form-title">Add New Raw Material</div>
               <div className="stock-form-grid">
                 <div className="stock-form-field">
