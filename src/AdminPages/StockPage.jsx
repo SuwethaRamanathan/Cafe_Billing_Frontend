@@ -43,7 +43,7 @@ const [newGrocery, setNewGrocery] = useState({
 });
  
  const [showUnitForm, setShowUnitForm] = useState(false);
-
+ const [showUnitsList, setShowUnitsList] = useState(false);
  const selectedUnit = units.find(u => u._id === newGrocery.unitId);
 
   const fetchGroceries = () => {
@@ -318,6 +318,13 @@ const addUnit = async () => {
     >
       {showUnitForm ? "✕ Close" : "+ Add Unit"}
     </button>
+      
+            <button
+  className="stock-btn-gray"
+  onClick={() => setShowUnitsList(!showUnitsList)}
+>
+  {showUnitsList ? "✕ Hide Units" : " View Units"}
+</button>
 
               </>
             )}
@@ -439,7 +446,7 @@ const addUnit = async () => {
   </div>
 )}
 
-         {units.length > 0 && (
+         {showUnitsList && units.length > 0 && (
 
 <div className="unit-table-card">
 
