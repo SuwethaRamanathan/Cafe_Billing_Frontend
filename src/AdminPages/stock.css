@@ -183,6 +183,33 @@
   max-width:600px;
 }
 
+/* Info / Help boxes */
+.stock-info-box{
+  background:#fff8ef;
+  border:1px solid #f0d7c2;
+  border-left:4px solid #c0521a;
+  border-radius:10px;
+  padding:12px 14px;
+  font-size:13px;
+  color:#5f4638;
+  line-height:1.5;
+  margin-bottom:14px;
+}
+
+.stock-info-box b{
+  color:#1a0a00;
+}
+
+.stock-help-box{
+  background:#fdf6ee;
+  border:1px dashed #d8c3b3;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:12px;
+  color:#6e5647;
+  margin-top:12px;
+}
+
 .stock-form-field input[type="number"]{
   appearance: textfield;
 }

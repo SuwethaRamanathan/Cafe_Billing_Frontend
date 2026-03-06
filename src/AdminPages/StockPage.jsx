@@ -280,21 +280,37 @@ const addUnit = async () => {
               <>
               <button
                 className="stock-btn-primary"
-                onClick={() => setShowForm(!showForm)}
+                onClick={() =>{
+                  if(showUnitForm || showUnitsList){
+    setSuccessMsg("Please close the currently open form");
+    return;
+  }
+               setShowForm(!showForm)}}
               >
                 {showForm ? "✕ Close" : "+ Add New Stock"}
               </button>
 
               <button
       className="stock-btn-blue"
-      onClick={() => setShowUnitForm(!showUnitForm)}
+      onClick={() =>{
+          if(showForm || showUnitsList){
+    setSuccessMsg("Please close the currently open form ");
+    return;
+  }
+
+         setShowUnitForm(!showUnitForm)}}
     >
       {showUnitForm ? "✕ Close" : "+ Add Unit"}
     </button>
       
             <button
   className="stock-btn-gray"
-  onClick={() => setShowUnitsList(!showUnitsList)}
+  onClick={() => {
+      if(showForm || showUnitForm){
+    setSuccessMsg("Please close the currently open form");
+    return;
+  }
+    setShowUnitsList(!showUnitsList)}}
 >
   {showUnitsList ? "✕ Hide Units" : " View Units"}
 </button>
@@ -355,11 +371,22 @@ const addUnit = async () => {
       Add Units For Stock
     </div>
 
-    <p className="stock-form-desc">
+    {/* <p className="stock-form-desc">
 Define how a product's stock is purchased and used. <br />
 Example: If you purchase Milk in <b>Litres</b> but use it in <b>Millilitres</b> for a menu item, 
 you can set the conversion so the system automatically reduce the stock.
-</p>
+</p> */}
+  
+    <div className="stock-info-box">
+Define how a product's stock is <b>purchased</b> and <b>used</b>.
+
+<br/><br/>
+
+Example: If you purchase Milk in <b>Litres</b> but use it in 
+<b>Millilitres</b> for menu items, the system will automatically 
+convert and reduce the stock correctly.
+</div>
+
 
     <div className="stock-form-grid">
 
@@ -419,12 +446,12 @@ you can set the conversion so the system automatically reduce the stock.
       </div>
 
     </div>
-    <small className="stock-help-text">
+    <div className="stock-help-box">
 Conversion Factor - Defines how many reduce units exist in one purchase unit. <br /> 
 Example: <br />
         &nbsp; 1. A Kilogram has <b>1000 </b>Grams. <br />
         &nbsp; 2. A Packet may have <b>10</b> or <b>20</b> Pieces.
-</small>
+</div>
   </div>
 )}
 
@@ -474,7 +501,7 @@ Available Units
               
               <div className="stock-form-title">Add a New Stock</div>
 
-                <p className="stock-form-desc">
+                <p className="stock-info-box">
 Add a Stock used in your cafe. Select the unit system that defines how a stock is purchased and consumed. The quantity entered here will 
 be converted based on the unit settings.
 </p>
@@ -550,8 +577,8 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
               <div className="stock-table-heading">
                 {isViewMode ? "View Available Stock Quantities" : "Update Stock Quantities"}
                 <span className="stock-table-count">{filteredGroceries.length} items</span>
-              </div>
-              <div>{isViewMode ? "You can see the stocks added through Add New Stock form here" : "You can see the stocks that are added through Add New Stock form here and also you can edit and delete the quantity of stock you have defined ." }</div>
+              </div> <br />
+              <small>{isViewMode ? "You can see the stocks added through Add New Stock form here" : "You can see the stocks that are added through Add New Stock form here and also you can edit and delete the quantity of stock you have defined ." }</small>
 
               {isUpdateMode && (
                 <div className="stock-table-actions">
