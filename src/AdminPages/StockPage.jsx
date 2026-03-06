@@ -577,8 +577,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
               <div className="stock-table-heading">
                 {isViewMode ? "View Available Stock Quantities" : "Update Stock Quantities"}
                 <span className="stock-table-count">{filteredGroceries.length} items</span>
-              </div> <br />
-              <div className="stock-info-box">{isViewMode ? "You can see the stocks added through Add New Stock form here" : "You can see, edit and delete the quantity of stock that are added through Add New Stock form here." }</div>
+              </div>
 
               {isUpdateMode && (
                 <div className="stock-table-actions">
@@ -606,6 +605,10 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                   )}
                 </div>
               )}
+
+              <div className="stock-info-box">{isViewMode ? "You can see the stocks added through Add New Stock form here" : 
+              "You can see, edit and delete the quantity of stock that are added through Add New Stock form here." }</div>
+
             </div>
              <div className="stock-table-scroll"> 
             <div className={`stock-col-head ${isUpdateMode ? "update-cols" : "view-cols"} ${showDeleteMode ? "with-check" : ""}`}>

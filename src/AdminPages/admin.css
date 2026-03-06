@@ -1246,3 +1246,17 @@ body {
 .page-help-list li{
   margin-bottom:4px;
 }
+
+.recipe-info-box{
+  background:#fff8ef;
+  border:1px solid #f1d7c3;
+  border-left:4px solid #c0521a;
+  border-radius:8px;
+
+  padding:8px 12px;
+  margin:6px 0 12px 0;
+
+  font-size:12px;
+  color:#6e5647;
+  line-height:1.4;
+}

@@ -559,8 +559,8 @@ function SalesPage() {
   <ul className="page-help-list">
     <li>Use filters to view sales for today, last 7 days, or custom ranges.</li>
     <li>The pie chart shows your top selling menu items.</li>
-    <li>Sales statistics show revenue, order count, and average bill value.</li>
-    <li>You can export the report as a PDF for records or sharing.</li>
+    {/* <li>Sales statistics show revenue, order count, and average bill value.</li> */}
+    {/* <li>You can export the report as a PDF for records or sharing.</li> */}
   </ul>
 
 </div>

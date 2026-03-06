@@ -1250,8 +1250,7 @@ body {
   .pos-search-wrap { max-width: 130px !important; }
 }
 
-/* Dashboard Help Section */
-
+/* Dashboard Help Section 
 .page-help {
   background: linear-gradient(135deg,#fffaf5,#fdf2e9);
   border: 1px solid #f1d7c3;
@@ -1310,4 +1309,54 @@ body {
 .page-help-body ul{
   margin-top:4px;
   padding-left:18px;
+} */
+
+.help-btn{
+  border:none;
+  background:#fdf2e9;
+  padding:6px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.help-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.help-modal{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  width:320px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.help-title{
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.help-modal ul{
+  padding-left:18px;
+  font-size:14px;
+}
+
+.help-close{
+  margin-top:12px;
+  padding:6px 12px;
+  border:none;
+  background:#c0521a;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
 }
