@@ -384,16 +384,16 @@ const addUnit = async () => {
 
     <p className="stock-form-desc">
 Define how a product's stock is measured and converted. 
-Example: If you purchase Milk in <b>Liters</b> but use it in <b>Milliliters</b>, 
+Example: If you purchase Milk in <b>Litres</b> but use it in <b>Millilitres</b>, 
 you can set the conversion so the system automatically tracks usage.
 </p>
 
     <div className="stock-form-grid">
 
       <div className="stock-form-field">
-        <label>Purchased Unit of Product</label>
+        <label>Purchased Unit of Stock</label>
         <input
-          placeholder="e.g. Kilogram"
+          placeholder="e.g. Litre"
           value={newUnit.purchaseUnit}
           onChange={e =>
             setNewUnit({ ...newUnit, purchaseUnit: e.target.value })
@@ -424,12 +424,7 @@ you can set the conversion so the system automatically tracks usage.
       </div>
 
       <div className="stock-form-field">
-        
-        <small className="stock-help-text">
-Defines how many reduce units exist in one purchase unit. 
-Example: 1 Kilogram = 1000 Gram.
-</small>
-
+        <label>Conversion Factor</label>
         <input
           type="number"
           placeholder="e.g.1000(1 Kilogram=1000 Gram)"
@@ -453,7 +448,11 @@ Example: 1 Kilogram = 1000 Gram.
       </div>
 
     </div>
-
+    <small className="stock-help-text">
+Conversion Factor - Defines how many reduce units exist in one purchase unit.  
+Example: 1. A Kilogram has 1000 grams.
+         2. If you define Packet as Purchased Unit and enter Pieces as reducing unit , you can enter the number of Pieces in a Packet in this fileld(Conversion Factor).
+</small>
   </div>
 )}
 
@@ -464,7 +463,7 @@ Example: 1 Kilogram = 1000 Gram.
 <div className="unit-table-title">
 Available Units
 </div>
-
+<p>You can see the units you have defined in the Add Units form here.</p>
 <div className="unit-table-head">
 <span>#</span>
 <span>Purchase Unit</span>
@@ -601,7 +600,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
 
             <div className="stock-table-toprow">
               <div className="stock-table-heading">
-                {isViewMode ? "Raw Materials" : "Update Quantities"}
+                {isViewMode ? "View Available Stock Quantities" : "Update Stock Quantities"}
                 <span className="stock-table-count">{filteredGroceries.length} items</span>
               </div>
 
