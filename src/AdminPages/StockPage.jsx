@@ -309,7 +309,7 @@ const addUnit = async () => {
                 className="stock-btn-primary"
                 onClick={() => setShowForm(!showForm)}
               >
-                {showForm ? "✕ Close" : "+ Add Material"}
+                {showForm ? "✕ Close" : "+ Add New Stock"}
               </button>
 
               <button
@@ -379,8 +379,14 @@ const addUnit = async () => {
   <div className="stock-add-form">
 
     <div className="stock-form-title">
-      Add Units For Products
+      Add Units For Stock
     </div>
+
+    <p className="stock-form-desc">
+Define how a product's stock is measured and converted. 
+Example: If you purchase Milk in <b>Liters</b> but use it in <b>Milliliters</b>, 
+you can set the conversion so the system automatically tracks usage.
+</p>
 
     <div className="stock-form-grid">
 
@@ -418,7 +424,12 @@ const addUnit = async () => {
       </div>
 
       <div className="stock-form-field">
-        <label>Conversion Factor</label>
+        
+        <small className="stock-help-text">
+Defines how many reduce units exist in one purchase unit. 
+Example: 1 Kilogram = 1000 Gram.
+</small>
+
         <input
           type="number"
           placeholder="e.g.1000(1 Kilogram=1000 Gram)"
@@ -491,6 +502,13 @@ Available Units
             <div className="stock-add-form">
               
               <div className="stock-form-title">Add New Raw Material</div>
+
+                <p className="stock-form-desc">
+Add a raw material used in your cafe. Select the unit system that defines 
+how this item is purchased and consumed. The quantity entered here will 
+be converted automatically based on the unit settings.
+</p>
+
               <div className="stock-form-grid">
                 <div className="stock-form-field">
                   <label>Item Name</label>
@@ -502,6 +520,11 @@ Available Units
                 </div>
                 <div className="stock-form-field">
                   <label>Unit</label>
+
+                  <small className="stock-help-text">
+Choose the unit configuration that defines how this item is purchased and used.
+</small>
+
                 <select
 value={newGrocery.unitId}
 onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
