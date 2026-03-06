@@ -370,21 +370,10 @@ const addUnit = async () => {
     <div className="stock-form-title">
       Add Units For Stock
     </div>
-
-    {/* <p className="stock-form-desc">
-Define how a product's stock is purchased and used. <br />
-Example: If you purchase Milk in <b>Litres</b> but use it in <b>Millilitres</b> for a menu item, 
-you can set the conversion so the system automatically reduce the stock.
-</p> */}
   
     <div className="stock-info-box">
 Define how a product's stock is <b>purchased</b> and <b>used</b>.
 
-<br/><br/>
-
-Example: If you purchase Milk in <b>Litres</b> but use it in 
-<b>Millilitres</b> for menu items, the system will automatically 
-convert and reduce the stock correctly.
 </div>
 
 
@@ -605,6 +594,8 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                   )}
                 </div>
               )} <br />
+           <br />
+           <br />
            <br />
               <div className="stock-info-box">{isViewMode ? "You can see the stocks added through Add New Stock form here" : 
               "You can see, edit and delete the quantity of stock that are added through Add New Stock form here." }</div>
