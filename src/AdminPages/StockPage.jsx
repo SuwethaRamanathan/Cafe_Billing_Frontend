@@ -578,7 +578,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                 {isViewMode ? "View Available Stock Quantities" : "Update Stock Quantities"}
                 <span className="stock-table-count">{filteredGroceries.length} items</span>
               </div> <br />
-              <small>{isViewMode ? "You can see the stocks added through Add New Stock form here" : "You can see the stocks that are added through Add New Stock form here and also you can edit and delete the quantity of stock you have defined ." }</small>
+              <div className="stock-info-box">{isViewMode ? "You can see the stocks added through Add New Stock form here" : "You can see, edit and delete the quantity of stock that are added through Add New Stock form here." }</div>
 
               {isUpdateMode && (
                 <div className="stock-table-actions">

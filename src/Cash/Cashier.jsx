@@ -23,7 +23,8 @@ function Cashier() {
   const [isPrinting, setIsPrinting]         = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  
+  const [showHelp, setShowHelp] = useState(false);
+
   useEffect(() => {
     fetch(
       `${import.meta.env.VITE_API_URL}/api/menu`)
@@ -205,20 +206,27 @@ function Cashier() {
 
       <div className="page-help">
 
-  <div className="page-help-title">
-    Cashier Instructions
+         <div 
+    className="page-help-header"
+    onClick={() => setShowHelp(!showHelp)}
+  >
+    ℹ Cashier Instructions {showHelp ? "▲" : "▼"}
   </div>
 
-  <div className="page-help-text">
-    Use this screen to create customer orders and generate bills.
-  </div>
+  {showHelp && (
+    <div className="page-help-body">
 
-  <ul className="page-help-list">
-    <li>Select menu items from the left panel to add them to the order.</li>
-    <li>Adjust item quantities using + and − buttons.</li>
-    <li>Apply discounts if enabled.</li>
-    <li>Click <b>Generate Bill</b> to preview and print the receipt.</li>
-  </ul>
+      <p>Use this screen to create customer orders and generate bills.</p>
+
+      <ul>
+        <li>Select menu items from the left panel.</li>
+        <li>Adjust item quantities using + and −.</li>
+        <li>Apply discounts if enabled.</li>
+        <li>Click Generate Bill to print receipt.</li>
+      </ul>
+
+    </div>
+  )}
 
 </div>
 

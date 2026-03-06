@@ -1285,3 +1285,29 @@ body {
 .page-help-list li{
   margin-bottom:4px;
 }
+
+.page-help{
+  background:#fff8ef;
+  border:1px solid #f1d7c3;
+  border-left:4px solid #c0521a;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.page-help-header{
+  padding:8px 14px;
+  font-weight:600;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.page-help-body{
+  padding:8px 14px;
+  font-size:13px;
+  color:#6e5647;
+}
+
+.page-help-body ul{
+  margin-top:4px;
+  padding-left:18px;
+}
