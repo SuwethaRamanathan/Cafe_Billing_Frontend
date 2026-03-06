@@ -17,15 +17,6 @@ function StockPage({ mode }) {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-//   const [newGrocery, setNewGrocery] = useState({
-//   name: "",
-//   purchaseUnit: "",
-//   baseUnit: "",
-//   conversionFactor: 1,
-//   quantity: "",
-//   lastPurchasedDate: ""
-// });
-
 const [newGrocery, setNewGrocery] = useState({
   name: "",
   unitId: "",
@@ -93,21 +84,6 @@ const healthyItems = groceries.filter(g => (g.displayQty ?? g.quantity) > 5).len
     return               { label: "In Stock",      cls: "badge-ok"  };
   };
 
-//   const addUnit = async ()=>{
-
-//  await fetch(
-//  `${import.meta.env.VITE_API_URL}/api/units`,
-//  {
-//    method:"POST",
-//    headers:{ "Content-Type":"application/json"},
-//    body:JSON.stringify(newUnit)
-//  }
-//  );
-
-//  fetchUnits();
-
-// }
-
 const addUnit = async () => {
 
   if (!newUnit.purchaseUnit || !newUnit.reduceUnit || !newUnit.displayUnit) {
@@ -141,9 +117,6 @@ const addUnit = async () => {
 };
 
   const addGrocery = async () => {
-    // if (!newGrocery.name || !newGrocery.purchaseUnit || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
-    //   setSuccessMsg(" Please fill all fields"); return;
-    // }
     if (!newGrocery.name || !newGrocery.unitId || !newGrocery.quantity || !newGrocery.lastPurchasedDate) {
       setSuccessMsg(" Please fill all fields"); return;
     }
@@ -383,7 +356,7 @@ const addUnit = async () => {
     </div>
 
     <p className="stock-form-desc">
-Define how a product's stock is measured and converted. <br />
+Define how a product's stock is purchased and used. <br />
 Example: If you purchase Milk in <b>Litres</b> but use it in <b>Millilitres</b> for a menu item, 
 you can set the conversion so the system automatically reduce the stock.
 </p>
@@ -447,10 +420,10 @@ you can set the conversion so the system automatically reduce the stock.
 
     </div>
     <small className="stock-help-text">
-Conversion Factor - Defines how many reduce units exist in one purchase unit. <br /> <hr />
+Conversion Factor - Defines how many reduce units exist in one purchase unit. <br /> 
 Example: <br />
-        &nbsp; 1. A Kilogram has 1000 Grams. <br />
-        &nbsp; 2. A Packet may have 10 or 20 Pieces.
+        &nbsp; 1. A Kilogram has <b>1000 </b>Grams. <br />
+        &nbsp; 2. A Packet may have <b>10</b> or <b>20</b> Pieces.
 </small>
   </div>
 )}
@@ -518,10 +491,6 @@ be converted based on the unit settings.
                 <div className="stock-form-field">
                   <label>Unit</label>
 
-                  {/* <small className="stock-help-text">
-Choose the unit configuration that defines how this item is purchased and used.
-</small> */}
-
                 <select
 value={newGrocery.unitId}
 onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
@@ -538,25 +507,6 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
 </select>
 
                 </div>
-
-                {/* {newGrocery.purchaseUnit === "Packets" && (
-  <div className="stock-form-field">
-    <label>Pieces per Packet</label>
-    <input
-      type="number"
-      min="1"
-      placeholder="e.g. 20"
-      value={newGrocery.conversionFactor}
-      onChange={(e) =>
-        setNewGrocery({
-          ...newGrocery,
-          conversionFactor: Number(e.target.value)
-        })
-      }
-    />
-   
-  </div>
-)} */}
 
                 <div className="stock-form-field">
                   <label>Quantity</label>
@@ -601,6 +551,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                 {isViewMode ? "View Available Stock Quantities" : "Update Stock Quantities"}
                 <span className="stock-table-count">{filteredGroceries.length} items</span>
               </div>
+              <div>{isViewMode ? "You can see the stocks added through Add New Stock form here" : "You can see the stocks that are added through Add New Stock form here and also you can edit and delete the quantity of stock you have defined ." }</div>
 
               {isUpdateMode && (
                 <div className="stock-table-actions">
