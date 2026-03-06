@@ -231,7 +231,7 @@ const addUnit = async () => {
               {isViewMode ? "View Stock" : "Update Stock"}
             </div>
             <div className="stock-topbar-sub">
-              {isViewMode ? "Raw Materials Overview" : "Manage & Update Raw Materials"}
+              {isViewMode ? "Raw Materials Overview" : "Manage & Update Stock"}
             </div>
           </div>
 
@@ -244,7 +244,7 @@ const addUnit = async () => {
               </svg>
               <input
                 type="text"
-                placeholder="Search raw material..."
+                placeholder="Search for a stock..."
                 value={searchTerm}
                 onChange={e =>  {
                 const value = e.target.value;
@@ -605,7 +605,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                   )}
                 </div>
               )} <br />
-
+           <br />
               <div className="stock-info-box">{isViewMode ? "You can see the stocks added through Add New Stock form here" : 
               "You can see, edit and delete the quantity of stock that are added through Add New Stock form here." }</div>
 

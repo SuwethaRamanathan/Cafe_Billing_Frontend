@@ -199,7 +199,7 @@ function Cashier() {
 
         <div className="pos-header-right">
           <button className="help-btn" onClick={() => setShowHelp(true)} >
-              ℹ  Help </button>
+              ℹ  Instructions </button>
           <button className="pos-logout-btn" onClick={() => setShowLogout(true)}>
             Logout
           </button>
@@ -486,7 +486,7 @@ function Cashier() {
       <ul>
         <li>Select menu items to add them to the order.</li>
         <li>Adjust quantities using + and − buttons.</li>
-        <li>Apply discount if needed.</li>
+        <li>Apply discount if enabled.</li>
         <li>Click Generate Bill to preview and print.</li>
       </ul>
 
