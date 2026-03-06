@@ -203,6 +203,25 @@ function Cashier() {
         </div>
       </header>
 
+      <div className="page-help">
+
+  <div className="page-help-title">
+    Cashier Instructions
+  </div>
+
+  <div className="page-help-text">
+    Use this screen to create customer orders and generate bills.
+  </div>
+
+  <ul className="page-help-list">
+    <li>Select menu items from the left panel to add them to the order.</li>
+    <li>Adjust item quantities using + and − buttons.</li>
+    <li>Apply discounts if enabled.</li>
+    <li>Click <b>Generate Bill</b> to preview and print the receipt.</li>
+  </ul>
+
+</div>
+
       <div className="pos-body">
 
         <div className="pos-left">

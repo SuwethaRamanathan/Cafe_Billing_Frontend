@@ -244,6 +244,25 @@ const removeIngredient = (i) => {
         </div>
 
         <div className="content-area">
+          
+           <div className="page-help">
+
+  <div className="page-help-title">
+    Menu Management Guide
+  </div>
+
+  <div className="page-help-text">
+    This page allows you to manage all menu items available in your cafe.
+  </div>
+
+  <ul className="page-help-list">
+    <li>Add new food or beverage items using <b>Add New Item</b>.</li>
+    <li>Assign items to categories to organize the menu.</li>
+    <li>Edit or delete items anytime using the card actions.</li>
+    <li>Recipe ingredients allow automatic stock reduction .</li>
+  </ul>
+
+</div>
 
           <div className="category-bar" ref={catMenuRef}>
             <div className="category-wrapper">

@@ -546,6 +546,25 @@ function SalesPage() {
           </button>
         </div>
 
+        <div className="page-help">
+
+  <div className="page-help-title">
+    Sales Analytics Overview
+  </div>
+
+  <div className="page-help-text">
+    This page displays your cafe's sales performance and analytics.
+  </div>
+
+  <ul className="page-help-list">
+    <li>Use filters to view sales for today, last 7 days, or custom ranges.</li>
+    <li>The pie chart shows your top selling menu items.</li>
+    <li>Sales statistics show revenue, order count, and average bill value.</li>
+    <li>You can export the report as a PDF for records or sharing.</li>
+  </ul>
+
+</div>
+
         <div className="sales-content">
 
           <div className="sales-filter-bar">
