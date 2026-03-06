@@ -384,8 +384,8 @@ const addUnit = async () => {
 
     <p className="stock-form-desc">
 Define how a product's stock is measured and converted. 
-Example: If you purchase Milk in <b>Litres</b> but use it in <b>Millilitres</b>, 
-you can set the conversion so the system automatically tracks usage.
+Example: If you purchase Milk in <b>Litres</b> but use it in <b>Millilitres</b> for a menu item, 
+you can set the conversion so the system automatically reduce the stock.
 </p>
 
     <div className="stock-form-grid">
@@ -449,8 +449,8 @@ you can set the conversion so the system automatically tracks usage.
 
     </div>
     <small className="stock-help-text">
-Conversion Factor - Defines how many reduce units exist in one purchase unit.  
-Example: 1. A Kilogram has 1000 grams.
+Conversion Factor - Defines how many reduce units exist in one purchase unit. <br /> 
+Example: 1. A Kilogram has 1000 grams. <br />
          2. If you define Packet as Purchased Unit and enter Pieces as reducing unit , you can enter the number of Pieces in a Packet in this fileld(Conversion Factor).
 </small>
   </div>
@@ -463,7 +463,7 @@ Example: 1. A Kilogram has 1000 grams.
 <div className="unit-table-title">
 Available Units
 </div>
-<p>You can see the units you have defined in the Add Units form here.</p>
+<p>You can see the units you have defined in the Add Units form here.</p> <br />
 <div className="unit-table-head">
 <span>#</span>
 <span>Purchase Unit</span>
@@ -503,9 +503,8 @@ Available Units
               <div className="stock-form-title">Add New Raw Material</div>
 
                 <p className="stock-form-desc">
-Add a raw material used in your cafe. Select the unit system that defines 
-how this item is purchased and consumed. The quantity entered here will 
-be converted automatically based on the unit settings.
+Add a Stock used in your cafe. Select the unit system that defines how a stock is purchased and consumed. The quantity entered here will 
+be converted based on the unit settings.
 </p>
 
               <div className="stock-form-grid">
@@ -520,9 +519,9 @@ be converted automatically based on the unit settings.
                 <div className="stock-form-field">
                   <label>Unit</label>
 
-                  <small className="stock-help-text">
+                  {/* <small className="stock-help-text">
 Choose the unit configuration that defines how this item is purchased and used.
-</small>
+</small> */}
 
                 <select
 value={newGrocery.unitId}
