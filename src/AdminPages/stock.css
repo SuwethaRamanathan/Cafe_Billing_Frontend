@@ -185,13 +185,14 @@
   max-width:600px;
 }
 
-/* Info / Help boxes */
+
+
 .stock-info-box{
   background:#fff8ef;
   border:1px solid #f0d7c2;
   border-left:4px solid #c0521a;
   border-radius:10px;
-  padding:12px 14px;
+  padding:10px 14px;
   font-size:13px;
   color:#5f4638;
   line-height:1.5;
@@ -269,6 +270,19 @@ font-size:14px;
   border-radius: 16px 16px 0 0;
   flex-wrap: wrap; gap: 12px; flex-shrink: 0; background: #fff;
 }
+
+.stock-table-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stock-table-toprow{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
 .stock-table-heading { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #1a0a00; display: flex; align-items: center; gap: 10px; }
 .stock-table-count { font-size: 13px; font-weight: 600; color: #8a7060; background: #fdf6ee; padding: 3px 10px; border-radius: 50px; border: 1px solid #ecdfd4; }
 .stock-table-actions { display: flex; gap: 8px; }
