@@ -383,7 +383,7 @@ const addUnit = async () => {
     </div>
 
     <p className="stock-form-desc">
-Define how a product's stock is measured and converted. 
+Define how a product's stock is measured and converted. <br />
 Example: If you purchase Milk in <b>Litres</b> but use it in <b>Millilitres</b> for a menu item, 
 you can set the conversion so the system automatically reduce the stock.
 </p>
@@ -404,7 +404,7 @@ you can set the conversion so the system automatically reduce the stock.
       <div className="stock-form-field">
         <label>Unit for Reducing Stock</label>
         <input
-          placeholder="e.g. Gram"
+          placeholder="e.g. Millilitre"
           value={newUnit.reduceUnit}
           onChange={e =>
             setNewUnit({ ...newUnit, reduceUnit: e.target.value })
@@ -415,7 +415,7 @@ you can set the conversion so the system automatically reduce the stock.
       <div className="stock-form-field">
         <label> Unit for Displaying Stock</label>
         <input
-          placeholder="e.g. Kilogram"
+          placeholder="e.g. Litre or Millilitre"
           value={newUnit.displayUnit}
           onChange={e =>
             setNewUnit({ ...newUnit, displayUnit: e.target.value })
@@ -427,7 +427,7 @@ you can set the conversion so the system automatically reduce the stock.
         <label>Conversion Factor</label>
         <input
           type="number"
-          placeholder="e.g.1000(1 Kilogram=1000 Gram)"
+          placeholder="e.g.1000(1000 Gram=1 Kilogram)"
           value={newUnit.conversionFactor}
           onChange={e =>
             setNewUnit({
@@ -442,16 +442,15 @@ you can set the conversion so the system automatically reduce the stock.
         <button
           className="stock-btn-primary"
           onClick={addUnit}
-        >
-          Add Unit
-        </button>
+        > Add Unit </button>
       </div>
 
     </div>
     <small className="stock-help-text">
-Conversion Factor - Defines how many reduce units exist in one purchase unit. <br /> 
-Example: 1. A Kilogram has 1000 grams. <br />
-         2. If you define Packet as Purchased Unit and enter Pieces as reducing unit , you can enter the number of Pieces in a Packet in this fileld(Conversion Factor).
+Conversion Factor - Defines how many reduce units exist in one purchase unit. <br /> <hr />
+Example: <br />
+        &nbsp; 1. A Kilogram has 1000 Grams. <br />
+        &nbsp; 2. A Packet may have 10 or 20 Pieces.
 </small>
   </div>
 )}
@@ -500,7 +499,7 @@ Available Units
             
             <div className="stock-add-form">
               
-              <div className="stock-form-title">Add New Raw Material</div>
+              <div className="stock-form-title">Add a New Stock</div>
 
                 <p className="stock-form-desc">
 Add a Stock used in your cafe. Select the unit system that defines how a stock is purchased and consumed. The quantity entered here will 
