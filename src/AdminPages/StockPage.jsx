@@ -604,7 +604,7 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                     </>
                   )}
                 </div>
-              )}
+              )} <br />
 
               <div className="stock-info-box">{isViewMode ? "You can see the stocks added through Add New Stock form here" : 
               "You can see, edit and delete the quantity of stock that are added through Add New Stock form here." }</div>

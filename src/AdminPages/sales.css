@@ -595,8 +595,6 @@
   }
 }
 
-/* Dashboard Help Section */
-
 .page-help {
   background: linear-gradient(135deg,#fffaf5,#fdf2e9);
   border: 1px solid #f1d7c3;
@@ -629,4 +627,30 @@
 
 .page-help-list li{
   margin-bottom:4px;
+}
+
+.chart-empty{
+  height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:#8a7060;
+}
+
+.chart-empty-icon{
+  font-size:42px;
+  margin-bottom:8px;
+}
+
+.chart-empty-title{
+  font-weight:600;
+  font-size:16px;
+}
+
+.chart-empty-text{
+  font-size:13px;
+  margin-top:4px;
+  max-width:220px;
 }
