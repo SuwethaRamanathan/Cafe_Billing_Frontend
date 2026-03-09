@@ -714,8 +714,9 @@ function Cashier() {
           <div className="pos-cat-bar">
             <button
               className={`pos-cat-btn${activeCategory === "All" ? " active" : ""}`}
-              onClick={() => setActiveCategory("All")}
-            >{t("common.all")}</button>
+              onClick={() => setActiveCategory("All")}> All 
+              {/* {t("common.all")} */}
+            </button>
             {categories.map(cat => (
               <button key={cat._id}
                 className={`pos-cat-btn${activeCategory === cat.name ? " active" : ""}`}
