@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
 import Sidebar from "./SideBar";
 import "./sidebar.css";
 import "./admin.css";
@@ -30,8 +29,6 @@ export default function Admin() {
   const { settings } = useSettings();
 
   useEffect(() => {
-    // fetch(
-    //   `${import.meta.env.VITE_API_URL}/api/menu`).then(r => r.json()).then(setMenu);
     fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
   .then(r => r.json())
   .then(data => {
@@ -77,8 +74,6 @@ export default function Admin() {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-
-      // setMenu(menu.map(item => item._id === editId ? data : item));
       setMenu(menu.map(item =>
   item._id === editId
     ? { ...data, stock: Number(data.stock), price: Number(data.price) }
@@ -257,7 +252,6 @@ const removeIngredient = (i) => {
 
   <ul className="page-help-list">
     <li>Add new food or beverage items using <b>Add New Item</b>.</li>
-    {/* <li>Assign items to categories to organize the menu.</li> */}
     <li>Edit or delete items anytime using the card actions.</li>
     <li>Recipe ingredients allow automatic stock reduction .</li>
   </ul>

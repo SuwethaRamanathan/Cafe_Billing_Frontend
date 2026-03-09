@@ -25,19 +25,6 @@ function Cashier() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
-  useEffect(() => {
-    fetch(
-      `${import.meta.env.VITE_API_URL}/api/menu`)
-      .then(res => res.json())
-      .then(data => setMenu(data));
-  }, []);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
-      .then(res => res.json())
-      .then(data => setCategories(data));
-  }, []);
-
   const addItem = (item) => {
     if (item.stock <= 0) return;
     setMenu(menu.map(m => m._id === item._id ? { ...m, stock: m.stock - 1 } : m));
@@ -101,7 +88,7 @@ function Cashier() {
     });
 
     const data = await res.json();
-    setOrderNumber(data.orderNumber);
+    setOrderNumber(data.orderNumber+1);
     setIsPrinting(false);
 
     window.print();
@@ -144,6 +131,31 @@ function Cashier() {
     return matchCat && matchSearch;
   });
 
+//   const fetchNextOrderNumber = async () => {
+//   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`);
+//   const data = await res.json();
+
+//   if (data.length === 0) {
+//     setOrderNumber(1);
+//   } else {
+//     const last = data[data.length - 1];
+//     setOrderNumber(last.orderNumber + 1);
+//   }
+// };
+
+useEffect(() => {
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/menu`)
+      .then(res => res.json())
+      .then(data => setMenu(data));
+    //  fetchNextOrderNumber(); 
+  }, []);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
+      .then(res => res.json())
+      .then(data => setCategories(data));
+  }, []);
 
   return (
     <div className="pos-wrap">
@@ -206,31 +218,6 @@ function Cashier() {
         </div>
       </header>
 
-      {/* <div className="page-help">
-
-         <div 
-    className="page-help-header"
-    onClick={() => setShowHelp(!showHelp)}
-  >
-    ℹ Cashier Instructions {showHelp ? "▲" : "▼"}
-  </div>
-
-  {showHelp && (
-    <div className="page-help-body">
-
-      <p>Use this screen to create customer orders and generate bills.</p>
-
-      <ul>
-        <li>Select menu items from the left panel.</li>
-        <li>Adjust item quantities using + and −.</li>
-        <li>Apply discounts if enabled.</li>
-        <li>Click Generate Bill to print receipt.</li>
-      </ul>
-
-    </div>
-  )}
-
-</div> */}
 
       <div className="pos-body">
 

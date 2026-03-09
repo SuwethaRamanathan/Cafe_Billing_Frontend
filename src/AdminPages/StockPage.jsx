@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import ExcelJS from "exceljs";
 import Sidebar from "./SideBar";
 import "./sidebar.css";
 import "./stock.css";
 
 function StockPage({ mode }) {
-  // const navigate = useNavigate();
 
   const [groceries, setGroceries]       = useState([]);
   const [searchTerm, setSearchTerm]     = useState("");
@@ -555,53 +553,10 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                 </div>
               </div>
 
-             
-
             </div>
           )}
 
           <div className="stock-table-card">
-
-            {/* <div className="stock-table-toprow">
-
-              <div className="stock-table-header">
-
-              <div className="stock-table-heading">
-                {isViewMode ? "View Available Stock Quantities" : "Update Stock Quantities"}
-                <span className="stock-table-count">{filteredGroceries.length} items</span>
-              </div>
-
-              {isUpdateMode && (
-                <div className="stock-table-actions">
-                  {!showDeleteMode ? (
-                    <>
-                      <button className="stock-btn-red" onClick={() => setShowDeleteMode(true)}>
-                        🗑 Delete Items
-                      </button>
-                      <button className="stock-btn-save" onClick={saveStock}>
-                        Save Changes
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button className="stock-btn-red" onClick={deleteSelected}>
-                        Confirm Delete
-                      </button>
-                      <button className="stock-btn-gray" onClick={() => {
-                        setShowDeleteMode(false);
-                        setGroceries(groceries.map(g => ({ ...g, selected: false })));
-                      }}>
-                        Cancel
-                      </button>
-                    </>
-                  )}
-                </div>
-              )} 
-          
-              <div className="stock-info-box">{isViewMode ? "You can see the stocks added through Add New Stock form here" : 
-              "You can see, edit and delete the quantity of stock that are added through Add New Stock form here." }</div>
-              </div>
-            </div> */}
 
             <div className="stock-table-toprow">
 
@@ -716,7 +671,6 @@ onChange={e=>setNewGrocery({...newGrocery,unitId:e.target.value})}
                           ) : (
                             <div className="stock-qty-view">
                               <span className={`stock-qty-num ${g.modified ? "qty-modified" : ""}`}>
-                                {/* {g.displayQty} */}
                                 {g.displayQty ?? g.quantity ?? 0}
                                  <small className="qty-unit">{g.displayUnit}</small>
                               </span>

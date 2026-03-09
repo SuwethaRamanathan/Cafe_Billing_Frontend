@@ -1,0 +1,160 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "billing": "Billing",
+    "settings": "Settings",
+    "menu": "Menu",
+    "orders": "Orders",
+    "reports": "Reports"
+  },
+  "common": {
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "close": "Close",
+    "loading": "Loading...",
+    "search": "Search",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "print": "Print",
+    "export": "Export",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "tax": "Tax",
+    "amount": "Amount",
+    "qty": "Qty",
+    "price": "Price",
+    "name": "Name",
+    "date": "Date",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your cafe configuration",
+    "saveBtn": "Save Changes",
+    "savingBtn": "Saving...",
+    "savedSuccess": "Settings saved successfully!",
+    "saveFailed": "Failed to save settings",
+    "networkError": "Network error",
+    "loading": "Loading settings...",
+    "tabs": {
+      "cafe": "Cafe Profile",
+      "tax": "Tax & GST",
+      "general": "General",
+      "receipt": "Receipt",
+      "language": "Language"
+    },
+    "cafe": {
+      "title": "Cafe Profile",
+      "subtitle": "This info appears on receipts and reports",
+      "cafeName": "Cafe Name",
+      "cafeNamePlaceholder": "e.g. Cafe & Snacks",
+      "tagline": "Tagline",
+      "taglinePlaceholder": "e.g. Fresh Coffee • Tasty Snacks",
+      "address": "Address",
+      "addressPlaceholder": "e.g. 12, Main Street, Chennai - 600001",
+      "phone": "Phone Number",
+      "phonePlaceholder": "e.g. +91 98765 43210",
+      "gstin": "GSTIN",
+      "gstinPlaceholder": "e.g. 33AAAAA0000A1Z5"
+    },
+    "tax": {
+      "title": "Tax & GST Configuration",
+      "subtitle": "Controls how GST is calculated on bills",
+      "enableGst": "Enable GST",
+      "enableGstDesc": "When enabled, GST is added to every bill",
+      "gstPercent": "GST Percentage (%)",
+      "gstHint": "Common rates: 5% (restaurant), 12%, 18%"
+    },
+    "general": {
+      "title": "General Settings",
+      "subtitle": "Currency and billing preferences",
+      "currency": "Currency Symbol",
+      "currencyHint": "this symbol appears on all bills and reports",
+      "currently": "Currently",
+      "enableDiscount": "Enable Discount Field",
+      "enableDiscountDesc": "Show the discount % input on the cashier billing screen"
+    },
+    "receipt": {
+      "title": "Receipt Customization",
+      "subtitle": "Customize what appears at the bottom of every receipt",
+      "footer": "Receipt Footer Message",
+      "footerPlaceholder": "e.g. Thank you for visiting! Please come again"
+    },
+    "language": {
+      "title": "Language",
+      "subtitle": "Choose your preferred display language"
+    }
+  },
+  "billing": {
+    "title": "Billing",
+    "newBill": "New Bill",
+    "printBill": "Print Bill",
+    "saveBill": "Save Bill",
+    "clearBill": "Clear Bill",
+    "addItem": "Add Item",
+    "removeItem": "Remove Item",
+    "customerName": "Customer Name",
+    "tableNumber": "Table Number",
+    "billNumber": "Bill No.",
+    "paymentMethod": "Payment Method",
+    "cash": "Cash",
+    "card": "Card",
+    "upi": "UPI",
+    "grandTotal": "Grand Total",
+    "amountPaid": "Amount Paid",
+    "change": "Change",
+    "gst": "GST",
+    "discount": "Discount"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "todaySales": "Today's Sales",
+    "totalOrders": "Total Orders",
+    "totalRevenue": "Total Revenue",
+    "topItems": "Top Selling Items",
+    "recentOrders": "Recent Orders",
+    "monthlySales": "Monthly Sales"
+  },
+  "menu": {
+    "title": "Menu",
+    "addItem": "Add Item",
+    "editItem": "Edit Item",
+    "deleteItem": "Delete Item",
+    "itemName": "Item Name",
+    "category": "Category",
+    "price": "Price",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "confirmDelete": "Are you sure you want to delete this item?"
+  },
+  "orders": {
+    "title": "Orders",
+    "orderId": "Order ID",
+    "customer": "Customer",
+    "items": "Items",
+    "total": "Total",
+    "status": "Status",
+    "pending": "Pending",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "viewDetails": "View Details"
+  },
+  "reports": {
+    "title": "Reports",
+    "salesReport": "Sales Report",
+    "dateRange": "Date Range",
+    "from": "From",
+    "to": "To",
+    "generate": "Generate Report",
+    "download": "Download",
+    "noData": "No data for selected period"
+  }
+}

@@ -57,7 +57,6 @@ export default function SideBar() {
 
       <aside className={`sidebar ${sidebarOpen ? "sidebar-open" : ""}`}>
         <div className="sidebar-logo">
-          {/* <h1>Cafe &amp; Snacks</h1> */}
           <h1>{settings?.cafeName || "Cafe"}</h1>
           <span>Admin Portal</span>
         </div>

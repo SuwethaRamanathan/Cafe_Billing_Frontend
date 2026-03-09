@@ -1,0 +1,160 @@
+{
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "billing": "बिलिंग",
+    "settings": "सेटिंग्स",
+    "menu": "मेनू",
+    "orders": "ऑर्डर",
+    "reports": "रिपोर्ट"
+  },
+  "common": {
+    "save": "बदलाव सहेजें",
+    "saving": "सहेज रहे हैं...",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "add": "जोड़ें",
+    "close": "बंद करें",
+    "loading": "लोड हो रहा है...",
+    "search": "खोजें",
+    "confirm": "पुष्टि करें",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "back": "वापस",
+    "print": "प्रिंट",
+    "export": "निर्यात",
+    "total": "कुल",
+    "subtotal": "उप-कुल",
+    "discount": "छूट",
+    "tax": "कर",
+    "amount": "राशि",
+    "qty": "मात्रा",
+    "price": "कीमत",
+    "name": "नाम",
+    "date": "तारीख",
+    "status": "स्थिति",
+    "actions": "कार्रवाई"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "subtitle": "अपने कैफे की कॉन्फ़िगरेशन प्रबंधित करें",
+    "saveBtn": "बदलाव सहेजें",
+    "savingBtn": "सहेज रहे हैं...",
+    "savedSuccess": "सेटिंग्स सफलतापूर्वक सहेजी गईं!",
+    "saveFailed": "सेटिंग्स सहेजने में विफल",
+    "networkError": "नेटवर्क त्रुटि",
+    "loading": "सेटिंग्स लोड हो रही हैं...",
+    "tabs": {
+      "cafe": "कैफे प्रोफ़ाइल",
+      "tax": "कर और GST",
+      "general": "सामान्य",
+      "receipt": "रसीद",
+      "language": "भाषा"
+    },
+    "cafe": {
+      "title": "कैफे प्रोफ़ाइल",
+      "subtitle": "यह जानकारी रसीदों और रिपोर्टों पर दिखती है",
+      "cafeName": "कैफे का नाम",
+      "cafeNamePlaceholder": "जैसे. कैफे & स्नैक्स",
+      "tagline": "टैगलाइन",
+      "taglinePlaceholder": "जैसे. ताज़ी कॉफी • स्वादिष्ट नाश्ता",
+      "address": "पता",
+      "addressPlaceholder": "जैसे. 12, मेन स्ट्रीट, चेन्नई - 600001",
+      "phone": "फ़ोन नंबर",
+      "phonePlaceholder": "जैसे. +91 98765 43210",
+      "gstin": "GSTIN",
+      "gstinPlaceholder": "जैसे. 33AAAAA0000A1Z5"
+    },
+    "tax": {
+      "title": "कर और GST कॉन्फ़िगरेशन",
+      "subtitle": "बिलों पर GST की गणना कैसे की जाती है यह नियंत्रित करता है",
+      "enableGst": "GST सक्षम करें",
+      "enableGstDesc": "सक्षम होने पर, हर बिल में GST जोड़ा जाएगा",
+      "gstPercent": "GST प्रतिशत (%)",
+      "gstHint": "सामान्य दरें: 5% (रेस्तरां), 12%, 18%"
+    },
+    "general": {
+      "title": "सामान्य सेटिंग्स",
+      "subtitle": "मुद्रा और बिलिंग प्राथमिकताएं",
+      "currency": "मुद्रा चिह्न",
+      "currencyHint": "यह चिह्न सभी बिलों और रिपोर्टों पर दिखाई देता है",
+      "currently": "वर्तमान में",
+      "enableDiscount": "छूट फ़ील्ड सक्षम करें",
+      "enableDiscountDesc": "कैशियर बिलिंग स्क्रीन पर छूट % इनपुट दिखाएं"
+    },
+    "receipt": {
+      "title": "रसीद अनुकूलन",
+      "subtitle": "हर रसीद के नीचे क्या दिखे यह अनुकूलित करें",
+      "footer": "रसीद फुटर संदेश",
+      "footerPlaceholder": "जैसे. आने के लिए धन्यवाद! फिर से आइए"
+    },
+    "language": {
+      "title": "भाषा",
+      "subtitle": "अपनी पसंदीदा प्रदर्शन भाषा चुनें"
+    }
+  },
+  "billing": {
+    "title": "बिलिंग",
+    "newBill": "नया बिल",
+    "printBill": "बिल प्रिंट करें",
+    "saveBill": "बिल सहेजें",
+    "clearBill": "बिल साफ़ करें",
+    "addItem": "आइटम जोड़ें",
+    "removeItem": "आइटम हटाएं",
+    "customerName": "ग्राहक का नाम",
+    "tableNumber": "टेबल नंबर",
+    "billNumber": "बिल नं.",
+    "paymentMethod": "भुगतान विधि",
+    "cash": "नकद",
+    "card": "कार्ड",
+    "upi": "UPI",
+    "grandTotal": "कुल राशि",
+    "amountPaid": "भुगतान की गई राशि",
+    "change": "वापसी",
+    "gst": "GST",
+    "discount": "छूट"
+  },
+  "dashboard": {
+    "title": "डैशबोर्ड",
+    "todaySales": "आज की बिक्री",
+    "totalOrders": "कुल ऑर्डर",
+    "totalRevenue": "कुल राजस्व",
+    "topItems": "सबसे अधिक बिकने वाले आइटम",
+    "recentOrders": "हाल के ऑर्डर",
+    "monthlySales": "मासिक बिक्री"
+  },
+  "menu": {
+    "title": "मेनू",
+    "addItem": "आइटम जोड़ें",
+    "editItem": "आइटम संपादित करें",
+    "deleteItem": "आइटम हटाएं",
+    "itemName": "आइटम का नाम",
+    "category": "श्रेणी",
+    "price": "कीमत",
+    "available": "उपलब्ध",
+    "unavailable": "अनुपलब्ध",
+    "confirmDelete": "क्या आप वाकई इस आइटम को हटाना चाहते हैं?"
+  },
+  "orders": {
+    "title": "ऑर्डर",
+    "orderId": "ऑर्डर आईडी",
+    "customer": "ग्राहक",
+    "items": "आइटम",
+    "total": "कुल",
+    "status": "स्थिति",
+    "pending": "लंबित",
+    "completed": "पूर्ण",
+    "cancelled": "रद्द",
+    "viewDetails": "विवरण देखें"
+  },
+  "reports": {
+    "title": "रिपोर्ट",
+    "salesReport": "बिक्री रिपोर्ट",
+    "dateRange": "तारीख सीमा",
+    "from": "से",
+    "to": "तक",
+    "generate": "रिपोर्ट बनाएं",
+    "download": "डाउनलोड",
+    "noData": "चयनित अवधि के लिए कोई डेटा नहीं"
+  }
+}

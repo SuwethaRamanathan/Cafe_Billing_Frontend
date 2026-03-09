@@ -263,13 +263,6 @@ font-size:14px;
    min-height: 0; 
 }
 
-/* .stock-table-toprow {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 24px 14px;
-  border-bottom: 1px solid #ecdfd4;
-  border-radius: 16px 16px 0 0;
-  flex-wrap: wrap; gap: 12px; flex-shrink: 0; background: #fff;
-} */
 
 .stock-table-header{
   display:flex;
