@@ -848,7 +848,6 @@ function Cashier() {
         </div>
       </div>
 
-      {/* ── Bill Preview Modal ── */}
       {showPreview && (
         <div className="pos-modal-overlay" onClick={e => e.target === e.currentTarget && setShowPreview(false)}>
           <div className="pos-preview-modal">
@@ -924,7 +923,6 @@ function Cashier() {
         </div>
       )}
 
-      {/* ── Help Modal ── */}
       {showHelp && (
         <div className="help-overlay">
           <div className="help-modal">
@@ -935,12 +933,11 @@ function Cashier() {
               <li>{t("cashier.helpTip3")}</li>
               <li>{t("cashier.helpTip4")}</li>
             </ul>
-            <button className="help-close" onClick={() => setShowHelp(false)}>Close</button>
+            <button className="help-close-btn" onClick={() => setShowHelp(false)}>Close</button>
           </div>
         </div>
       )}
 
-      {/* ── Logout Modal ── */}
       {showLogout && (
         <div className="pos-modal-overlay">
           <div className="pos-confirm-modal">
