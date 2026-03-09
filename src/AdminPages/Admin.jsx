@@ -535,7 +535,7 @@ export default function Admin() {
   const [recipe, setRecipe] = useState([]);
   const [groceries, setGroceries] = useState([]);
   const { settings } = useSettings();
-
+ const [showHelp, setShowHelp] = useState(true);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
       .then(r => r.json())
@@ -735,7 +735,7 @@ export default function Admin() {
 
         <div className="content-area">
 
-          <div className="page-help">
+          {/* <div className="page-help">
             <div className="page-help-title">{t("admin.helpTitle")}</div>
             <div className="page-help-text">{t("admin.helpText")}</div>
             <ul className="page-help-list">
@@ -743,7 +743,28 @@ export default function Admin() {
               <li>{t("admin.helpTip2")}</li>
               <li>{t("admin.helpTip3")}</li>
             </ul>
-          </div>
+          </div> */}
+
+          {showHelp && (
+  <div className="page-help">
+    <button
+      className="help-close"
+      onClick={() => setShowHelp(false)}
+      title="Close"
+    >
+      ✕
+    </button>
+
+    <div className="page-help-title">{t("admin.helpTitle")}</div>
+    <div className="page-help-text">{t("admin.helpText")}</div>
+
+    <ul className="page-help-list">
+      <li>{t("admin.helpTip1")}</li>
+      <li>{t("admin.helpTip2")}</li>
+      <li>{t("admin.helpTip3")}</li>
+    </ul>
+  </div>
+)}
 
           <div className="category-bar" ref={catMenuRef}>
             <div className="category-wrapper">

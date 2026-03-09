@@ -658,3 +658,23 @@ body {
   color:#6e5647;
   line-height:1.4;
 }
+
+.page-help{
+  position: relative;
+}
+
+.help-close{
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #8a7060;
+  font-weight: bold;
+}
+
+.help-close:hover{
+  color:#d93025;
+}
