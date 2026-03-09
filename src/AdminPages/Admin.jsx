@@ -748,8 +748,8 @@ export default function Admin() {
           <div className="category-bar" ref={catMenuRef}>
             <div className="category-wrapper">
               <button className={`cat-btn${activeCategory === "All" ? " active" : ""}`}
-                onClick={() => setActiveCategory("All")}>
-                {t("common.all")}
+                onClick={() => setActiveCategory("All")}>All
+                {/* {t("common.all")} */}
               </button>
             </div>
 
