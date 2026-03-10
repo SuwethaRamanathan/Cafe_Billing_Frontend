@@ -962,31 +962,6 @@ function StockPage({ mode }) {
               )}
             </div>
 
-            {/* {isUpdateMode && !showDeleteMode && (
-              <>
-                <button className="stock-btn-primary" onClick={() => {
-                  if (showUnitForm || showUnitsList) { setSuccessMsg(t("stock.closeFormFirst")); return; }
-                  setShowForm(!showForm);
-                }}>
-                  {showForm ? `✕ ${t("common.close")}` : `+ ${t("stock.addNewStock")}`}
-                </button>
-
-                <button className="stock-btn-blue" onClick={() => {
-                  if (showForm || showUnitsList) { setSuccessMsg(t("stock.closeFormFirst")); return; }
-                  setShowUnitForm(!showUnitForm);
-                }}>
-                  {showUnitForm ? `✕ ${t("common.close")}` : `+ ${t("stock.addUnit")}`}
-                </button>
-
-                <button className="stock-btn-gray" onClick={() => {
-                  if (showForm || showUnitForm) { setSuccessMsg(t("stock.closeFormFirst")); return; }
-                  setShowUnitsList(!showUnitsList);
-                }}>
-                  {showUnitsList ? `✕ ${t("stock.hideUnits")}` : t("stock.viewUnits")}
-                </button>
-              </>
-            )} */}
-
             {isViewMode && (
               <>
                 <button className="stock-btn-green" onClick={exportExcel}>

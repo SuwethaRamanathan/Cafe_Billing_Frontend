@@ -748,7 +748,7 @@ const closeHelp = () => {
 
 
           {showHelp && (
-  <div className="page-help">
+  <div className="admin-help">
     <button
       className="help-close"
     onClick={closeHelp}
@@ -935,7 +935,6 @@ const closeHelp = () => {
         </div>
       )}
 
-      {/* ── Delete Item Modal ── */}
       {deleteId && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -949,7 +948,6 @@ const closeHelp = () => {
         </div>
       )}
 
-      {/* ── Edit Category Modal ── */}
       {editCat && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -966,7 +964,7 @@ const closeHelp = () => {
         </div>
       )}
 
-      {/* ── Cannot Delete Category Modal ── */}
+     
       {catToDelete && catDeleteBlocked && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -984,7 +982,6 @@ const closeHelp = () => {
         </div>
       )}
 
-      {/* ── Delete Category Confirm Modal ── */}
       {catToDelete && !catDeleteBlocked && (
         <div className="modal-overlay">
           <div className="modal-box">

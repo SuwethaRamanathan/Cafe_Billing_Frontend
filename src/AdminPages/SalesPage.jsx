@@ -533,7 +533,6 @@ function SalesPage() {
 
       <Sidebar />
 
-      {/* ── PDF Print Area (hidden) ── */}
       <div ref={pdfContentRef} className="pdf-print-area" style={{ display: "none" }}>
         <div className="pdf-cafe-header">
           <div className="pdf-cafe-name">{settings?.cafeName || "Cafe & Snacks"}</div>
@@ -601,14 +600,42 @@ function SalesPage() {
           </button>
         </div>
 
-        <div className="page-help">
+        {/* <div className="page-help">
           <div className="page-help-title">{t("sales.helpTitle")}</div>
           <div className="page-help-text">{t("sales.helpText")}</div>
           <ul className="page-help-list">
             <li>{t("sales.helpTip1")}</li>
             <li>{t("sales.helpTip2")}</li>
           </ul>
-        </div>
+        </div> */}
+
+        {showHelp && (
+  <div className="sales-help">
+    <button
+      className="help-close"
+      onClick={() => setShowHelp(false)}
+    >
+      ✕
+    </button>
+
+    <div className="page-help-title">{t("sales.helpTitle")}</div>
+    <div className="page-help-text">{t("sales.helpText")}</div>
+
+    <ul className="page-help-list">
+      <li>{t("sales.helpTip1")}</li>
+      <li>{t("sales.helpTip2")}</li>
+    </ul>
+  </div>
+)}
+
+{!showHelp && (
+  <button
+    className="help-float-btn"
+    onClick={() => setShowHelp(true)}
+  >
+    Help
+  </button>
+)}
 
         <div className="sales-content">
 

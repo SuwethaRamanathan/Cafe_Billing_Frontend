@@ -595,7 +595,7 @@
   }
 }
 
-.page-help {
+/* .page-help {
   background: linear-gradient(135deg,#fffaf5,#fdf2e9);
   border: 1px solid #f1d7c3;
   border-left: 5px solid #c0521a;
@@ -603,6 +603,17 @@
   padding: 16px 20px;
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+} */
+
+.sales-help{
+  background: linear-gradient(135deg,#fffaf5,#fdf2e9);
+  border: 1px solid #f1d7c3;
+  border-left: 5px solid #c0521a;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  position: relative;
 }
 
 .page-help-title{
