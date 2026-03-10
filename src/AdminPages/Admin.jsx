@@ -567,6 +567,17 @@ export default function Admin() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  useEffect(() => {
+  const saved = localStorage.getItem("adminHelpClosed");
+  if(saved === "true") setShowHelp(false);
+}, []);
+
+const closeHelp = () => {
+  setShowHelp(false);
+  localStorage.setItem("adminHelpClosed","true");
+};
+
+
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
@@ -740,11 +751,21 @@ export default function Admin() {
   <div className="page-help">
     <button
       className="help-close"
-      onClick={() => setShowHelp(false)}
+    onClick={closeHelp}
+      // onClick={() => setShowHelp(false)}
       title="Close"
     >
       ✕
     </button>
+
+    {!showHelp && (
+  <button
+    className="help-float-btn"
+    onClick={() => setShowHelp(true)}
+  >
+    ?
+  </button>
+)}
 
     <div className="page-help-title">{t("admin.helpTitle")}</div>
     <div className="page-help-text">{t("admin.helpText")}</div>

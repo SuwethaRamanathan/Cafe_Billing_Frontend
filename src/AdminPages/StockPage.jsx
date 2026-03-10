@@ -738,7 +738,7 @@ function StockPage({ mode }) {
 
   const [groceries, setGroceries]       = useState([]);
   const [searchTerm, setSearchTerm]     = useState("");
-  const [showForm, setShowForm]         = useState(false);
+  // const [showForm, setShowForm]         = useState(false);
   const [showDeleteMode, setShowDeleteMode] = useState(false);
   const [successMsg, setSuccessMsg]     = useState("");
   const [suggestions, setSuggestions]   = useState([]);
@@ -753,9 +753,11 @@ function StockPage({ mode }) {
     name: "", purchaseUnit: "", reduceUnit: "", displayUnit: "", conversionFactor: ""
   });
 
-  const [showUnitForm, setShowUnitForm]   = useState(false);
-  const [showUnitsList, setShowUnitsList] = useState(false);
+  // const [showUnitForm, setShowUnitForm]   = useState(false);
+  // const [showUnitsList, setShowUnitsList] = useState(false);
   const selectedUnit = units.find(u => u._id === newGrocery.unitId);
+  const [activeTab, setActiveTab] = useState("stock"); 
+
 
   const fetchGroceries = () => {
     fetch(`${import.meta.env.VITE_API_URL}/api/groceries`)
@@ -1029,8 +1031,36 @@ function StockPage({ mode }) {
               </div>
             </div>
           )}
+          
+         {isUpdateMode && (
+  <div className="stock-tabs">
 
-          {isUpdateMode && showUnitForm && !showDeleteMode && (
+    <button
+      className={`stock-tab ${activeTab === "stock" ? "active" : ""}`}
+      onClick={() => setActiveTab("stock")}
+    >
+      + {t("stock.addNewStock")}
+    </button>
+
+    <button
+      className={`stock-tab ${activeTab === "addUnit" ? "active" : ""}`}
+      onClick={() => setActiveTab("addUnit")}
+    >
+      + {t("stock.addUnit")}
+    </button>
+
+    <button
+      className={`stock-tab ${activeTab === "units" ? "active" : ""}`}
+      onClick={() => setActiveTab("units")}
+    >
+      {t("stock.viewUnits")}
+    </button>
+
+  </div>
+)}
+ 
+
+          {isUpdateMode && activeTab === "addUnit" && !showDeleteMode && (
             <div className="stock-add-form">
               <div className="stock-form-title">{t("stock.addUnitTitle")}</div>
               <div className="stock-info-box">{t("stock.addUnitInfo")}</div>
@@ -1067,7 +1097,7 @@ function StockPage({ mode }) {
             </div>
           )}
 
-          {showUnitsList && units.length > 0 && (
+          {activeTab === "units" && units.length > 0 && (
             <div className="unit-table-card">
               <div className="unit-table-title">{t("stock.availableUnits")}</div>
               <p>{t("stock.availableUnitsDesc")}</p><br />
@@ -1092,7 +1122,7 @@ function StockPage({ mode }) {
             </div>
           )}
 
-          {isUpdateMode && showForm && !showDeleteMode && (
+          {isUpdateMode && activeTab === "stock"  && !showDeleteMode && (
             <div className="stock-add-form">
               <div className="stock-form-title">{t("stock.addNewStockTitle")}</div>
               <p className="stock-info-box">{t("stock.addNewStockInfo")}</p>

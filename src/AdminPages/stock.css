@@ -376,3 +376,38 @@ font-size:14px;
   .stock-form-grid { grid-template-columns: 1fr !important; }
   .st-value { font-size: 22px !important; }
 }
+
+.stock-tabs{
+  display:flex;
+  gap:10px;
+  background:#fff;
+  border:1px solid #ecdfd4;
+  border-radius:14px;
+  padding:6px;
+  width:max-content;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stock-tab{
+  padding:10px 18px;
+  border:none;
+  background:transparent;
+  border-radius:10px;
+  font-family:'Lato',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  color:#8a7060;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+
+.stock-tab:hover{
+  background:#fdf6ee;
+  color:#1a0a00;
+}
+
+.stock-tab.active{
+  background:#c0521a;
+  color:#fff;
+  box-shadow:0 4px 12px rgba(192,82,26,0.25);
+}
