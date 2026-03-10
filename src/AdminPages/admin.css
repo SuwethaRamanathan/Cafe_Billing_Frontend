@@ -678,11 +678,11 @@ body {
   color:#d93025;
 }
 
-.help-float-btn{
+/* .help-float-btn{
   position: fixed;
 
-  top: 24px;
-  left: 28px;
+  bottom: 24px;
+  right: 28px;
 
   width: 44px;
   height: 44px;
@@ -703,6 +703,33 @@ body {
   display:flex;
   align-items:center;
   justify-content:center;
+
+  transition: transform 0.2s, box-shadow 0.2s;
+} */
+
+.help-float-btn{
+  position: fixed;
+
+  top: 80px;        /* appears near topbar */
+  right: 32px;
+
+  padding: 10px 16px;
+
+  border-radius: 30px;
+  border: none;
+
+  background: #c0521a;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+
+  z-index: 9999;
 
   transition: transform 0.2s, box-shadow 0.2s;
 }

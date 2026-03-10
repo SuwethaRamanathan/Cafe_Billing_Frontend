@@ -756,7 +756,7 @@ function StockPage({ mode }) {
   // const [showUnitForm, setShowUnitForm]   = useState(false);
   // const [showUnitsList, setShowUnitsList] = useState(false);
   const selectedUnit = units.find(u => u._id === newGrocery.unitId);
-  const [activeTab, setActiveTab] = useState("stock"); 
+  const [activeTab, setActiveTab] = useState(null); 
 
 
   const fetchGroceries = () => {
@@ -1037,21 +1037,21 @@ function StockPage({ mode }) {
 
     <button
       className={`stock-tab ${activeTab === "stock" ? "active" : ""}`}
-      onClick={() => setActiveTab("stock")}
+      onClick={() => setActiveTab(activeTab === "stock" ? null :"stock")}
     >
       + {t("stock.addNewStock")}
     </button>
 
     <button
       className={`stock-tab ${activeTab === "addUnit" ? "active" : ""}`}
-      onClick={() => setActiveTab("addUnit")}
+      onClick={() => setActiveTab(activeTab === "addUnit" ? null :"addUnit")}
     >
       + {t("stock.addUnit")}
     </button>
 
     <button
       className={`stock-tab ${activeTab === "units" ? "active" : ""}`}
-      onClick={() => setActiveTab("units")}
+      onClick={() => setActiveTab(activeTab === "units" ? null :"units")}
     >
       {t("stock.viewUnits")}
     </button>
