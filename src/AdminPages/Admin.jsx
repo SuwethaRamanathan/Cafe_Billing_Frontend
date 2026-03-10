@@ -758,15 +758,6 @@ const closeHelp = () => {
       ✕
     </button>
 
-    {!showHelp && (
-  <button
-    className="help-float-btn"
-    onClick={() => setShowHelp(true)}
-  >
-    ?
-  </button>
-)}
-
     <div className="page-help-title">{t("admin.helpTitle")}</div>
     <div className="page-help-text">{t("admin.helpText")}</div>
 
@@ -776,6 +767,15 @@ const closeHelp = () => {
       <li>{t("admin.helpTip3")}</li>
     </ul>
   </div>
+)}
+
+  {!showHelp && (
+  <button
+    className="help-float-btn"
+    onClick={() => setShowHelp(true)}
+  >
+    Help
+  </button>
 )}
 
           <div className="category-bar" ref={catMenuRef}>

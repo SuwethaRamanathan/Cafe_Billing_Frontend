@@ -814,7 +814,7 @@ function StockPage({ mode }) {
     setSuccessMsg(t("stock.unitAdded"));
     setNewUnit({ purchaseUnit: "", reduceUnit: "", displayUnit: "", conversionFactor: "" });
     fetch(`${import.meta.env.VITE_API_URL}/api/units`).then(r => r.json()).then(setUnits);
-    setShowUnitForm(false);
+    // setShowUnitForm(false);
   };
 
   const addGrocery = async () => {
@@ -827,7 +827,7 @@ function StockPage({ mode }) {
       body: JSON.stringify(newGrocery)
     });
     setNewGrocery({ name: "", purchaseUnit: "", baseUnit: "", conversionFactor: "", quantity: "", lastPurchasedDate: "" });
-    setShowForm(false);
+    // setShowForm(false);
     setSuccessMsg(t("stock.rawMaterialAdded"));
     fetchGroceries();
   };
@@ -962,7 +962,7 @@ function StockPage({ mode }) {
               )}
             </div>
 
-            {isUpdateMode && !showDeleteMode && (
+            {/* {isUpdateMode && !showDeleteMode && (
               <>
                 <button className="stock-btn-primary" onClick={() => {
                   if (showUnitForm || showUnitsList) { setSuccessMsg(t("stock.closeFormFirst")); return; }
@@ -985,7 +985,7 @@ function StockPage({ mode }) {
                   {showUnitsList ? `✕ ${t("stock.hideUnits")}` : t("stock.viewUnits")}
                 </button>
               </>
-            )}
+            )} */}
 
             {isViewMode && (
               <>
