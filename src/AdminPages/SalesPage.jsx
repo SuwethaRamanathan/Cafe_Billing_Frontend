@@ -417,7 +417,9 @@ function SalesPage() {
   const [filter, setFilter] = useState("today");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-
+  
+  const [showHelp, setShowHelp] = useState(true);
+  
   const COLORS = ["#c0521a", "#8a7060", "#b0998a", "#1a0a00", "#dcb9a1"];
 
   useEffect(() => {
