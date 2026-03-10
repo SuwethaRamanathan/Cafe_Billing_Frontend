@@ -933,7 +933,9 @@ function Cashier() {
               <li>{t("cashier.helpTip3")}</li>
               <li>{t("cashier.helpTip4")}</li>
             </ul>
-            <button className="help-close-btn" onClick={() => setShowHelp(false)}>Close</button>
+            <button className="help-close-btn" onClick={() => setShowHelp(false)}>
+              {t("common.close")}
+            </button>
           </div>
         </div>
       )}

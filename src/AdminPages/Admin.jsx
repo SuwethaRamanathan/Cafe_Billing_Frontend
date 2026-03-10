@@ -735,15 +735,6 @@ export default function Admin() {
 
         <div className="content-area">
 
-          {/* <div className="page-help">
-            <div className="page-help-title">{t("admin.helpTitle")}</div>
-            <div className="page-help-text">{t("admin.helpText")}</div>
-            <ul className="page-help-list">
-              <li>{t("admin.helpTip1")}</li>
-              <li>{t("admin.helpTip2")}</li>
-              <li>{t("admin.helpTip3")}</li>
-            </ul>
-          </div> */}
 
           {showHelp && (
   <div className="page-help">

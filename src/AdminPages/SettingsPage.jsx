@@ -438,7 +438,6 @@ function SettingsPage() {
 
       <div className="settings-main">
 
-        {/* ── Top Bar ── */}
         <div className="settings-topbar">
           <div className="settings-topbar-left">
             <div className="settings-topbar-title">{t("settings.title")}</div>
@@ -455,7 +454,6 @@ function SettingsPage() {
 
         <div className="settings-content">
 
-          {/* ── Tabs ── */}
           <div className="settings-tabs">
             {tabs.map(tab => (
               <button
@@ -468,7 +466,6 @@ function SettingsPage() {
             ))}
           </div>
 
-          {/* ── Cafe Profile Tab ── */}
           {activeTab === "cafe" && (
             <div className="settings-card">
               <div className="settings-card-title">{t("settings.cafe.title")}</div>
@@ -528,7 +525,6 @@ function SettingsPage() {
             </div>
           )}
 
-          {/* ── Tax & GST Tab ── */}
           {activeTab === "tax" && (
             <div className="settings-card">
               <div className="settings-card-title">{t("settings.tax.title")}</div>
@@ -571,7 +567,6 @@ function SettingsPage() {
             </div>
           )}
 
-          {/* ── General Tab ── */}
           {activeTab === "general" && (
             <div className="settings-card">
               <div className="settings-card-title">{t("settings.general.title")}</div>
@@ -613,7 +608,6 @@ function SettingsPage() {
             </div>
           )}
 
-          {/* ── Receipt Tab ── */}
           {activeTab === "receipt" && (
             <div className="settings-card">
               <div className="settings-card-title">{t("settings.receipt.title")}</div>
@@ -633,7 +627,6 @@ function SettingsPage() {
             </div>
           )}
 
-          {/* ── Language Tab ── */}
           {activeTab === "language" && (
             <div className="settings-card">
               <div className="settings-card-title">{t("settings.language.title")}</div>
@@ -657,7 +650,7 @@ function SettingsPage() {
         </div>
       </div>
 
-      {/* ── Toast ── */}
+  
       {successMsg && (
         <div className="settings-toast">
           <span>{successMsg}</span>
