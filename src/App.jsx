@@ -7,8 +7,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import StockPage from "./AdminPages/StockPage";
 import SettingsPage from "./AdminPages/SettingsPage";
 import { SettingsProvider } from "./SettingsContext";
-import SuperAdmin from "./SuperAdmin";
- 
+import SuperAdmin from "./AdminPages/Superadmin"; 
 
 export default function App() {
   return (
