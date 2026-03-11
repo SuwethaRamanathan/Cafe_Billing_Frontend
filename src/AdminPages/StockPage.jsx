@@ -1072,7 +1072,8 @@ function StockPage({ mode }) {
                   <button className="stock-btn-primary" onClick={addUnit}>{t("stock.addUnit")}</button>
                 </div>
               </div>
-              <div className="stock-help-box">{t("stock.conversionHelp")}</div>
+              <div className="stock-help-box" dangerouslySetInnerHTML={{ __html: t("stock.conversionHelp") }}>
+                          </div>
             </div>
           )}
 
