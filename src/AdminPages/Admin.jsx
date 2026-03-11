@@ -515,7 +515,7 @@ import { useLocalizedField } from "../hooks/useLocalizedField";
 export default function Admin() {
   const { t } = useTranslation();
 
-  const localizedField = useLocalizedField();
+  const localize = useLocalizedField();
 
   const [menu, setMenu] = useState([]);
   const [search, setSearch] = useState("");
@@ -747,7 +747,7 @@ const closeHelp = () => {
                 {suggestions.map(item => (
                   <div key={item._id} className="search-dropdown-item"
                     onClick={() => { setSearch(item.name); setShowSuggestions(false); }}>
-                    {localize(cat.name)}
+                    {localize(item.name)}
                     {/* {item.name} */}
                   </div>
                 ))}
@@ -927,7 +927,7 @@ const closeHelp = () => {
                       <option value="">{t("common.select")}</option>
                       {groceries.map(g => (
                         // <option key={g._id} value={g._id}>{g.name}</option>
-                        <option key={g._id} value={g._id}>{localize(g.name)}</option>)
+                        <option key={g._id} value={g._id}>{localize(g.name)}</option>
                       ))}
                     </select>
                     <input
