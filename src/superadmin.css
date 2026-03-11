@@ -426,3 +426,26 @@
   .sa-header { flex-direction: column; align-items: flex-start; }
   .sa-stats  { grid-template-columns: repeat(2, 1fr); padding: 16px; gap: 10px; }
 }
+
+/* ── Progress bar for bulk translate ── */
+.sa-progress-bar-wrap {
+  background: var(--sa-cream);
+  border-bottom: 1px solid var(--sa-border);
+  padding: 10px 32px;
+  position: relative;
+}
+
+.sa-progress-bar {
+  height: 6px;
+  background: var(--sa-orange);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  max-width: 100%;
+}
+
+.sa-progress-text {
+  font-size: 12px;
+  color: var(--sa-muted);
+  margin-top: 6px;
+  font-weight: 600;
+}
