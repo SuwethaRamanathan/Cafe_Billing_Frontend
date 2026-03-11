@@ -23,11 +23,13 @@ export default function App() {
     </ProtectedRoute>
   }
 />
-
-    <Route path="/superadmin" element={
+  
+  <Route path="/superadmin" element={ <SuperAdmin /> } />
+   
+    {/* <Route path="/superadmin" element={
       <ProtectedRoute role="superadmin">
       <SuperAdmin /> </ProtectedRoute>
-      } />
+      } /> */}
 
     <Route path="/cashier" element={ 
         <ProtectedRoute role="cashier">
