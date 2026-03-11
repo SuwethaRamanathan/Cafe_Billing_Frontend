@@ -704,8 +704,15 @@ body {
   z-index: 9999;
 
   transition: transform 0.2s;
+  animation: helpFloat 2.5s ease-in-out infinite;
 }
 
 .help-float-btn:hover{
   transform: translateY(-2px);
+}
+
+@keyframes helpFloat{
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
 }

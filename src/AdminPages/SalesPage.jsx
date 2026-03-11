@@ -602,14 +602,6 @@ function SalesPage() {
           </button>
         </div>
 
-        {/* <div className="page-help">
-          <div className="page-help-title">{t("sales.helpTitle")}</div>
-          <div className="page-help-text">{t("sales.helpText")}</div>
-          <ul className="page-help-list">
-            <li>{t("sales.helpTip1")}</li>
-            <li>{t("sales.helpTip2")}</li>
-          </ul>
-        </div> */}
 
         {showHelp && (
   <div className="sales-help">
