@@ -1,4 +1,3 @@
-// src/hooks/useLocalizedField.js
 // Use this everywhere you display names from MongoDB
 // It automatically picks the right language based on current i18n setting
 

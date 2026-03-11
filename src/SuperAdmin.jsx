@@ -933,7 +933,7 @@ export default function SuperAdmin() {
           <div className="sa-loading">Loading items...</div>
         ) : displayItems.length === 0 ? (
           <div className="sa-empty">
-            <div className="sa-empty-icon">✅</div>
+            {/* <div className="sa-empty-icon">✅</div> */}
             <div className="sa-empty-title">All translated!</div>
             <div className="sa-empty-sub">No pending translations here.</div>
           </div>

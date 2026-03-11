@@ -215,7 +215,7 @@
     "displayUnitPlaceholder": "e.g. Litre or Millilitre",
     "conversionFactor": "Conversion Factor",
     "conversionFactorPlaceholder": "e.g. 1000 (1000ml = 1 Litre)",
-    "conversionHelp": "Conversion Factor - Defines how many reduce units exist in one purchase unit.",
+    "conversionHelp": "Conversion Factor - Defines how many reduce units exist in one purchase unit.<br/><br/>Example:<br/>1. A Kilogram has <b>1000</b> Grams.<br/>2. A Packet may have <b>10</b> or <b>20</b> Pieces.",
     "availableUnits": "Available Units",
     "availableUnitsDesc": "You can see the units you have defined in the Add Units form here.",
     "conversion": "Conversion",

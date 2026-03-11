@@ -1,9 +1,4 @@
-/* ══════════════════════════════════════════
-   SuperAdmin — cafe orange/cream theme
-   matching your existing admin dashboard
-══════════════════════════════════════════ */
-
-:root {
+/* :root {
   --sa-orange:      #c0521a;
   --sa-orange-lt:   #e06830;
   --sa-orange-dim:  #7a3310;
@@ -24,18 +19,17 @@
 
 * { box-sizing: border-box; }
 
-/* ── Page wrapper — THIS is what fixes scrolling ── */
+
 .sa-wrap {
   min-height: 100vh;
-  height: auto;           /* never fixed height */
-  overflow-y: auto;       /* allow page to scroll */
+  height: auto;           
+  overflow-y: auto;       
   background: var(--sa-bg);
   color: var(--sa-text);
   font-family: 'Segoe UI', sans-serif;
   padding-bottom: 80px;
 }
 
-/* ── Header ── */
 .sa-header {
   display: flex;
   align-items: center;
@@ -81,7 +75,6 @@
   align-items: center;
 }
 
-/* ── Buttons ── */
 .sa-btn {
   padding: 8px 16px;
   border-radius: 8px;
@@ -135,7 +128,6 @@
   background: var(--sa-cream-dk);
 }
 
-/* ── Migration notice ── */
 .sa-migrate-notice {
   background: var(--sa-warn-bg);
   border-left: 4px solid var(--sa-warn-border);
@@ -144,7 +136,7 @@
   color: #6b4c00;
 }
 
-/* ── Stats row ── */
+
 .sa-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -183,7 +175,7 @@
   font-weight: 500;
 }
 
-/* ── Tabs ── */
+
 .sa-tabs {
   display: flex;
   gap: 4px;
@@ -217,7 +209,7 @@
   border-bottom-color: var(--sa-orange);
 }
 
-/* ── Content area ── */
+
 .sa-content {
   padding: 24px 32px;
 }
@@ -250,14 +242,14 @@
   margin-top: 6px;
 }
 
-/* ── Table ── */
+
 .sa-table-wrap {
   background: var(--sa-white);
   border: 1px solid var(--sa-border);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  overflow-x: auto;         /* horizontal scroll on mobile */
+  overflow: auto;        
 }
 
 .sa-table-head,
@@ -267,7 +259,7 @@
   gap: 12px;
   align-items: center;
   padding: 12px 20px;
-  min-width: 680px;         /* prevents column squish */
+  min-width: 680px;       
 }
 
 .sa-table-head {
@@ -293,7 +285,6 @@
   background: #fffaf7;
 }
 
-/* ── Type badges ── */
 .sa-badge {
   display: inline-block;
   padding: 3px 9px;
@@ -306,7 +297,6 @@
 .sa-badge-category { background: #f0e8ff; color: #6040c0; }
 .sa-badge-grocery  { background: var(--sa-green-bg); color: var(--sa-green); }
 
-/* ── Name cells ── */
 .sa-cell {
   padding: 6px 8px;
   border-radius: 6px;
@@ -349,7 +339,6 @@
   font-style: italic;
 }
 
-/* ── Edit cell ── */
 .sa-edit-row {
   display: flex;
   gap: 4px;
@@ -381,7 +370,6 @@
 .sa-save-btn   { background: var(--sa-green-bg); color: var(--sa-green); }
 .sa-cancel-btn { background: var(--sa-red-bg); color: var(--sa-red); }
 
-/* ── Toast ── */
 .sa-toast {
   position: fixed;
   bottom: 24px;
@@ -415,7 +403,6 @@
   font-size: 13px;
 }
 
-/* ── Responsive ── */
 @media (max-width: 900px) {
   .sa-stats { grid-template-columns: repeat(2, 1fr); }
   .sa-content, .sa-stats, .sa-header { padding-left: 16px; padding-right: 16px; }
@@ -427,7 +414,6 @@
   .sa-stats  { grid-template-columns: repeat(2, 1fr); padding: 16px; gap: 10px; }
 }
 
-/* ── Progress bar for bulk translate ── */
 .sa-progress-bar-wrap {
   background: var(--sa-cream);
   border-bottom: 1px solid var(--sa-border);
@@ -448,4 +434,353 @@
   color: var(--sa-muted);
   margin-top: 6px;
   font-weight: 600;
+} */
+
+
+* {
+  box-sizing: border-box;
+}
+
+.sa-wrap {
+  min-height: 100vh;
+  background: #faf5f0;
+  color: #2a1a0e;
+  font-family: 'Segoe UI', sans-serif;
+  padding-bottom: 80px;
+}
+
+/* HEADER */
+
+.sa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 32px;
+  background: #c0521a;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(192,82,26,0.25);
+}
+
+.sa-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sa-logo {
+  font-size: 28px;
+}
+
+.sa-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sa-subtitle {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.sa-header-right {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sa-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sa-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sa-btn-primary {
+  background: white;
+  color: #c0521a;
+}
+
+.sa-btn-migrate {
+  background: rgba(255,255,255,0.18);
+  color: white;
+}
+
+.sa-btn-logout {
+  background: rgba(0,0,0,0.2);
+  color: white;
+}
+
+.sa-btn-translate {
+  background: #f5ede4;
+  color: #c0521a;
+  border: 1px solid #e0cfc3;
+  font-size: 12px;
+  padding: 6px 12px;
+}
+
+/* NOTICE */
+
+.sa-migrate-notice {
+  background: #fff8e8;
+  border-left: 4px solid #e8c040;
+  padding: 12px 24px;
+  font-size: 13px;
+}
+
+/* STATS */
+
+.sa-stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 16px;
+  padding: 24px 32px 8px;
+}
+
+.sa-stat-card {
+  background: white;
+  border: 1px solid #e0cfc3;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.sa-stat-highlight {
+  border-color: #c0521a;
+  background: #fff5f0;
+}
+
+.sa-stat-num {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.sa-stat-highlight .sa-stat-num {
+  color: #c0521a;
+}
+
+.sa-stat-label {
+  font-size: 12px;
+  color: #8a6a58;
+}
+
+/* TABS */
+
+.sa-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 16px 32px 0;
+  border-bottom: 2px solid #e0cfc3;
+  background: white;
+}
+
+.sa-tab {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #8a6a58;
+}
+
+.sa-tab.active {
+  color: #c0521a;
+  border-bottom-color: #c0521a;
+}
+
+/* CONTENT */
+
+.sa-content {
+  padding: 24px 32px;
+}
+
+/* TABLE */
+
+.sa-table-wrap {
+  background: white;
+  border: 1px solid #e0cfc3;
+  border-radius: 12px;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 65vh;   /* ⭐ SCROLL FIX */
+}
+
+/* table head */
+
+.sa-table-head,
+.sa-table-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr 1fr 120px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 20px;
+  min-width: 700px;
+}
+
+.sa-table-head {
+  background: #f5ede4;
+  font-size: 11px;
+  font-weight: 700;
+  border-bottom: 1px solid #e0cfc3;
+}
+
+.sa-table-row {
+  border-bottom: 1px solid #f0e8e0;
+}
+
+.sa-table-row:hover {
+  background: #fffaf7;
+}
+
+/* BADGES */
+
+.sa-badge {
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sa-badge-menu {
+  background: #fff0e8;
+  color: #c0521a;
+}
+
+.sa-badge-category {
+  background: #f0e8ff;
+  color: #6040c0;
+}
+
+.sa-badge-grocery {
+  background: #eaf5ee;
+  color: #2d7a4a;
+}
+
+/* CELLS */
+
+.sa-cell {
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sa-cell:hover {
+  background: #f5ede4;
+}
+
+.sa-cell-missing {
+  background: #fdeaea;
+}
+
+.sa-cell-old {
+  background: #fff8e8;
+}
+
+.sa-missing-text {
+  color: #b05050;
+  font-style: italic;
+}
+
+.sa-old-hint {
+  color: #a07020;
+  font-size: 11px;
+}
+
+/* EDIT */
+
+.sa-edit-row {
+  display: flex;
+  gap: 4px;
+}
+
+.sa-edit-input {
+  flex: 1;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 2px solid #c0521a;
+}
+
+.sa-icon-btn {
+  border: none;
+  border-radius: 5px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.sa-save-btn {
+  background: #eaf5ee;
+  color: #2d7a4a;
+}
+
+.sa-cancel-btn {
+  background: #fdeaea;
+  color: #b83030;
+}
+
+/* TOAST */
+
+.sa-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #c0521a;
+  color: white;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 13px;
+  display: flex;
+  gap: 10px;
+}
+
+.sa-toast-error {
+  background: #b83030;
+}
+
+/* PROGRESS */
+
+.sa-progress-bar-wrap {
+  background: #f5ede4;
+  padding: 10px 32px;
+}
+
+.sa-progress-bar {
+  height: 6px;
+  background: #c0521a;
+  border-radius: 3px;
+}
+
+.sa-progress-text {
+  font-size: 12px;
+  color: #8a6a58;
+  margin-top: 6px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .sa-stats {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .sa-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
