@@ -511,9 +511,12 @@ import Sidebar from "./SideBar";
 import "./sidebar.css";
 import "./admin.css";
 import { useSettings } from "../SettingsContext";
-
+import { useLocalizedField } from "../hooks/useLocalizedField";
 export default function Admin() {
   const { t } = useTranslation();
+
+  const localizedField = useLocalizedField();
+
   const [menu, setMenu] = useState([]);
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -614,7 +617,11 @@ const closeHelp = () => {
 
   const editItem = (item) => {
     setEditId(item._id);
-    setFormData({ name: item.name, price: item.price, stock: item.stock, category: item.category, image: item.image });
+    setFormData({ 
+      // name: item.name,
+      name: typeof item.name === "object" ? (item.name.en || localize(item.name)) : item.name,
+       price: item.price, stock: item.stock, category: item.category, image: item.image });
+       
     setRecipe(item.recipe || []);
     setShowForm(true);
   };
@@ -670,7 +677,8 @@ const closeHelp = () => {
   };
 
   const tryDeleteCategory = (cat) => {
-    const hasItems = menu.some(item => item.category === cat.name);
+    const hasItems = menu.some(item => item.category === localize(cat.name) || item.category === cat.name?.en);
+    // menu.some(item => item.category === cat.name);
     setCatToDelete(cat);
     setCatDeleteBlocked(hasItems);
     setOpenCatMenu(null);
@@ -692,7 +700,9 @@ const closeHelp = () => {
   const filteredItems = (activeCategory === "All"
     ? menu
     : menu.filter(item => item.category === activeCategory.name)
-  ).filter(item => !search.trim() || item.name.toLowerCase().includes(search.toLowerCase()));
+  )  .filter(item => !search.trim() || localize(item.name).toLowerCase().includes(search.toLowerCase()));
+
+  // .filter(item => !search.trim() || item.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="admin-page">
@@ -719,7 +729,8 @@ const closeHelp = () => {
                 setSearch(value);
                 if (!value) { setSuggestions([]); setShowSuggestions(false); return; }
                 const matches = menu.filter(item =>
-                  item.name.toLowerCase().includes(value.toLowerCase())
+                   localize(item.name).toLowerCase().includes(value.toLowerCase())
+                  // item.name.toLowerCase().includes(value.toLowerCase())
                 );
                 setSuggestions(matches.slice(0, 6));
                 setShowSuggestions(true);
@@ -736,7 +747,8 @@ const closeHelp = () => {
                 {suggestions.map(item => (
                   <div key={item._id} className="search-dropdown-item"
                     onClick={() => { setSearch(item.name); setShowSuggestions(false); }}>
-                    {item.name}
+                    {localize(cat.name)}
+                    {/* {item.name} */}
                   </div>
                 ))}
               </div>
@@ -826,7 +838,9 @@ const closeHelp = () => {
 
           <div className="action-bar">
             <div className="section-title">
-              {activeCategory === "All" ? t("common.allItems") : activeCategory.name} ({filteredItems.length})
+              {activeCategory === "All" ? t("common.allItems") : localize(activeCategory.name)}
+              {/* activeCategory.name */}
+              ({filteredItems.length})
             </div>
             <button className="btn-primary"
               onClick={() => { setShowForm(true); setEditId(null); setFormData({ name: "", price: "", stock: "", category: "", image: "" }); setRecipe([]); }}>
@@ -849,7 +863,10 @@ const closeHelp = () => {
                   </div>
                   <div className="card-body">
                     <div className="card-info">
-                      <div className="card-name">{item.name}</div>
+                      <div className="card-name">
+                        {/* {item.name} */}
+                        {localize(item.name)}
+                        </div>
                       <div className="card-price">{settings.currency}{item.price}</div>
                       {item.stock === 0 && <span className="card-stock-alert out">{t("common.outOfStock")}</span>}
                       {item.stock > 0 && item.stock < 5 && (
@@ -891,7 +908,8 @@ const closeHelp = () => {
                 <label>{t("menu.category")}</label>
                 <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} required>
                   <option value="">{t("admin.form.selectCategory")}</option>
-                  {categories.map(cat => <option key={cat._id} value={cat.name}>{cat.name}</option>)}
+                  {categories.map(cat => 
+                  <option key={cat._id} value={cat.name}>{localize(cat.name)}</option>)}
                 </select>
               </div>
               <div className="form-field">
@@ -908,7 +926,8 @@ const closeHelp = () => {
                     <select value={r.grocery} onChange={e => updateIngredient(i, "grocery", e.target.value)}>
                       <option value="">{t("common.select")}</option>
                       {groceries.map(g => (
-                        <option key={g._id} value={g._id}>{g.name}</option>
+                        // <option key={g._id} value={g._id}>{g.name}</option>
+                        <option key={g._id} value={g._id}>{localize(g.name)}</option>)
                       ))}
                     </select>
                     <input
@@ -970,7 +989,7 @@ const closeHelp = () => {
           <div className="modal-box">
             <div className="modal-title modal-warn">{t("admin.cannotDelete")}</div>
             <p className="confirm-text">
-              <strong>"{catToDelete.name}"</strong> {t("admin.catHasItems")}
+              <strong>"{localize(catToDelete.name)}"</strong> {t("admin.catHasItems")}
             </p>
             <div className="form-row">
               <button className="btn-cancel btn-cancel-full"
@@ -987,7 +1006,7 @@ const closeHelp = () => {
           <div className="modal-box">
             <div className="modal-title">{t("admin.deleteCategory")}</div>
             <p className="confirm-text">
-              {t("admin.deleteCategoryConfirm")} <strong>"{catToDelete.name}"</strong>?
+              {t("admin.deleteCategoryConfirm")} <strong>"{localize(catToDelete.name)}"</strong>?
               {t("admin.deleteCategorySafe")}
             </p>
             <div className="form-row">

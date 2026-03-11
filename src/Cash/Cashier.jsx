@@ -525,9 +525,13 @@ import { useNavigate } from "react-router-dom";
 import "./index.css";
 import { useSettings } from "../SettingsContext";
 import html2pdf from "html2pdf.js";
+import { useLocalizedField } from "../hooks/useLocalizedField";
 
 function Cashier() {
   const { t } = useTranslation();
+
+  const localize = useLocalizedField();
+
   const navigate = useNavigate();
   const { settings } = useSettings();
 
@@ -636,7 +640,7 @@ function Cashier() {
 
   const filteredMenu = menu.filter(item => {
     const matchCat    = activeCategory === "All" || item.category === activeCategory;
-    const matchSearch = item.name.toLowerCase().includes(search.toLowerCase());
+    const matchSearch =  localize(item.name).toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
   });
 
@@ -691,7 +695,7 @@ function Cashier() {
               {suggestions.map(item => (
                 <div key={item._id} className="search-dropdown-item"
                   onClick={() => { setSearch(item.name); setShowSuggestions(false); }}>
-                  {item.name}
+                   {localize(item.name)}
                 </div>
               ))}
             </div>
@@ -721,7 +725,7 @@ function Cashier() {
               <button key={cat._id}
                 className={`pos-cat-btn${activeCategory === cat.name ? " active" : ""}`}
                 onClick={() => setActiveCategory(cat.name)}>
-                {cat.name}
+                {localize(cat.name)}
               </button>
             ))}
           </div>
@@ -744,7 +748,7 @@ function Cashier() {
                       <img src={item.image || "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"} alt={item.name} />
                     </div>
                     <div className="pos-card-body">
-                      <div className="pos-card-name">{item.name}</div>
+                      <div className="pos-card-name">{ localize(item.name)}</div>
                       <div className="pos-card-bottom">
                         <span className="pos-card-price">{cur}{item.price}</span>
                         {isOut ? (
@@ -781,7 +785,7 @@ function Cashier() {
             {cart.map(item => (
               <div key={item._id} className="pos-cart-row">
                 <div className="pos-cart-info">
-                  <div className="pos-cart-name">{item.name}</div>
+                  <div className="pos-cart-name">{ localize(item.name)}</div>
                   <div className="pos-cart-unit-price">{cur}{item.price} {t("cashier.each")}</div>
                 </div>
                 <div className="pos-qty-controls">
@@ -873,7 +877,7 @@ function Cashier() {
               </div>
               {cart.map(item => (
                 <div key={item._id} className="receipt-row">
-                  <span className="receipt-item-name">{item.name}</span>
+                  <span className="receipt-item-name">{ localize(item.name)}</span>
                   <span className="receipt-item-qty">{item.qty}</span>
                   <span className="receipt-item-total">{cur}{(item.price * item.qty).toFixed(2)}</span>
                 </div>

@@ -730,11 +730,15 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Sidebar from "./SideBar";
+import { useLocalizedField } from "../hooks/useLocalizedField";
+
 import "./sidebar.css";
 import "./stock.css";
 
 function StockPage({ mode }) {
   const { t } = useTranslation();
+
+  const localize = useLocalizedField();
 
   const [groceries, setGroceries]       = useState([]);
   const [searchTerm, setSearchTerm]     = useState("");
@@ -788,7 +792,7 @@ function StockPage({ mode }) {
   }, [successMsg]);
 
   const filteredGroceries = groceries.filter(g =>
-    g.name.toLowerCase().includes(searchTerm.toLowerCase())
+    localize(g.name).toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalItems    = groceries.length;
@@ -954,8 +958,8 @@ function StockPage({ mode }) {
                 <div className="search-dropdown">
                   {suggestions.map(item => (
                     <div key={item._id} className="search-dropdown-item"
-                      onClick={() => { setSearchTerm(item.name); setShowSuggestions(false); }}>
-                      {item.name}
+                      onClick={() => { setSearchTerm(localize(item.name)); setShowSuggestions(false); }}>
+                       {localize(item.name)}
                     </div>
                   ))}
                 </div>
@@ -1205,7 +1209,7 @@ function StockPage({ mode }) {
                         )}
 
                         <span className="stock-row-num">{i + 1}</span>
-                        <span className="stock-row-name">{g.name}</span>
+                        <span className="stock-row-name"> {localize(g.name)}</span>
                         <span className="stock-row-unit">{g.purchaseUnit}</span>
 
                         <span className="stock-qty-cell">
