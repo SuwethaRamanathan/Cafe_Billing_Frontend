@@ -7,6 +7,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import StockPage from "./AdminPages/StockPage";
 import SettingsPage from "./AdminPages/SettingsPage";
 import { SettingsProvider } from "./SettingsContext";
+import SuperAdmin from "./AdminPages/Superadmin";
 
 export default function App() {
   return (
@@ -22,6 +23,11 @@ export default function App() {
     </ProtectedRoute>
   }
 />
+
+    <Route path="/superadmin" element={
+      <ProtectedRoute role="superadmin">
+      <SuperAdmin /> </ProtectedRoute>
+      } />
 
     <Route path="/cashier" element={ 
         <ProtectedRoute role="cashier">
