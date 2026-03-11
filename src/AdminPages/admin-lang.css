@@ -1,0 +1,46 @@
+/* ── Language name inputs in add/edit form ── */
+.lang-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lang-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-tag {
+  display: inline-block;
+  min-width: 32px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: #f0e8e0;
+  color: #c0521a;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.lang-input-row input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+}
+
+.lang-input-row input:focus {
+  border-color: #c0521a;
+  box-shadow: 0 0 0 2px rgba(192,82,26,0.1);
+}
+
+.lang-input-hint {
+  font-size: 11px;
+  color: #999;
+  padding-left: 40px;
+  font-style: italic;
+}
