@@ -1,41 +1,342 @@
+// import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import "./superadmin.css";
+
+// // ── Label map for display ──
+// const TYPE_LABEL = { menu: "Menu Item", category: "Category", grocery: "Stock Item" };
+// const LANG_LABEL = { en: "English", ta: "Tamil", hi: "Hindi" };
+
+// export default function SuperAdmin() {
+//   const navigate = useNavigate();
+//   const token    = localStorage.getItem("token");
+
+//   const [data, setData]           = useState({ menu: [], categories: [], groceries: [] });
+//   const [loading, setLoading]     = useState(true);
+//   const [translating, setTranslating] = useState({}); // { id: true/false }
+//   const [bulkLoading, setBulkLoading] = useState(false);
+//   const [migrating, setMigrating]   = useState(false);
+//   const [toast, setToast]           = useState("");
+//   const [editCell, setEditCell]     = useState(null); // { id, type, lang }
+//   const [editValue, setEditValue]   = useState("");
+//   const [activeTab, setActiveTab]   = useState("all"); // "all" | "menu" | "category" | "grocery"
+
+//   const showToast = (msg) => {
+//     setToast(msg);
+//     setTimeout(() => setToast(""), 3000);
+//   };
+
+//   // ── Fetch all untranslated items ──
+//   const fetchUntranslated = async () => {
+//     setLoading(true);
+//     try {
+//       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/untranslated`, {
+//         headers: { Authorization: `Bearer ${token}` }
+//       });
+//       const json = await res.json();
+//       setData(json);
+//     } catch {
+//       showToast("Failed to load items");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => { fetchUntranslated(); }, []);
+
+//   // ── Translate one item ──
+//   const translateOne = async (id, type) => {
+//     setTranslating(prev => ({ ...prev, [id]: true }));
+//     try {
+//       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/translate-one`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+//         body: JSON.stringify({ id, type })
+//       });
+//       const json = await res.json();
+//       if (json.success) {
+//         showToast("Translated successfully!");
+//         fetchUntranslated();
+//       } else {
+//         showToast("Translation failed");
+//       }
+//     } catch {
+//       showToast("Translation failed");
+//     } finally {
+//       setTranslating(prev => ({ ...prev, [id]: false }));
+//     }
+//   };
+
+//   // ── Translate all ──
+//   const translateAll = async (type = "all") => {
+//     setBulkLoading(true);
+//     try {
+//       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/translate-all`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+//         body: JSON.stringify({ type })
+//       });
+//       const json = await res.json();
+//       if (json.success) {
+//         const r = json.results;
+//         showToast(`Done! Menu: ${r.menu}, Categories: ${r.categories}, Stock: ${r.groceries}${r.errors ? `, Errors: ${r.errors}` : ""}`);
+//         fetchUntranslated();
+//       }
+//     } catch {
+//       showToast("Bulk translation failed");
+//     } finally {
+//       setBulkLoading(false);
+//     }
+//   };
+
+//   // ── Run migration (one-time) ──
+//   const runMigration = async () => {
+//     if (!window.confirm("This will convert all old string names to multilingual format. Run once only. Continue?")) return;
+//     setMigrating(true);
+//     try {
+//       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/migrate`, {
+//         method: "POST",
+//         headers: { Authorization: `Bearer ${token}` }
+//       });
+//       const json = await res.json();
+//       showToast(json.msg || "Migration done");
+//       fetchUntranslated();
+//     } catch {
+//       showToast("Migration failed");
+//     } finally {
+//       setMigrating(false);
+//     }
+//   };
+
+//   // ── Save manual edit ──
+//   const saveManualEdit = async () => {
+//     if (!editCell) return;
+//     try {
+//       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/manual-translate`, {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+//         body: JSON.stringify({ id: editCell.id, type: editCell.type, lang: editCell.lang, value: editValue })
+//       });
+//       const json = await res.json();
+//       if (json.success) {
+//         showToast("Saved!");
+//         setEditCell(null);
+//         fetchUntranslated();
+//       }
+//     } catch {
+//       showToast("Save failed");
+//     }
+//   };
+
+//   // ── Build flat list based on active tab ──
+//   const allItems = [
+//     ...data.menu.map(i => ({ ...i, type: "menu" })),
+//     ...data.categories.map(i => ({ ...i, type: "category" })),
+//     ...data.groceries.map(i => ({ ...i, type: "grocery" })),
+//   ];
+
+//   const displayItems = activeTab === "all" ? allItems
+//     : activeTab === "menu"     ? data.menu.map(i => ({ ...i, type: "menu" }))
+//     : activeTab === "category" ? data.categories.map(i => ({ ...i, type: "category" }))
+//     : data.groceries.map(i => ({ ...i, type: "grocery" }));
+
+//   const totalUntranslated = allItems.length;
+
+//   return (
+//     <div className="sa-wrap">
+
+//       {/* ── Header ── */}
+//       <div className="sa-header">
+//         <div className="sa-header-left">
+//           <div className="sa-title">🌐 Translation Dashboard</div>
+//           <div className="sa-subtitle">Super Admin — Manage multilingual content</div>
+//         </div>
+//         <div className="sa-header-right">
+//           <button className="sa-btn sa-btn-warn" onClick={runMigration} disabled={migrating}>
+//             {migrating ? "Migrating..." : "⚙ Run Migration"}
+//           </button>
+//           <button
+//             className="sa-btn sa-btn-primary"
+//             onClick={() => translateAll("all")}
+//             disabled={bulkLoading || totalUntranslated === 0}
+//           >
+//             {bulkLoading ? "Translating..." : `⚡ Translate All (${totalUntranslated})`}
+//           </button>
+//           <button className="sa-btn sa-btn-ghost" onClick={() => {
+//             localStorage.clear();
+//             navigate("/");
+//           }}>Logout</button>
+//         </div>
+//       </div>
+
+//       {/* ── Stats row ── */}
+//       <div className="sa-stats">
+//         <div className="sa-stat-card">
+//           <div className="sa-stat-num">{data.menu.length}</div>
+//           <div className="sa-stat-label">Menu Items</div>
+//         </div>
+//         <div className="sa-stat-card">
+//           <div className="sa-stat-num">{data.categories.length}</div>
+//           <div className="sa-stat-label">Categories</div>
+//         </div>
+//         <div className="sa-stat-card">
+//           <div className="sa-stat-num">{data.groceries.length}</div>
+//           <div className="sa-stat-label">Stock Items</div>
+//         </div>
+//         <div className="sa-stat-card sa-stat-total">
+//           <div className="sa-stat-num">{totalUntranslated}</div>
+//           <div className="sa-stat-label">Total Pending</div>
+//         </div>
+//       </div>
+
+//       {/* ── Tabs ── */}
+//       <div className="sa-tabs">
+//         {[
+//           { key: "all",      label: `All (${allItems.length})` },
+//           { key: "menu",     label: `Menu (${data.menu.length})` },
+//           { key: "category", label: `Categories (${data.categories.length})` },
+//           { key: "grocery",  label: `Stock (${data.groceries.length})` },
+//         ].map(tab => (
+//           <button
+//             key={tab.key}
+//             className={`sa-tab ${activeTab === tab.key ? "active" : ""}`}
+//             onClick={() => setActiveTab(tab.key)}
+//           >
+//             {tab.label}
+//           </button>
+//         ))}
+//       </div>
+
+//       {/* ── Main table ── */}
+//       <div className="sa-content">
+//         {loading ? (
+//           <div className="sa-loading">Loading untranslated items...</div>
+//         ) : displayItems.length === 0 ? (
+//           <div className="sa-empty">
+//             <div className="sa-empty-icon">✅</div>
+//             <div className="sa-empty-title">All translated!</div>
+//             <div className="sa-empty-sub">No pending translations in this section.</div>
+//           </div>
+//         ) : (
+//           <div className="sa-table-wrap">
+//             <div className="sa-table-head">
+//               <span>Type</span>
+//               <span>English</span>
+//               <span>Tamil</span>
+//               <span>Hindi</span>
+//               <span>Action</span>
+//             </div>
+
+//             {displayItems.map(item => (
+//               <div key={item._id} className="sa-table-row">
+
+//                 {/* Type badge */}
+//                 <span>
+//                   <span className={`sa-type-badge sa-type-${item.type}`}>
+//                     {TYPE_LABEL[item.type]}
+//                   </span>
+//                 </span>
+
+//                 {/* EN / TA / HI cells */}
+//                 {["en", "ta", "hi"].map(lang => (
+//                   <span key={lang}>
+//                     {editCell?.id === item._id && editCell?.lang === lang ? (
+//                       <div className="sa-edit-cell">
+//                         <input
+//                           autoFocus
+//                           value={editValue}
+//                           onChange={e => setEditValue(e.target.value)}
+//                           onKeyDown={e => e.key === "Enter" && saveManualEdit()}
+//                           className="sa-edit-input"
+//                         />
+//                         <button className="sa-edit-save" onClick={saveManualEdit}>✓</button>
+//                         <button className="sa-edit-cancel" onClick={() => setEditCell(null)}>✕</button>
+//                       </div>
+//                     ) : (
+//                       <div
+//                         className={`sa-name-cell ${!item.name?.[lang] ? "sa-missing" : ""}`}
+//                         onClick={() => {
+//                           setEditCell({ id: item._id, type: item.type, lang });
+//                           setEditValue(item.name?.[lang] || "");
+//                         }}
+//                         title="Click to edit manually"
+//                       >
+//                         {item.name?.[lang] || <span className="sa-missing-text">— missing —</span>}
+//                       </div>
+//                     )}
+//                   </span>
+//                 ))}
+
+//                 {/* Translate button */}
+//                 <span>
+//                   <button
+//                     className="sa-btn sa-btn-translate"
+//                     onClick={() => translateOne(item._id, item.type)}
+//                     disabled={translating[item._id]}
+//                   >
+//                     {translating[item._id] ? "..." : "🌐 Translate"}
+//                   </button>
+//                 </span>
+
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+
+//       {/* ── Toast ── */}
+//       {toast && (
+//         <div className="sa-toast">
+//           {toast}
+//           <button onClick={() => setToast("")}>✕</button>
+//         </div>
+//       )}
+
+//     </div>
+//   );
+// }
+
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./superadmin.css";
 
-// ── Label map for display ──
 const TYPE_LABEL = { menu: "Menu Item", category: "Category", grocery: "Stock Item" };
-const LANG_LABEL = { en: "English", ta: "Tamil", hi: "Hindi" };
 
 export default function SuperAdmin() {
   const navigate = useNavigate();
   const token    = localStorage.getItem("token");
 
-  const [data, setData]           = useState({ menu: [], categories: [], groceries: [] });
-  const [loading, setLoading]     = useState(true);
-  const [translating, setTranslating] = useState({}); // { id: true/false }
+  const [data, setData]             = useState({ menu: [], categories: [], groceries: [] });
+  const [loading, setLoading]       = useState(true);
+  const [translating, setTranslating] = useState({});
   const [bulkLoading, setBulkLoading] = useState(false);
   const [migrating, setMigrating]   = useState(false);
-  const [toast, setToast]           = useState("");
-  const [editCell, setEditCell]     = useState(null); // { id, type, lang }
+  const [toast, setToast]           = useState({ msg: "", type: "success" });
+  const [editCell, setEditCell]     = useState(null);
   const [editValue, setEditValue]   = useState("");
-  const [activeTab, setActiveTab]   = useState("all"); // "all" | "menu" | "category" | "grocery"
+  const [activeTab, setActiveTab]   = useState("all");
 
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(""), 3000);
+  const showToast = (msg, type = "success") => {
+    setToast({ msg, type });
+    setTimeout(() => setToast({ msg: "", type: "success" }), 4000);
   };
 
-  // ── Fetch all untranslated items ──
+  const getName = (nameField, lang = "en") => {
+    if (!nameField) return "";
+    if (typeof nameField === "string") return nameField;
+    return nameField[lang] || "";
+  };
+
   const fetchUntranslated = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/untranslated`, {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/untranslated`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const json = await res.json();
       setData(json);
     } catch {
-      showToast("Failed to load items");
+      showToast("Failed to load items", "error");
     } finally {
       setLoading(false);
     }
@@ -43,34 +344,28 @@ export default function SuperAdmin() {
 
   useEffect(() => { fetchUntranslated(); }, []);
 
-  // ── Translate one item ──
   const translateOne = async (id, type) => {
     setTranslating(prev => ({ ...prev, [id]: true }));
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/translate-one`, {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/translate-one`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ id, type })
       });
       const json = await res.json();
-      if (json.success) {
-        showToast("Translated successfully!");
-        fetchUntranslated();
-      } else {
-        showToast("Translation failed");
-      }
+      if (json.success) { showToast("Translated successfully!"); fetchUntranslated(); }
+      else showToast(json.msg || "Translation failed", "error");
     } catch {
-      showToast("Translation failed");
+      showToast("Translation failed", "error");
     } finally {
       setTranslating(prev => ({ ...prev, [id]: false }));
     }
   };
 
-  // ── Translate all ──
   const translateAll = async (type = "all") => {
     setBulkLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/translate-all`, {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/translate-all`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ type })
@@ -82,134 +377,129 @@ export default function SuperAdmin() {
         fetchUntranslated();
       }
     } catch {
-      showToast("Bulk translation failed");
+      showToast("Bulk translation failed", "error");
     } finally {
       setBulkLoading(false);
     }
   };
 
-  // ── Run migration (one-time) ──
   const runMigration = async () => {
-    if (!window.confirm("This will convert all old string names to multilingual format. Run once only. Continue?")) return;
+    if (!window.confirm("This converts all old item names to multilingual format. Run once only. Continue?")) return;
     setMigrating(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/migrate`, {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/migrate`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
       const json = await res.json();
-      showToast(json.msg || "Migration done");
+      showToast(json.msg || "Migration done!");
       fetchUntranslated();
     } catch {
-      showToast("Migration failed");
+      showToast("Migration failed", "error");
     } finally {
       setMigrating(false);
     }
   };
 
-  // ── Save manual edit ──
   const saveManualEdit = async () => {
     if (!editCell) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/manual-translate`, {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/manual-translate`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ id: editCell.id, type: editCell.type, lang: editCell.lang, value: editValue })
       });
       const json = await res.json();
-      if (json.success) {
-        showToast("Saved!");
-        setEditCell(null);
-        fetchUntranslated();
-      }
+      if (json.success) { showToast("Saved!"); setEditCell(null); fetchUntranslated(); }
     } catch {
-      showToast("Save failed");
+      showToast("Save failed", "error");
     }
   };
 
-  // ── Build flat list based on active tab ──
   const allItems = [
     ...data.menu.map(i => ({ ...i, type: "menu" })),
-    ...data.categories.map(i => ({ ...i, type: "category" })),
+    ...(data.categories || []).map(i => ({ ...i, type: "category" })),
     ...data.groceries.map(i => ({ ...i, type: "grocery" })),
   ];
 
-  const displayItems = activeTab === "all" ? allItems
-    : activeTab === "menu"     ? data.menu.map(i => ({ ...i, type: "menu" }))
-    : activeTab === "category" ? data.categories.map(i => ({ ...i, type: "category" }))
-    : data.groceries.map(i => ({ ...i, type: "grocery" }));
+  const displayItems =
+    activeTab === "all"      ? allItems :
+    activeTab === "menu"     ? data.menu.map(i => ({ ...i, type: "menu" })) :
+    activeTab === "category" ? (data.categories || []).map(i => ({ ...i, type: "category" })) :
+    data.groceries.map(i => ({ ...i, type: "grocery" }));
 
-  const totalUntranslated = allItems.length;
+  const total = allItems.length;
+  const hasOldFormat = allItems.some(i => typeof i.name === "string");
 
   return (
     <div className="sa-wrap">
 
-      {/* ── Header ── */}
       <div className="sa-header">
         <div className="sa-header-left">
-          <div className="sa-title">🌐 Translation Dashboard</div>
-          <div className="sa-subtitle">Super Admin — Manage multilingual content</div>
+          <div className="sa-logo">🌐</div>
+          <div>
+            <div className="sa-title">Translation Dashboard</div>
+            <div className="sa-subtitle">Super Admin · Multilingual Content</div>
+          </div>
         </div>
         <div className="sa-header-right">
-          <button className="sa-btn sa-btn-warn" onClick={runMigration} disabled={migrating}>
-            {migrating ? "Migrating..." : "⚙ Run Migration"}
+          <button className="sa-btn sa-btn-migrate" onClick={runMigration} disabled={migrating}>
+            {migrating ? "⏳ Migrating..." : "⚙ Run Migration"}
           </button>
-          <button
-            className="sa-btn sa-btn-primary"
-            onClick={() => translateAll("all")}
-            disabled={bulkLoading || totalUntranslated === 0}
-          >
-            {bulkLoading ? "Translating..." : `⚡ Translate All (${totalUntranslated})`}
+          <button className="sa-btn sa-btn-primary" onClick={() => translateAll("all")}
+            disabled={bulkLoading || total === 0 || hasOldFormat}>
+            {bulkLoading ? "⏳ Translating..." : `⚡ Translate All (${total})`}
           </button>
-          <button className="sa-btn sa-btn-ghost" onClick={() => {
-            localStorage.clear();
-            navigate("/");
-          }}>Logout</button>
+          <button className="sa-btn sa-btn-logout"
+            onClick={() => { localStorage.clear(); navigate("/"); }}>
+            → Logout
+          </button>
         </div>
       </div>
 
-      {/* ── Stats row ── */}
+      {hasOldFormat && (
+        <div className="sa-migrate-notice">
+          ⚠ Your items are in old format (plain text). Click <strong>⚙ Run Migration</strong> first — this converts them to multilingual format. Then you can translate.
+        </div>
+      )}
+
       <div className="sa-stats">
         <div className="sa-stat-card">
           <div className="sa-stat-num">{data.menu.length}</div>
           <div className="sa-stat-label">Menu Items</div>
         </div>
         <div className="sa-stat-card">
-          <div className="sa-stat-num">{data.categories.length}</div>
+          <div className="sa-stat-num">{(data.categories || []).length}</div>
           <div className="sa-stat-label">Categories</div>
         </div>
         <div className="sa-stat-card">
           <div className="sa-stat-num">{data.groceries.length}</div>
           <div className="sa-stat-label">Stock Items</div>
         </div>
-        <div className="sa-stat-card sa-stat-total">
-          <div className="sa-stat-num">{totalUntranslated}</div>
+        <div className="sa-stat-card sa-stat-highlight">
+          <div className="sa-stat-num">{total}</div>
           <div className="sa-stat-label">Total Pending</div>
         </div>
       </div>
 
-      {/* ── Tabs ── */}
       <div className="sa-tabs">
         {[
           { key: "all",      label: `All (${allItems.length})` },
           { key: "menu",     label: `Menu (${data.menu.length})` },
-          { key: "category", label: `Categories (${data.categories.length})` },
+          { key: "category", label: `Categories (${(data.categories || []).length})` },
           { key: "grocery",  label: `Stock (${data.groceries.length})` },
         ].map(tab => (
-          <button
-            key={tab.key}
+          <button key={tab.key}
             className={`sa-tab ${activeTab === tab.key ? "active" : ""}`}
-            onClick={() => setActiveTab(tab.key)}
-          >
+            onClick={() => setActiveTab(tab.key)}>
             {tab.label}
           </button>
         ))}
       </div>
 
-      {/* ── Main table ── */}
       <div className="sa-content">
         {loading ? (
-          <div className="sa-loading">Loading untranslated items...</div>
+          <div className="sa-loading">Loading items...</div>
         ) : displayItems.length === 0 ? (
           <div className="sa-empty">
             <div className="sa-empty-icon">✅</div>
@@ -226,71 +516,74 @@ export default function SuperAdmin() {
               <span>Action</span>
             </div>
 
-            {displayItems.map(item => (
-              <div key={item._id} className="sa-table-row">
-
-                {/* Type badge */}
-                <span>
-                  <span className={`sa-type-badge sa-type-${item.type}`}>
-                    {TYPE_LABEL[item.type]}
+            {displayItems.map(item => {
+              const isOldFormat = typeof item.name === "string";
+              return (
+                <div key={item._id} className="sa-table-row">
+                  <span>
+                    <span className={`sa-badge sa-badge-${item.type}`}>
+                      {TYPE_LABEL[item.type]}
+                    </span>
                   </span>
-                </span>
 
-                {/* EN / TA / HI cells */}
-                {["en", "ta", "hi"].map(lang => (
-                  <span key={lang}>
-                    {editCell?.id === item._id && editCell?.lang === lang ? (
-                      <div className="sa-edit-cell">
-                        <input
-                          autoFocus
-                          value={editValue}
-                          onChange={e => setEditValue(e.target.value)}
-                          onKeyDown={e => e.key === "Enter" && saveManualEdit()}
-                          className="sa-edit-input"
-                        />
-                        <button className="sa-edit-save" onClick={saveManualEdit}>✓</button>
-                        <button className="sa-edit-cancel" onClick={() => setEditCell(null)}>✕</button>
-                      </div>
-                    ) : (
-                      <div
-                        className={`sa-name-cell ${!item.name?.[lang] ? "sa-missing" : ""}`}
-                        onClick={() => {
-                          setEditCell({ id: item._id, type: item.type, lang });
-                          setEditValue(item.name?.[lang] || "");
-                        }}
-                        title="Click to edit manually"
-                      >
-                        {item.name?.[lang] || <span className="sa-missing-text">— missing —</span>}
-                      </div>
-                    )}
+                  {["en", "ta", "hi"].map(lang => {
+                    const value = getName(item.name, lang);
+                    const isEmpty = !isOldFormat && !value;
+                    return (
+                      <span key={lang}>
+                        {editCell?.id === item._id && editCell?.lang === lang ? (
+                          <div className="sa-edit-row">
+                            <input autoFocus value={editValue} className="sa-edit-input"
+                              onChange={e => setEditValue(e.target.value)}
+                              onKeyDown={e => e.key === "Enter" && saveManualEdit()} />
+                            <button className="sa-icon-btn sa-save-btn" onClick={saveManualEdit}>✓</button>
+                            <button className="sa-icon-btn sa-cancel-btn" onClick={() => setEditCell(null)}>✕</button>
+                          </div>
+                        ) : (
+                          <div
+                            className={`sa-cell ${isEmpty ? "sa-cell-missing" : ""} ${isOldFormat ? "sa-cell-old" : ""}`}
+                            onClick={() => {
+                              if (isOldFormat) return;
+                              setEditCell({ id: item._id, type: item.type, lang });
+                              setEditValue(value);
+                            }}
+                            title={isOldFormat ? "Run migration first" : "Click to edit manually"}
+                          >
+                            {isOldFormat && lang === "en"
+                              ? <span>{item.name}</span>
+                              : isOldFormat
+                              ? <span className="sa-old-hint">migrate first</span>
+                              : isEmpty
+                              ? <span className="sa-missing-text">— missing —</span>
+                              : value
+                            }
+                          </div>
+                        )}
+                      </span>
+                    );
+                  })}
+
+                  <span>
+                    <button className="sa-btn sa-btn-translate"
+                      onClick={() => translateOne(item._id, item.type)}
+                      disabled={translating[item._id] || isOldFormat}
+                      title={isOldFormat ? "Run migration first" : "Auto translate"}>
+                      {translating[item._id] ? "..." : "🌐 Translate"}
+                    </button>
                   </span>
-                ))}
-
-                {/* Translate button */}
-                <span>
-                  <button
-                    className="sa-btn sa-btn-translate"
-                    onClick={() => translateOne(item._id, item.type)}
-                    disabled={translating[item._id]}
-                  >
-                    {translating[item._id] ? "..." : "🌐 Translate"}
-                  </button>
-                </span>
-
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
 
-      {/* ── Toast ── */}
-      {toast && (
-        <div className="sa-toast">
-          {toast}
-          <button onClick={() => setToast("")}>✕</button>
+      {toast.msg && (
+        <div className={`sa-toast ${toast.type === "error" ? "sa-toast-error" : ""}`}>
+          <span>{toast.msg}</span>
+          <button onClick={() => setToast({ msg: "" })}>✕</button>
         </div>
       )}
-
     </div>
   );
 }
