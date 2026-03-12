@@ -673,19 +673,45 @@ function SalesPage() {
                   <div className="chart-empty-text">{t("sales.noSalesDesc")}</div>
                 </div>
               ) : (
+                // <ResponsiveContainer width="100%" height={300}>
+                //   <PieChart>
+                //     <Pie data={topItemsData} dataKey="value" nameKey="name"
+                //       cx="50%" cy="50%" outerRadius={110}
+                //       label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                //       {topItemsData.map((entry, index) => (
+                //         <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                //       ))}
+                //     </Pie>
+                //     <Tooltip cursor={false} />
+                //     <Legend verticalAlign="bottom" />
+                //   </PieChart>
+                // </ResponsiveContainer>
+
                 <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie data={topItemsData} dataKey="value" nameKey="name"
-                      cx="50%" cy="50%" outerRadius={110}
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-                      {topItemsData.map((entry, index) => (
-                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip cursor={false} />
-                    <Legend verticalAlign="bottom" />
-                  </PieChart>
-                </ResponsiveContainer>
+  <PieChart>
+    <Pie
+      data={topItemsData}
+      dataKey="value"
+      nameKey="name"
+      cx="50%"
+      cy="50%"
+      outerRadius={110}
+      label={({ payload, percent }) =>
+        `${payload.name} ${(percent * 100).toFixed(0)}%`
+      }
+    >
+      {topItemsData.map((entry, index) => (
+        <Cell key={index} fill={COLORS[index % COLORS.length]} />
+      ))}
+    </Pie>
+
+    <Tooltip
+      formatter={(value, name, props) => [value, props.payload.name]}
+    />
+
+    <Legend verticalAlign="bottom" />
+  </PieChart>
+</ResponsiveContainer>
               )}
             </div>
 
