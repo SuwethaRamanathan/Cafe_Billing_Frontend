@@ -1512,28 +1512,32 @@
   min-width: 580px;
 }
 
-/* No type col, no checkbox */
-.sa-table-head:not(.with-type):not(.with-check),
-.sa-table-row:not(.with-type):not(.with-check) {
+/* Default: 3 equal columns (EN, TA, HI) */
+.sa-table-head,
+.sa-table-row {
   grid-template-columns: 1fr 1fr 1fr;
+  min-width: 500px;
 }
 
-/* No type col, with checkbox */
-.sa-table-head:not(.with-type).with-check,
-.sa-table-row:not(.with-type).with-check {
+/* Add checkbox column on the left */
+.sa-table-head.with-check,
+.sa-table-row.with-check {
   grid-template-columns: 40px 1fr 1fr 1fr;
+  min-width: 540px;
 }
 
-/* With type col, no checkbox */
-.sa-table-head.with-type:not(.with-check),
-.sa-table-row.with-type:not(.with-check) {
+/* Add type column */
+.sa-table-head.with-type,
+.sa-table-row.with-type {
   grid-template-columns: 110px 1fr 1fr 1fr;
+  min-width: 580px;
 }
 
-/* With type col + checkbox */
+/* Both checkbox and type column */
 .sa-table-head.with-type.with-check,
 .sa-table-row.with-type.with-check {
   grid-template-columns: 40px 110px 1fr 1fr 1fr;
+  min-width: 620px;
 }
 
 .sa-table-head {
