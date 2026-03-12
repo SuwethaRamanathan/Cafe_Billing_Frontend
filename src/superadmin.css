@@ -764,9 +764,6 @@
 
 .sa-modal-actions { display: flex; gap: 11px; margin-top: 24px; flex-wrap: wrap; }
 
-/* ─────────────────────────────────────────────────────────
-   TOAST
-───────────────────────────────────────────────────────── */
 .sa-toast {
   position: fixed;
   bottom: 26px;
@@ -798,9 +795,6 @@
 }
 .sa-toast button:hover { background: rgba(255,255,255,0.25); }
 
-/* ─────────────────────────────────────────────────────────
-   RESPONSIVE
-───────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .tp-stats      { grid-template-columns: repeat(2, 1fr); }
   .tp-wrap, .up-wrap { padding: 18px; }

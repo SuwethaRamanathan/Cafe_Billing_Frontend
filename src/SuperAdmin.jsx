@@ -214,18 +214,18 @@ function TranslationPage({ token }) {
     load();
   };
 
-  const runMigrate = async () => {
-    if (!window.confirm("Convert old string names to {en, ta, hi} format. Continue?")) return;
-    setMigrating(true);
-    try {
-      const json = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/migrate`, {
-        method: "POST", headers: { Authorization: `Bearer ${token}` }
-      }).then(r => r.json());
-      flash(json.msg || "Migration done!");
-      load();
-    } catch { flash("Migration failed", "err"); }
-    finally { setMigrating(false); }
-  };
+  // const runMigrate = async () => {
+  //   if (!window.confirm("Convert old string names to {en, ta, hi} format. Continue?")) return;
+  //   setMigrating(true);
+  //   try {
+  //     const json = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/migrate`, {
+  //       method: "POST", headers: { Authorization: `Bearer ${token}` }
+  //     }).then(r => r.json());
+  //     flash(json.msg || "Migration done!");
+  //     load();
+  //   } catch { flash("Migration failed", "err"); }
+  //   finally { setMigrating(false); }
+  // };
 
   const saveEdit = async () => {
     if (!editCell) return;
@@ -239,7 +239,7 @@ function TranslationPage({ token }) {
     } catch { flash("Save failed", "err"); }
   };
 
-  const hasOld      = displayItems.some(i => typeof i.name === "string");
+  // const hasOld      = displayItems.some(i => typeof i.name === "string");
   const showType    = tab === "all";
   const allSel      = displayItems.length > 0 && displayItems.every(i => selected.has(String(i._id)));
   const selCount    = displayItems.filter(i => selected.has(String(i._id))).length;
@@ -269,20 +269,20 @@ function TranslationPage({ token }) {
         ))}
       </div>
 
-      <div className="tp-migrate-row">
+      {/* <div className="tp-migrate-row">
         <button className="tp-btn tp-btn-ghost tp-btn-sm" onClick={() => setShowMig(v => !v)}>
           <IcoTool /> {showMig ? "Hide Migration" : "Migration Tools"}
         </button>
-      </div>
-      {showMig && (
+      </div> */}
+      {/* {showMig && (
         <div className="tp-migrate-panel">
           <p>Converts old <code>"Milk"</code> → <code>{`{en:"Milk", ta:"", hi:""}`}</code>. Run once for items added before multilingual support.</p>
           <button className="tp-btn tp-btn-primary" onClick={runMigrate} disabled={migrating}>
             {migrating ? "⏳ Migrating..." : "⚙ Run Migration Now"}
           </button>
         </div>
-      )}
-      {hasOld && <div className="tp-notice">⚠ Old-format items found (highlighted). Run Migration Tools first.</div>}
+      )} */}
+      {/* {hasOld && <div className="tp-notice">⚠ Old-format items found (highlighted). Run Migration Tools first.</div>} */}
 
       {bulkLoad && (
         <div className="tp-progress-wrap">
