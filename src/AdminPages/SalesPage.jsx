@@ -412,7 +412,7 @@ import "./sidebar.css";
 import "./sales.css";
 
 function SalesPage() {
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
   const pdfContentRef = useRef();
   const { settings } = useSettings();
   const [orders, setOrders] = useState([]);
@@ -477,20 +477,43 @@ function SalesPage() {
     return `${start.toLocaleDateString("en-GB")} → ${today.toLocaleDateString("en-GB")}`;
   };
 
+  // const getTopItemsData = () => {
+  //   const itemMap = {};
+  //   filtered.forEach(o => {
+  //     o.items.forEach(item => {
+  //       itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
+  //     });
+  //   });
+  //   return Object.keys(itemMap)
+  //     .map(name => ({ name, value: itemMap[name] }))
+  //     .sort((a, b) => b.value - a.value)
+  //     .slice(0, 5);
+  // };
+
   const getTopItemsData = () => {
-    const itemMap = {};
-    filtered.forEach(o => {
-      o.items.forEach(item => {
-        itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
-      });
+  const itemMap = {};
+
+  filtered.forEach(order => {
+    order.items.forEach(item => {
+
+      // handle multilingual name
+      const itemName =
+        typeof item.name === "object"
+          ? item.name[i18n.language] || item.name.en
+          : item.name;
+
+      itemMap[itemName] = (itemMap[itemName] || 0) + item.qty;
     });
-    return Object.keys(itemMap)
-      .map(name => ({ name, value: itemMap[name] }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 5);
-  };
+  });
+
+  return Object.keys(itemMap)
+    .map(name => ({ name, value: itemMap[name] }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+};
 
   const topItemsData = getTopItemsData();
+   console.log(topItemsData);
 
   const downloadPDF = async () => {
     if (filtered.length === 0) { alert(t("sales.noRecordsAlert")); return; }
@@ -713,7 +736,7 @@ function SalesPage() {
         props.payload.name
       ]}
     />
-    console.log(topItemsData);
+   
 
     <Legend verticalAlign="bottom" />
   </PieChart>
