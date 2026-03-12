@@ -17,8 +17,11 @@ import "./superadmin.css";
 // const IcoCheck  = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
 
 const NAV_ITEMS = [
-  { key: "translation", label: "Translation",     Icon: IcoGlobe },
-  { key: "users",       label: "User Management", Icon: IcoUsers },
+  // { key: "translation", label: "Translation",     Icon: IcoGlobe },
+  { key: "translation", label: "Translation" },
+  // { key: "users",       label: "User Management", Icon: IcoUsers },
+    { key: "users",       label: "User Management" },
+
 ];
 
 const PAGE_META = {
@@ -93,7 +96,7 @@ export default function SuperAdmin() {
         </div>
 
         <nav className="sa-nav">
-          {NAV_ITEMS.map(({ key, label, Icon }) => (
+          {NAV_ITEMS.map(({ key, label }) => (
             <button key={key}
               className={`sa-nav-item${page === key ? " active" : ""}`}
               onClick={() => setPage(key)}
