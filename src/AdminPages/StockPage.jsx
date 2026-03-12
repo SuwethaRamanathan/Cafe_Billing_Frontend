@@ -730,6 +730,7 @@
 
 
 
+
 // last used
 
 
@@ -1811,11 +1812,12 @@
 
 
 
+
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Sidebar from "./SideBar";
 import { useLocalizedField } from "../hooks/useLocalizedField";
-import "../AdminPages/admin-lang.css";   // ← for lang selector styles
+import "../AdminPages/admin-lang.css";   
 
 import "./sidebar.css";
 import "./stock.css";
@@ -1833,7 +1835,7 @@ function StockPage({ mode }) {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const [newGrocery, setNewGrocery] = useState({
-    name: { en: "", ta: "", hi: "" },   // ← now an object
+    name: { en: "", ta: "", hi: "" },  
     unitId: "", quantity: "", lastPurchasedDate: ""
   });
 

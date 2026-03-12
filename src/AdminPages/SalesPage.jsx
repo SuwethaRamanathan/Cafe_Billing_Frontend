@@ -399,6 +399,8 @@
 
 // export default SalesPage;
 
+
+
 import { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import jsPDF from "jspdf";
