@@ -696,9 +696,10 @@ function SalesPage() {
       cx="50%"
       cy="50%"
       outerRadius={110}
-      label={({ payload, percent }) =>
-        `${payload.name} ${(percent * 100).toFixed(0)}%`
-      }
+      label={(props) => {
+        const { payload, percent } = props;
+        return `${payload.name} ${(percent * 100).toFixed(0)}%`;
+      }}
     >
       {topItemsData.map((entry, index) => (
         <Cell key={index} fill={COLORS[index % COLORS.length]} />
@@ -706,8 +707,13 @@ function SalesPage() {
     </Pie>
 
     <Tooltip
-      formatter={(value, name, props) => [value, props.payload.name]}
+      cursor={false}
+      formatter={(value, name, props) => [
+        value,
+        props.payload.name
+      ]}
     />
+    console.log(topItemsData);
 
     <Legend verticalAlign="bottom" />
   </PieChart>
