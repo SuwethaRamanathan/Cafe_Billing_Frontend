@@ -598,25 +598,73 @@ function Cashier() {
     if (val === "" || (Number(val) >= 0 && Number(val) <= 100)) setDiscount(val);
   };
 
-  const confirmPrint = async () => {
-    if (cart.length === 0) return;
-    setIsPrinting(true);
+  // const confirmPrint = async () => {
+  //   if (cart.length === 0) return;
+  //   setIsPrinting(true);
+  //   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ items: cart, total: grand }),
+  //   });
+  //   const data = await res.json();
+  //   setOrderNumber(data.orderNumber + 1);
+  //   setIsPrinting(false);
+  //   window.print();
+  //   setCart([]);
+  //   setDiscount("");
+  //   setShowPreview(false);
+  //   fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
+  //     .then(res => res.json())
+  //     .then(data => setMenu(data));
+  // };
+
+   const confirmPrint = async () => {
+
+  if (cart.length === 0) return;
+
+  setIsPrinting(true);
+
+  try {
+
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: cart, total: grand }),
+      body: JSON.stringify({
+        items: cart,
+        total: grand
+      }),
     });
+
     const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.msg || "Order failed");
+      setIsPrinting(false);
+      return;
+    }
+
     setOrderNumber(data.orderNumber + 1);
-    setIsPrinting(false);
+
     window.print();
+
     setCart([]);
     setDiscount("");
     setShowPreview(false);
-    fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
-      .then(res => res.json())
-      .then(data => setMenu(data));
-  };
+
+    const menuRes = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`);
+    const menuData = await menuRes.json();
+
+    setMenu(menuData);
+
+  } catch (err) {
+
+    console.error(err);
+    alert("Order failed");
+
+  }
+
+  setIsPrinting(false);
+};
 
   const downloadBill = () => {
     const element = document.getElementById("pos-receipt");
