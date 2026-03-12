@@ -5,20 +5,17 @@ import "./superadmin.css";
 // ─────────────────────────────────────────────────────────
 // SVG ICONS
 // ─────────────────────────────────────────────────────────
-const IcoGlobe  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>;
-const IcoUsers  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
-const IcoTool   = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>;
-const IcoLogout = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>;
-const IcoPlus   = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;
-const IcoEye    = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
-const IcoEyeOff = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>;
-const IcoTrash  = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>;
-const IcoEdit   = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>;
-const IcoCheck  = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
+// const IcoGlobe  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>;
+// const IcoUsers  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+// const IcoTool   = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>;
+// const IcoLogout = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>;
+// const IcoPlus   = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;
+// const IcoEye    = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
+// const IcoEyeOff = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>;
+// const IcoTrash  = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>;
+// const IcoEdit   = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>;
+// const IcoCheck  = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
 
-// ─────────────────────────────────────────────────────────
-// SIDEBAR NAV — add new pages here in the future
-// ─────────────────────────────────────────────────────────
 const NAV_ITEMS = [
   { key: "translation", label: "Translation",     Icon: IcoGlobe },
   { key: "users",       label: "User Management", Icon: IcoUsers },
@@ -29,9 +26,6 @@ const PAGE_META = {
   users:       { title: "User Management",         sub: "Add and manage staff accounts" },
 };
 
-// ─────────────────────────────────────────────────────────
-// TRANSLATION HELPERS
-// ─────────────────────────────────────────────────────────
 async function translateText(text, targetLang, sourceLang = "en") {
   if (!text?.trim() || sourceLang === targetLang) return "";
   try {
@@ -80,9 +74,6 @@ function isMissingLang(nameObj, lang) {
 
 const TYPE_LABEL = { menu: "Menu", category: "Category", grocery: "Stock" };
 
-// ─────────────────────────────────────────────────────────
-// ROOT — layout shell only
-// ─────────────────────────────────────────────────────────
 export default function SuperAdmin() {
   const navigate   = useNavigate();
   const token      = localStorage.getItem("token");
@@ -97,7 +88,7 @@ export default function SuperAdmin() {
       {/* ── Sidebar ── */}
       <aside className={`sa-sidebar${collapsed ? " collapsed" : ""}`}>
         <div className="sa-sidebar-brand">
-          <span className="sa-brand-icon">☕</span>
+          {/* <span className="sa-brand-icon">☕</span> */}
           {!collapsed && <span className="sa-brand-name">Super Admin</span>}
         </div>
 
@@ -123,7 +114,6 @@ export default function SuperAdmin() {
         </div>
       </aside>
 
-      {/* ── Main area ── */}
       <div className="sa-main">
         <div className="sa-topbar">
           <button className="sa-collapse-btn" onClick={() => setCollapsed(v => !v)}>
@@ -142,9 +132,6 @@ export default function SuperAdmin() {
   );
 }
 
-// ═════════════════════════════════════════════════════════
-// TRANSLATION PAGE
-// ═════════════════════════════════════════════════════════
 function TranslationPage({ token }) {
   const [data, setData]           = useState({ menu: [], categories: [], groceries: [] });
   const [loading, setLoading]     = useState(true);
@@ -271,7 +258,6 @@ function TranslationPage({ token }) {
 
   return (
     <div className="tp-wrap">
-      {/* Stats */}
       <div className="tp-stats">
         {[
           { n: data.menu.length,            l: "Menu Items",  c: "orange" },
@@ -285,7 +271,6 @@ function TranslationPage({ token }) {
         ))}
       </div>
 
-      {/* Migration */}
       <div className="tp-migrate-row">
         <button className="tp-btn tp-btn-ghost tp-btn-sm" onClick={() => setShowMig(v => !v)}>
           <IcoTool /> {showMig ? "Hide Migration" : "Migration Tools"}
@@ -301,7 +286,6 @@ function TranslationPage({ token }) {
       )}
       {hasOld && <div className="tp-notice">⚠ Old-format items found (highlighted). Run Migration Tools first.</div>}
 
-      {/* Progress */}
       {bulkLoad && (
         <div className="tp-progress-wrap">
           <div className="tp-progress-track">
@@ -311,9 +295,7 @@ function TranslationPage({ token }) {
         </div>
       )}
 
-      {/* Table card */}
       <div className="tp-card">
-        {/* Tabs */}
         <div className="tp-tabs">
           {tabs.map(t => (
             <button key={t.key} className={`tp-tab${tab === t.key ? " active" : ""}`}
@@ -323,7 +305,6 @@ function TranslationPage({ token }) {
           ))}
         </div>
 
-        {/* Toolbar */}
         <div className="tp-toolbar">
           <div className="tp-toolbar-left">
             {!selMode ? (
@@ -349,12 +330,11 @@ function TranslationPage({ token }) {
           </button>
         </div>
 
-        {/* Table */}
         {loading ? (
           <div className="tp-loading">Loading items...</div>
         ) : displayItems.length === 0 ? (
           <div className="tp-empty">
-            <div className="tp-empty-icon">✅</div>
+            {/* <div className="tp-empty-icon">✅</div> */}
             <div className="tp-empty-title">All translated!</div>
             <div className="tp-empty-sub">No pending translations in this tab.</div>
           </div>
@@ -425,9 +405,6 @@ function TranslationPage({ token }) {
   );
 }
 
-// ═════════════════════════════════════════════════════════
-// USER MANAGEMENT PAGE
-// ═════════════════════════════════════════════════════════
 function UsersPage({ token }) {
   const [users, setUsers]       = useState([]);
   const [loading, setLoading]   = useState(true);
@@ -507,7 +484,6 @@ function UsersPage({ token }) {
 
   return (
     <div className="up-wrap">
-      {/* Header */}
       <div className="up-header-row">
         <div>
           <div className="up-page-title">Staff Accounts</div>
@@ -523,13 +499,11 @@ function UsersPage({ token }) {
         </button>
       </div>
 
-      {/* Legend */}
       <div className="up-legend">
         <span className="up-legend-item"><span className="up-role-dot orange" />Admin — full access to menu, stock, sales</span>
         <span className="up-legend-item"><span className="up-role-dot blue" />Cashier — billing and orders only</span>
       </div>
 
-      {/* Users table */}
       <div className="up-card">
         {loading ? (
           <div className="tp-loading">Loading users...</div>
@@ -584,7 +558,6 @@ function UsersPage({ token }) {
         )}
       </div>
 
-      {/* Add User Modal */}
       {showForm && (
         <div className="sa-modal-overlay" onClick={e => e.target === e.currentTarget && setShowForm(false)}>
           <div className="sa-modal">
@@ -620,8 +593,11 @@ function UsersPage({ token }) {
               <label>Role</label>
               <div className="sa-role-picker">
                 {[
-                  { r: "cashier", icon: "💳", title: "Cashier", desc: "Billing & orders only" },
-                  { r: "admin",   icon: "👑", title: "Admin",   desc: "Full menu & stock access" },
+                  // { r: "cashier", icon: "💳", title: "Cashier", desc: "Billing & orders only" },
+                  // { r: "admin",   icon: "👑", title: "Admin",   desc: "Full menu & stock access" },
+
+                  { r: "cashier", icon: "", title: "Cashier", desc: "Billing & orders only" },
+                  { r: "admin",   icon: "", title: "Admin",   desc: "Full menu & stock access" },
                 ].map(({ r, icon, title, desc }) => (
                   <button key={r} type="button"
                     className={`sa-role-btn${form.role === r ? " active" : ""}`}
@@ -642,7 +618,6 @@ function UsersPage({ token }) {
         </div>
       )}
 
-      {/* Delete Confirm Modal */}
       {delTarget && (
         <div className="sa-modal-overlay" onClick={e => e.target === e.currentTarget && setDelTgt(null)}>
           <div className="sa-modal sa-modal-sm">
@@ -663,9 +638,6 @@ function UsersPage({ token }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────
-// SHARED
-// ─────────────────────────────────────────────────────────
 function MissingPill() {
   return (
     <span className="tp-missing-pill">
