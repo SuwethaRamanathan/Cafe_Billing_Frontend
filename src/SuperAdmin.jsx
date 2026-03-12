@@ -86,7 +86,7 @@ export default function SuperAdmin() {
       {/* ── Sidebar ── */}
       <aside className={`sa-sidebar${collapsed ? " collapsed" : ""}`}>
         <div className="sa-sidebar-brand">
-          <span className="sa-brand-icon">☕</span>
+          {/* <span className="sa-brand-icon">☕</span> */}
           {!collapsed && <span className="sa-brand-name">Super Admin</span>}
         </div>
 
