@@ -45,6 +45,9 @@
   font-style: italic;
 } */
 
+
+
+
 /* ── Language name inputs in add/edit form ── */
 .lang-inputs {
   display: flex;
@@ -214,3 +217,212 @@
 .modal-box form::-webkit-scrollbar-thumb:hover {
   background: #c0521a;
 }
+
+/* ── Language selector row (pick which language to type in) ── */
+.lang-selector-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.lang-selector-label {
+  font-size: 12px;
+  color: #8a7060;
+  font-weight: 600;
+  margin-right: 2px;
+}
+
+.lang-selector-btn {
+  padding: 5px 14px;
+  border-radius: 50px;
+  border: 1.5px solid #ecdfd4;
+  background: #fdf6ee;
+  color: #8a7060;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Lato', sans-serif;
+}
+
+.lang-selector-btn:hover {
+  border-color: #c0521a;
+  color: #c0521a;
+}
+
+.lang-selector-btn.active {
+  background: #c0521a;
+  border-color: #c0521a;
+  color: #ffffff;
+}
+
+
+
+
+
+/* .lang-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lang-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-tag {
+  display: inline-block;
+  min-width: 32px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: #f0e8e0;
+  color: #c0521a;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.lang-input-row input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1.5px solid #ecdfd4;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+  background: #fdf6ee;
+  color: #1a0a00;
+  font-family: 'Lato', sans-serif;
+}
+
+.lang-input-row input:focus {
+  border-color: #c0521a;
+  background: #ffffff;
+}
+
+.lang-input-hint {
+  font-size: 11px;
+  color: #999;
+  padding-left: 40px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;        
+  justify-content: center;
+  padding: 24px 16px;             
+  overflow-y: auto;               
+}
+
+.modal-box {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(26, 10, 0, 0.2);
+  max-height: none;              
+  overflow: visible;
+  margin: auto;                   
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a0a00;
+  margin-bottom: 20px;
+}
+
+.modal-warn {
+  color: #d93025;
+}
+
+.confirm-text {
+  font-size: 14px;
+  color: #6e5647;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 13px;
+  background: #f5ede4;
+  color: #8a7060;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.btn-cancel:hover {
+  background: #ecdfd4;
+}
+
+.btn-cancel-full {
+  flex: 1;
+}
+
+.btn-danger {
+  flex: 1;
+  padding: 13px;
+  background: #d93025;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.btn-danger:hover {
+  background: #b71c1c;
+}
+
+.lang-tag-filled {
+  background: #e8f5ee;
+  color: #2d7a4a;
+}
+
+.modal-box form {
+  max-height: 75vh;
+  overflow-y: auto;
+  padding-right: 4px;   
+}
+
+.modal-box form::-webkit-scrollbar {
+  width: 4px;
+}
+.modal-box form::-webkit-scrollbar-track {
+  background: #fdf6ee;
+  border-radius: 4px;
+}
+.modal-box form::-webkit-scrollbar-thumb {
+  background: #ecdfd4;
+  border-radius: 4px;
+}
+.modal-box form::-webkit-scrollbar-thumb:hover {
+  background: #c0521a;
+} */
