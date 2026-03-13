@@ -619,13 +619,9 @@ function Cashier() {
   // };
 
    const confirmPrint = async () => {
-
   if (cart.length === 0) return;
-
   setIsPrinting(true);
-
   try {
-
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -634,35 +630,24 @@ function Cashier() {
         total: grand
       }),
     });
-
     const data = await res.json();
-
     if (!res.ok) {
       alert(data.msg || "Order failed");
       setIsPrinting(false);
       return;
     }
-
     setOrderNumber(data.orderNumber + 1);
-
     window.print();
-
     setCart([]);
     setDiscount("");
     setShowPreview(false);
-
     const menuRes = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`);
     const menuData = await menuRes.json();
-
     setMenu(menuData);
-
   } catch (err) {
-
     console.error(err);
     alert("Order failed");
-
   }
-
   setIsPrinting(false);
 };
 
@@ -728,7 +713,12 @@ function Cashier() {
               const value = e.target.value;
               setSearch(value);
               if (!value) { setSuggestions([]); setShowSuggestions(false); return; }
-              const matches = menu.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
+              // const matches = menu.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
+
+              const matches = menu.filter(item =>
+  localize(item.name).toLowerCase().includes(value.toLowerCase())
+);
+
               setSuggestions(matches.slice(0, 6));
               setShowSuggestions(true);
             }}
@@ -766,16 +756,33 @@ function Cashier() {
           <div className="pos-cat-bar">
             <button
               className={`pos-cat-btn${activeCategory === "All" ? " active" : ""}`}
-              onClick={() => setActiveCategory("All")}> All 
-              {/* {t("common.all")} */}
+              onClick={() => setActiveCategory("All")}> 
+               {/* All */}
+              {t("common.all")} 
             </button>
-            {categories.map(cat => (
+
+            {/* {categories.map(cat => (
               <button key={cat._id}
                 className={`pos-cat-btn${activeCategory === cat.name ? " active" : ""}`}
                 onClick={() => setActiveCategory(cat.name)}>
                 {localize(cat.name)}
               </button>
-            ))}
+            ))} */}
+
+            {categories.map(cat => {
+  const catEnName = typeof cat.name === "object" ? cat.name.en : cat.name;
+
+  return (
+    <button
+      key={cat._id}
+      className={`pos-cat-btn${activeCategory === catEnName ? " active" : ""}`}
+      onClick={() => setActiveCategory(catEnName)}
+    >
+      {localize(cat.name)}
+    </button>
+  );
+})}
+
           </div>
 
           <div className="pos-menu-grid">
