@@ -598,26 +598,6 @@ function Cashier() {
     if (val === "" || (Number(val) >= 0 && Number(val) <= 100)) setDiscount(val);
   };
 
-  // const confirmPrint = async () => {
-  //   if (cart.length === 0) return;
-  //   setIsPrinting(true);
-  //   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ items: cart, total: grand }),
-  //   });
-  //   const data = await res.json();
-  //   setOrderNumber(data.orderNumber + 1);
-  //   setIsPrinting(false);
-  //   window.print();
-  //   setCart([]);
-  //   setDiscount("");
-  //   setShowPreview(false);
-  //   fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
-  //     .then(res => res.json())
-  //     .then(data => setMenu(data));
-  // };
-
    const confirmPrint = async () => {
   if (cart.length === 0) return;
   setIsPrinting(true);
@@ -751,12 +731,56 @@ function Cashier() {
 
       <div className="pos-body">
 
-        <div className="pos-left">
+        {/* <div className="pos-left">
+          <div className="pos-cat-bar"> */}
+
+          <div className="pos-left">
+
+          {/* ── Mobile-only search bar (shown below header on small screens) ── */}
+          <div className="pos-mobile-search">
+            <div className="pos-search-wrap">
+              <svg className="pos-search-icon" xmlns="http://www.w3.org/2000/svg"
+                width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input
+                type="text"
+                placeholder={t("cashier.searchPlaceholder")}
+                value={search}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearch(value);
+                  if (!value) { setSuggestions([]); setShowSuggestions(false); return; }
+                  const matches = menu.filter(item =>
+                    localize(item.name).toLowerCase().includes(value.toLowerCase())
+                  );
+                  setSuggestions(matches.slice(0, 6));
+                  setShowSuggestions(true);
+                }}
+                className="pos-search-input"
+              />
+              {search && (
+                <button className="search-clear"
+                  onClick={() => { setSearch(""); setSuggestions([]); setShowSuggestions(false); }}>✕</button>
+              )}
+              {showSuggestions && suggestions.length > 0 && (
+                <div className="search-dropdown">
+                  {suggestions.map(item => (
+                    <div key={item._id} className="search-dropdown-item"
+                      onClick={() => { setSearch(localize(item.name)); setShowSuggestions(false); }}>
+                      {localize(item.name)}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
           <div className="pos-cat-bar">
             <button
               className={`pos-cat-btn${activeCategory === "All" ? " active" : ""}`}
               onClick={() => setActiveCategory("All")}> 
-               {/* All */}
               {t("common.all")} 
             </button>
 

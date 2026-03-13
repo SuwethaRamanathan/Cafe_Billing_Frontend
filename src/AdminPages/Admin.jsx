@@ -1415,8 +1415,14 @@ export default function Admin() {
           </div>
 
           <div className="action-bar">
+           
+           
+
             <div className="section-title">
-              {activeCategory === "All" ? t("common.allItems") : localize(activeCategory.name)} ({filteredItems.length})
+              
+              {/* {activeCategory === "All" ? t("common.allItems") : localize(activeCategory.name)} ({filteredItems.length}) */}
+              {activeCategory === "All" ? t("common.allItems") : localize(activeCategory.name)} (<span className="item-count">{filteredItems.length}</span>)
+
             </div>
             <button className="btn-primary"
               onClick={() => { setShowForm(true); setEditId(null); setFormData({ name: { en: "", ta: "", hi: "" }, price: "", stock: "", category: "", image: "" }); setRecipe([]); }}>

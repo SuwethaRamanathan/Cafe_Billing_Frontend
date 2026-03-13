@@ -1055,7 +1055,8 @@
   font-size: 32px;
   font-weight: 800;
   line-height: 1;
-  font-family: 'Playfair Display', serif;
+  /* Lato supports slashed-zero; Playfair Display does NOT */
+  font-family: 'Lato', sans-serif;
   font-variant-numeric: slashed-zero;
 }
 .tp-stat-label {
@@ -1141,6 +1142,7 @@
   padding: 2px 9px;
   font-size: 12px;
   font-weight: 700;
+  font-family: 'Lato', sans-serif;
   font-variant-numeric: slashed-zero;
 }
 .tp-tab.active .tp-tab-pill { background: #c0521a; color: #fff; }

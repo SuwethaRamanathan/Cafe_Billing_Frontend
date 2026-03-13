@@ -1003,6 +1003,12 @@ body {
   font-weight: 700;
   color: #1a0a00;
 }
+/* The count number in section titles e.g. "All Items (3)" —
+   wrapped in <span className="item-count"> in JSX */
+.section-title .item-count {
+  font-family: 'Lato', sans-serif;
+  font-variant-numeric: slashed-zero;
+}
 
 .btn-primary {
   display: flex;
@@ -1346,7 +1352,7 @@ body {
   .btn-primary { width: 100%; justify-content: center; }
 
   .admin-help {
-    position: static;
+    position: relative;   /* keeps help-close anchored inside the panel */
     width: 100%;
     max-width: 100%;
     margin-bottom: 16px;

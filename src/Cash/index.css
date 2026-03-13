@@ -586,6 +586,9 @@ body {
   .pos-preview-actions { display: none; }
 }
 
+/* Mobile search bar — hidden on desktop, shown on mobile via media query */
+.pos-mobile-search { display: none; }
+
 /* ══════════════════════════════════════════
    MOBILE RESPONSIVE — complete rewrite
    ══════════════════════════════════════════ */
@@ -606,19 +609,44 @@ body {
     flex-direction: column !important;
   }
 
-  /* --- Header --- */
+  /* --- Header: search hidden from header on mobile --- */
   .pos-header {
     position: sticky !important;
     top: 0 !important;
     z-index: 200 !important;
     height: 54px !important;
-    padding: 0 12px !important;
+    padding: 0 14px !important;
     flex-shrink: 0 !important;
     gap: 10px !important;
   }
-  .pos-logo-name { font-size: 14px !important; }
-  .pos-search-wrap { max-width: 150px !important; }
-  .pos-search-input { font-size: 13px !important; padding: 8px 30px 8px 32px !important; }
+  .pos-logo-name { font-size: 15px !important; }
+  /* Hide search from header on mobile — shown in body search bar instead */
+  .pos-search-wrap { display: none !important; }
+
+  /* --- Mobile search bar: full-width bar below header, above categories --- */
+  .pos-mobile-search {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 10px 14px 8px !important;
+    background: #fff !important;
+    border-bottom: 1px solid #ecdfd4 !important;
+    position: sticky !important;
+    top: 54px !important;
+    z-index: 99 !important;
+    box-shadow: 0 2px 6px rgba(26,10,0,0.04) !important;
+  }
+  .pos-mobile-search .pos-search-wrap {
+    display: flex !important;
+    max-width: 100% !important;
+    flex: 1 !important;
+  }
+  .pos-mobile-search .pos-search-input {
+    font-size: 14px !important;
+    padding: 10px 36px 10px 38px !important;
+    width: 100% !important;
+    border-radius: 50px !important;
+  }
 
   /* --- Body becomes single column --- */
   .pos-body {
@@ -642,8 +670,9 @@ body {
 
   .pos-cat-bar {
     position: sticky !important;
-    top: 54px !important;
-    z-index: 100 !important;
+    /* 54px header + ~54px mobile search bar */
+    top: 108px !important;
+    z-index: 98 !important;
     background: #fff !important;
   }
 
@@ -718,10 +747,8 @@ body {
 
 @media (max-width: 480px) {
   .pos-card-img-wrap { height: 90px !important; }
-  /* Slightly smaller on very small screens */
   .pos-right { max-height: 360px !important; }
   .pos-left { padding-bottom: 365px !important; }
-  .pos-search-wrap { max-width: 110px !important; }
   .pos-cart-list { max-height: 120px !important; }
 }
 

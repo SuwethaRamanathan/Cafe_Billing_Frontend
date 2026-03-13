@@ -747,12 +747,13 @@
   gap: 24px;
 }
 
-/* ── Filter bar: KEY FIX — wrap so date picker stays visible ── */
+/* ── Filter bar: wraps so date picker always appears on its own row below ── */
 .sales-filter-bar {
   display: flex;
-  align-items: flex-start;   /* allow wrapping without clipping */
+  align-items: center;
   gap: 8px;
-  flex-wrap: wrap;           /* was already here, keep it */
+  flex-wrap: wrap;
+  /* Use a background container look so the date row stands out */
 }
 
 .sales-filter-btn {
@@ -771,20 +772,19 @@
 .sales-filter-btn:hover { border-color: #c0521a; background: #c0521a; color: #ffffff; }
 .sales-filter-btn.active { border-color: #c0521a; background: #c0521a; color: #ffffff; }
 
-/* KEY FIX: date range breaks onto its own line and is
-   fully visible without any scrolling */
+/* KEY FIX: date range ALWAYS on its own full-width row, never to the side.
+   flex-basis: 100% forces a line break after the filter buttons. */
 .sales-date-range {
   display: flex;
   align-items: center;
   gap: 10px;
-  /* full-width row so it appears immediately below the filter buttons */
-  flex-basis: 100%;
+  flex-basis: 100%;       /* forces onto its own line */
   flex-wrap: wrap;
-  padding: 8px 4px 0 4px;
   background: #fff8f3;
   border: 1.5px solid #f1d7c3;
   border-radius: 12px;
-  padding: 10px 14px;
+  padding: 10px 16px;
+  margin-top: 4px;
   box-shadow: 0 2px 8px rgba(192,82,26,0.08);
 }
 
