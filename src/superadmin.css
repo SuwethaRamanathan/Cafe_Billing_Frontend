@@ -1,13 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;600;700&display=swap');
 
-/* ─────────────────────────────────────────────────────────
-   RESET
-───────────────────────────────────────────────────────── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ─────────────────────────────────────────────────────────
-   SHELL
-───────────────────────────────────────────────────────── */
 .sa-shell {
   display: flex;
   height: 100vh;
@@ -18,9 +12,6 @@
   font-size: 15px;
 }
 
-/* ─────────────────────────────────────────────────────────
-   SIDEBAR
-───────────────────────────────────────────────────────── */
 .sa-sidebar {
   width: 230px;
   min-width: 230px;
@@ -111,9 +102,6 @@
   color: rgba(255,130,130,0.9) !important;
 }
 
-/* ─────────────────────────────────────────────────────────
-   MAIN AREA
-───────────────────────────────────────────────────────── */
 .sa-main {
   flex: 1;
   display: flex;
@@ -166,9 +154,6 @@
 
 .sa-page-body { flex: 1; overflow-y: auto; padding-bottom: 48px; }
 
-/* ─────────────────────────────────────────────────────────
-   BUTTONS
-───────────────────────────────────────────────────────── */
 .tp-btn {
   display: inline-flex;
   align-items: center;
@@ -214,12 +199,8 @@
 .tp-icon-btn.green { background: #eaf5ee; color: #2d7a4a; }
 .tp-icon-btn.red   { background: #fdeaea; color: #b83030; }
 
-/* ─────────────────────────────────────────────────────────
-   TRANSLATION PAGE
-───────────────────────────────────────────────────────── */
 .tp-wrap { padding: 26px 30px; }
 
-/* ── Stats row ────────────────────────────────────────── */
 .tp-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -257,7 +238,6 @@
 .tp-stat-red                   { border-color: #e0a090; background: #fff5f0; }
 .tp-stat-red    .tp-stat-num   { color: #b83030; }
 
-/* ── Migration panel ──────────────────────────────────── */
 .tp-migrate-row { margin-bottom: 10px; display: flex; gap: 10px; align-items: center; }
 .tp-migrate-panel {
   background: #fff8e8;
@@ -285,7 +265,6 @@
   margin-bottom: 14px;
 }
 
-/* ── Progress bar ─────────────────────────────────────── */
 .tp-progress-wrap {
   background: #ffffff;
   border: 1px solid #e0cfc3;
@@ -313,7 +292,6 @@
   font-variant-numeric: slashed-zero;
 }
 
-/* ── Card + tabs ──────────────────────────────────────── */
 .tp-card {
   background: #ffffff;
   border: 1px solid #e0cfc3;
@@ -359,7 +337,6 @@
 }
 .tp-tab.active .tp-tab-pill { background: #c0521a; color: #fff; }
 
-/* ── Toolbar ──────────────────────────────────────────── */
 .tp-toolbar {
   display: flex;
   align-items: center;
@@ -394,26 +371,12 @@
   font-variant-numeric: slashed-zero;
 }
 
-/* ── Empty / loading ──────────────────────────────────── */
 .tp-loading { text-align: center; padding: 70px; color: #8a6a58; font-size: 15px; }
 .tp-empty   { text-align: center; padding: 80px 24px; }
 .tp-empty-icon  { font-size: 48px; margin-bottom: 16px; }
 .tp-empty-title { font-size: 20px; font-weight: 700; color: #2d7a4a; }
 .tp-empty-sub   { color: #8a6a58; margin-top: 8px; font-size: 14px; }
 
-/* ─────────────────────────────────────────────────────────
-   TABLE GRID
-   ─────────────────────────────────────────────────────
-   Grid column rules — straightforward cascade, no :not():
-
-   (default)          EN | TA | HI              1fr 1fr 1fr
-   w-type             TYPE | EN | TA | HI        110px 1fr 1fr 1fr
-   w-check            [✓] | EN | TA | HI         42px 1fr 1fr 1fr
-   w-type + w-check   [✓] | TYPE | EN | TA | HI  42px 110px 1fr 1fr 1fr
-
-   Header AND matching row always receive the same classes
-   so grid column count always matches — no misalignment.
-───────────────────────────────────────────────────────── */
 .tp-table-scroll { overflow-x: auto; }
 
 .tp-table-head,
@@ -477,7 +440,6 @@
 }
 .tp-check-cell input { width: 15px; height: 15px; cursor: pointer; }
 
-/* ── Type badge ───────────────────────────────────────── */
 .tp-type-badge {
   display: inline-block;
   padding: 4px 10px;
@@ -489,7 +451,6 @@
 .tp-badge-category { background: #f0e8ff; color: #6040c0; }
 .tp-badge-grocery  { background: #eaf5ee; color: #2d7a4a; }
 
-/* ── Clickable cell ───────────────────────────────────── */
 .tp-cell {
   padding: 6px 8px;
   border-radius: 7px;
@@ -541,9 +502,6 @@
   min-width: 0;
 }
 
-/* ─────────────────────────────────────────────────────────
-   USER MANAGEMENT PAGE
-───────────────────────────────────────────────────────── */
 .up-wrap { padding: 26px 30px; }
 
 .up-header-row {
@@ -670,9 +628,6 @@
 }
 .up-del-btn:hover { background: #fdd; }
 
-/* ─────────────────────────────────────────────────────────
-   MODAL
-───────────────────────────────────────────────────────── */
 .sa-modal-overlay {
   position: fixed;
   inset: 0;

@@ -713,7 +713,6 @@ function Cashier() {
               const value = e.target.value;
               setSearch(value);
               if (!value) { setSuggestions([]); setShowSuggestions(false); return; }
-              // const matches = menu.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
 
               const matches = menu.filter(item =>
   localize(item.name).toLowerCase().includes(value.toLowerCase())
@@ -760,14 +759,6 @@ function Cashier() {
                {/* All */}
               {t("common.all")} 
             </button>
-
-            {/* {categories.map(cat => (
-              <button key={cat._id}
-                className={`pos-cat-btn${activeCategory === cat.name ? " active" : ""}`}
-                onClick={() => setActiveCategory(cat.name)}>
-                {localize(cat.name)}
-              </button>
-            ))} */}
 
             {categories.map(cat => {
   const catEnName = typeof cat.name === "object" ? cat.name.en : cat.name;

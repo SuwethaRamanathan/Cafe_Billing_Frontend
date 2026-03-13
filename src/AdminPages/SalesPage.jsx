@@ -477,18 +477,6 @@ function SalesPage() {
     return `${start.toLocaleDateString("en-GB")} → ${today.toLocaleDateString("en-GB")}`;
   };
 
-  // const getTopItemsData = () => {
-  //   const itemMap = {};
-  //   filtered.forEach(o => {
-  //     o.items.forEach(item => {
-  //       itemMap[item.name] = (itemMap[item.name] || 0) + item.qty;
-  //     });
-  //   });
-  //   return Object.keys(itemMap)
-  //     .map(name => ({ name, value: itemMap[name] }))
-  //     .sort((a, b) => b.value - a.value)
-  //     .slice(0, 5);
-  // };
 
   const getTopItemsData = () => {
   const itemMap = {};
@@ -496,7 +484,6 @@ function SalesPage() {
   filtered.forEach(order => {
     order.items.forEach(item => {
 
-      // handle multilingual name
       const itemName =
         typeof item.name === "object"
           ? item.name[i18n.language] || item.name.en
@@ -696,19 +683,6 @@ function SalesPage() {
                   <div className="chart-empty-text">{t("sales.noSalesDesc")}</div>
                 </div>
               ) : (
-                // <ResponsiveContainer width="100%" height={300}>
-                //   <PieChart>
-                //     <Pie data={topItemsData} dataKey="value" nameKey="name"
-                //       cx="50%" cy="50%" outerRadius={110}
-                //       label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-                //       {topItemsData.map((entry, index) => (
-                //         <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                //       ))}
-                //     </Pie>
-                //     <Tooltip cursor={false} />
-                //     <Legend verticalAlign="bottom" />
-                //   </PieChart>
-                // </ResponsiveContainer>
 
                 <ResponsiveContainer width="100%" height={300}>
   <PieChart>

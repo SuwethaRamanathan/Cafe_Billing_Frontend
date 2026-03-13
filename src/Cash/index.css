@@ -338,29 +338,11 @@ body {
   z-index:999;
 }
 
-/* .help-modal{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  width:320px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-} */
-
-/* .help-title{
-  font-weight:700;
-  margin-bottom:10px;
-} */
-
 .help-title{
   font-size:20px;
   font-weight:700;
   margin-bottom:14px;
 }
-
-/* .help-modal ul{
-  padding-left:18px;
-  font-size:14px;
-} */
 
 .help-modal{
   background:white;
@@ -402,18 +384,3 @@ body {
 .help-close-btn:hover{
   background:#a8421a;
 }
-
-/* .help-close-btn{
-  margin-top:14px;
-  padding:8px 14px;
-  border:none;
-  background:#c0521a;
-  color:white;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
-}
-
-.help-close-btn:hover{
-  background:#a8421a;
-} */
