@@ -2168,9 +2168,9 @@ function StockPage({ mode }) {
                         onChange={e => handleNameChange(currentLang, e.target.value)}
                       />
                     </div>
-                    <div className="lang-input-hint">
+                    {/* <div className="lang-input-hint">
                       Typing in {currentLang === "en" ? "English" : currentLang === "ta" ? "Tamil" : "Hindi"} · Change in Settings to use another language.
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 

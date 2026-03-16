@@ -1160,37 +1160,6 @@ export default function Admin() {
     }));
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const token = localStorage.getItem("token");
-  //   const payload = { ...formData, recipe };
-
-  //   if (editId) {
-  //     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${editId}`, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-  //       body: JSON.stringify(payload),
-  //     });
-  //     const data = await res.json();
-  //     setMenu(menu.map(item =>
-  //       item._id === editId
-  //         ? { ...data, stock: Number(data.stock), price: Number(data.price) }
-  //         : item
-  //     ));
-  //     setEditId(null);
-  //   } else {
-  //     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-  //       body: JSON.stringify(payload),
-  //     });
-  //     const data = await res.json();
-  //     setMenu([...menu, { ...data, stock: Number(data.stock), price: Number(data.price) }]);
-  //   }
-  //   setFormData({ name: { en: "", ta: "", hi: "" }, price: "", stock: "", category: "", image: "" });
-  //   setRecipe([]);
-  //   setShowForm(false);
-  // };
 
    const handleSubmit = async (e) => {
   e.preventDefault();
@@ -1254,16 +1223,6 @@ export default function Admin() {
 
   const removeIngredient = (i) => setRecipe(recipe.filter((_, idx) => idx !== i));
 
-  // const deleteItem = async () => {
-  //   const token = localStorage.getItem("token");
-  //   await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${deleteId}`, {
-  //     method: "DELETE",
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   });
-  //   setMenu(menu.filter(item => item._id !== deleteId));
-  //   setDeleteId(null);
-  // };
-
   const deleteItem = async () => {
   const token = localStorage.getItem("token");
 
@@ -1285,20 +1244,6 @@ export default function Admin() {
   });
 };
 
-  // const addCategory = async () => {
-  //   if (!newCategory.trim()) return;
-  //   const token = localStorage.getItem("token");
-  //   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-  //     body: JSON.stringify({ name: newCategory, nameLang: currentLang }),
-  //   });
-  //   if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
-  //   const data = await res.json();
-  //   setCategories(prev => [...prev, data]);
-  //   setNewCategory("");
-  //   setShowAddCat(false);
-  // };
 
   const addCategory = async () => {
   if (!newCategory.trim()) return;
@@ -1315,21 +1260,6 @@ export default function Admin() {
   setNewCategory("");
   setShowAddCat(false);
 };
-
-  // const updateCategory = async () => {
-  //   if (!editCatName.trim()) return;
-  //   const token = localStorage.getItem("token");
-  //   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/${editCat._id}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-  //     body: JSON.stringify({ name: editCatName.trim(), nameLang: currentLang }),
-  //   });
-  //   if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
-  //   const data = await res.json();
-  //   setCategories(prev => prev.map(c => c._id === data._id ? data : c));
-  //   if (activeCategory?._id === data._id) setActiveCategory(data);
-  //   setEditCat(null);
-  // };
 
   const updateCategory = async () => {
   if (!editCatName.trim()) return;
@@ -1348,28 +1278,12 @@ export default function Admin() {
 };
 
   const tryDeleteCategory = (cat) => {
-    // category in menu items is stored as a plain English string
-    // so compare against the English version of the category name
     const catEnName = typeof cat.name === "object" ? cat.name.en : cat.name;
     const hasItems = menu.some(item => item.category === catEnName);
     setCatToDelete(cat);
     setCatDeleteBlocked(hasItems);
     setOpenCatMenu(null);
   };
-
-  // const deleteCategory = async () => {
-  //   const token = localStorage.getItem("token");
-  //   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/${catToDelete._id}`, {
-  //     method: "DELETE",
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   });
-  //   if (!res.ok) { const err = await res.json(); alert(err.msg); setCatToDelete(null); return; }
-  //   setCategories(prev => prev.filter(cat => cat._id !== catToDelete._id));
-  //   // activeCategory.name is now an object — compare _id instead
-  //   if (activeCategory?._id === catToDelete._id) setActiveCategory("All");
-  //   setCatToDelete(null);
-  //   setCatDeleteBlocked(false);
-  // };
 
   const deleteCategory = async () => {
   const token = localStorage.getItem("token");
@@ -1413,8 +1327,6 @@ export default function Admin() {
 }, [transNotice]);
 
 
-  // category filter: menu items store category as plain English string
-  // activeCategory.name is now { en, ta, hi } — use .en for comparison
   const activeCatEnName = activeCategory === "All"
     ? "All"
     : (typeof activeCategory.name === "object" ? activeCategory.name.en : activeCategory.name);
@@ -1513,7 +1425,6 @@ export default function Admin() {
                 <button
                   className={`cat-btn${activeCategory?._id === cat._id ? " active" : ""}`}
                   onClick={() => setActiveCategory(cat)}>
-                  {/* FIX: localize(cat.name) not cat.name — cat.name is now an object */}
                   {localize(cat.name)}
                   <span className="cat-three-dot"
                     onClick={(e) => { e.stopPropagation(); setOpenCatMenu(openCatMenu === cat._id ? null : cat._id); }}>
@@ -1624,11 +1535,11 @@ export default function Admin() {
                       required
                     />
                   </div>
-                  <div className="lang-input-hint">
+                  {/* <div className="lang-input-hint">
                     Typing in {currentLang === "en" ? "English" : currentLang === "ta" ? "Tamil (தமிழ்)" : "Hindi (हिंदी)"}
                     · Super admin will translate the rest automatically.
                     Change language in Settings to type in a different language.
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="form-field">
@@ -1717,9 +1628,9 @@ export default function Admin() {
                 placeholder={currentLang === "en" ? "e.g. Drinks" : currentLang === "ta" ? "எ.கா. பானங்கள்" : "जैसे पेय"}
                 value={editCatName}
                 onChange={(e) => setEditCatName(e.target.value)} />
-              <div className="lang-input-hint" style={{marginTop:"5px"}}>
+              {/* <div className="lang-input-hint" style={{marginTop:"5px"}}>
                 Typing in {currentLang === "en" ? "English" : currentLang === "ta" ? "Tamil" : "Hindi"} · Change in Settings to use another language.
-              </div>
+              </div> */}
             </div>
             <div className="form-row">
               <button className="btn-save" onClick={updateCategory}>{t("common.save")}</button>
@@ -1767,32 +1678,65 @@ export default function Admin() {
   );
 }
 
+// function TranslationNotice({ notice, onClose }) {
+//   const typeLabel  = notice.type === "item" ? "menu item" : "category";
+//   // const actionWord = notice.action === "added" ? "added" : "updated";
+//   let actionWord = "updated";
+// if (notice.action === "added") actionWord = "added";
+// if (notice.action === "deleted") actionWord = "deleted";
+
+//   return (
+//     <div className="trans-notice">
+//       {/* <div className="trans-notice-icon">🌐</div> */}
+//       <div className="trans-notice-body">
+//         <div className="trans-notice-title">
+//           "{notice.name}" {actionWord} successfully
+//         </div>
+//         <div className="trans-notice-sub">
+//           This {typeLabel} has been added to the Super Admin's translation queue.
+//         </div>
+
+//       </div>
+//       <button className="trans-notice-close" onClick={onClose} title="Dismiss">✕</button>
+//     </div>
+//   );
+// }
+
 function TranslationNotice({ notice, onClose }) {
-  const typeLabel  = notice.type === "item" ? "menu item" : "category";
-  // const actionWord = notice.action === "added" ? "added" : "updated";
-  let actionWord = "updated";
-if (notice.action === "added") actionWord = "added";
-if (notice.action === "deleted") actionWord = "deleted";
+
+  const { t } = useTranslation();
+
+  const typeLabel =
+    notice.type === "item"
+      ? t("notice.menuItem")
+      : t("notice.category");
+
+  let actionWord = t("notice.updated");
+  if (notice.action === "added") actionWord = t("notice.added");
+  if (notice.action === "deleted") actionWord = t("notice.deleted");
 
   return (
     <div className="trans-notice">
-      {/* <div className="trans-notice-icon">🌐</div> */}
       <div className="trans-notice-body">
+
         <div className="trans-notice-title">
-          "{notice.name}" {actionWord} successfully
-        </div>
-        <div className="trans-notice-sub">
-          This {typeLabel} has been added to the Super Admin's translation queue.
+          "{notice.name}" {actionWord} {t("notice.successfully")}
         </div>
 
-        {/* <div className="trans-notice-sub">
-  {notice.action === "deleted"
-    ? `The ${typeLabel} was removed successfully.`
-    : `This ${typeLabel} has been added to the Super Admin's translation queue.`}
-</div> */}
+        <div className="trans-notice-sub">
+          {t("notice.translationQueue", { type: typeLabel })}
+        </div>
 
       </div>
-      <button className="trans-notice-close" onClick={onClose} title="Dismiss">✕</button>
+
+      <button
+        className="trans-notice-close"
+        onClick={onClose}
+        title={t("common.dismiss")}
+      >
+        ✕
+      </button>
+
     </div>
   );
 }

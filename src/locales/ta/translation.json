@@ -322,5 +322,14 @@
     "loginBtn": "உள்நுழை",
     "enterCredentials": "மின்னஞ்சல் மற்றும் கடவுச்சொல் உள்ளிடவும்",
     "invalidCredentials": "தவறான மின்னஞ்சல் அல்லது கடவுச்சொல்"
+  },
+   "notice": {
+    "menuItem": "மெனு பொருள்",
+    "category": "வகை",
+    "added": "சேர்க்கப்பட்டது",
+    "updated": "புதுப்பிக்கப்பட்டது",
+    "deleted": "நீக்கப்பட்டது",
+    "successfully": "வெற்றிகரமாக",
+    "translationQueue": "இந்த {{type}} Super Admin மொழிபெயர்ப்பு பட்டியலில் சேர்க்கப்பட்டுள்ளது."
   }
 }

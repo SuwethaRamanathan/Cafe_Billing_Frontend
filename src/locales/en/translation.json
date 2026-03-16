@@ -246,7 +246,7 @@
     "noItemsSelected": "No items selected",
     "itemsDeleted": "item(s) deleted!",
     "fillAllFields": "Please fill all fields",
-    "rawMaterialAdded": "New raw material added!",
+    "rawMaterialAdded": "New stock added!",
     "col": {
       "itemName": "Item Name",
       "unit": "Unit",
@@ -322,5 +322,14 @@
     "loginBtn": "Login",
     "enterCredentials": "Enter email and password",
     "invalidCredentials": "Invalid email or password"
+  },
+  "notice": {
+    "menuItem": "menu item",
+    "category": "category",
+    "added": "added",
+    "updated": "updated",
+    "deleted": "deleted",
+    "successfully": "successfully",
+    "translationQueue": "This {{type}} has been added to the Super Admin's translation queue."
   }
 }

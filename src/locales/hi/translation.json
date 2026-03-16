@@ -323,5 +323,14 @@
     "loginBtn": "लॉगिन करें",
     "enterCredentials": "ईमेल और पासवर्ड दर्ज करें",
     "invalidCredentials": "अमान्य ईमेल या पासवर्ड"
+  },
+  "notice": {
+    "menuItem": "मेनू आइटम",
+    "category": "श्रेणी",
+    "added": "जोड़ा गया",
+    "updated": "अपडेट किया गया",
+    "deleted": "हटाया गया",
+    "successfully": "सफलतापूर्वक",
+    "translationQueue": "यह {{type}} Super Admin की अनुवाद सूची में जोड़ दिया गया है।"
   }
 }
