@@ -181,6 +181,9 @@ function TranslationPage({ token }) {
   const [selMode, setSelMode]     = useState(false);
   // const [showMig, setShowMig]     = useState(false);
   // const [migrating, setMigrating] = useState(false);
+  const [previewItems, setPreviewItems] = useState(null);
+// null = closed; array of { _id, type, name:{en,ta,hi}, _original:{en,ta,hi} } = preview open
+const [previewSaving, setPreviewSaving] = useState(false);
   
   const flash = (msg, type = "ok") => { setToast({ msg, type }); setTimeout(() => setToast({ msg: "" }), 4500); };
   const getN  = (f, l = "en") => !f ? "" : typeof f === "string" ? f : f[l] || "";
@@ -219,36 +222,90 @@ function TranslationPage({ token }) {
     tab === "category" ? (data.categories || []).map(i => ({ ...i, type: "category" })) :
     data.groceries.map(i => ({ ...i, type: "grocery" }));
 
-  const translateBulk = async () => {
-    const targets = selMode && selected.size > 0
-      ? flat().filter(i => selected.has(String(i._id)))
-      : displayItems;
-    if (!targets.length) { flash("Nothing to translate"); return; }
-    setBulkLoad(true);
-    setProgress({ done: 0, total: targets.length });
-    let ok = 0, fail = 0;
-    for (const item of targets) {
-      if (typeof item.name === "string") { fail++; setProgress(p => ({ ...p, done: p.done+1 })); continue; }
-      try {
-        const sl  = detectSourceLang(item.name);
-        const src = item.name[sl];
-        if (!src?.trim()) { fail++; continue; }
-        const t   = await translateToAll(src, sl);
-        const ex  = item.name;
-        const upd = {
-          en: t.en || ex.en || src,
-          ta: (ex.ta?.trim() && ex.ta !== ex.en) ? ex.ta : (t.ta || ""),
-          hi: (ex.hi?.trim() && ex.hi !== ex.en) ? ex.hi : (t.hi || ""),
-        };
-        (await saveTrans(item._id, item.type, upd)).success ? ok++ : fail++;
-      } catch { fail++; }
-      setProgress(p => ({ ...p, done: p.done+1 }));
-      await new Promise(r => setTimeout(r, 380));
+  // const translateBulk = async () => {
+  //   const targets = selMode && selected.size > 0
+  //     ? flat().filter(i => selected.has(String(i._id)))
+  //     : displayItems;
+  //   if (!targets.length) { flash("Nothing to translate"); return; }
+  //   setBulkLoad(true);
+  //   setProgress({ done: 0, total: targets.length });
+  //   let ok = 0, fail = 0;
+  //   for (const item of targets) {
+  //     if (typeof item.name === "string") { fail++; setProgress(p => ({ ...p, done: p.done+1 })); continue; }
+  //     try {
+  //       const sl  = detectSourceLang(item.name);
+  //       const src = item.name[sl];
+  //       if (!src?.trim()) { fail++; continue; }
+  //       const t   = await translateToAll(src, sl);
+  //       const ex  = item.name;
+  //       const upd = {
+  //         en: t.en || ex.en || src,
+  //         ta: (ex.ta?.trim() && ex.ta !== ex.en) ? ex.ta : (t.ta || ""),
+  //         hi: (ex.hi?.trim() && ex.hi !== ex.en) ? ex.hi : (t.hi || ""),
+  //       };
+  //       (await saveTrans(item._id, item.type, upd)).success ? ok++ : fail++;
+  //     } catch { fail++; }
+  //     setProgress(p => ({ ...p, done: p.done+1 }));
+  //     await new Promise(r => setTimeout(r, 380));
+  //   }
+  //   setBulkLoad(false);
+  //   flash(`✓ ${ok} translated${fail ? `, ${fail} failed` : ""}`);
+  //   load();
+  // };
+   
+   const translateBulk = async () => {
+  const targets = selMode && selected.size > 0
+    ? flat().filter(i => selected.has(String(i._id)))
+    : displayItems;
+  if (!targets.length) { flash("Nothing to translate"); return; }
+  if (targets.some(i => typeof i.name === "string")) {
+    flash("Some items are in old format — run Migration Tools first", "err");
+    return;
+  }
+
+  setBulkLoad(true);
+  setProgress({ done: 0, total: targets.length });
+
+  const results = [];
+  for (const item of targets) {
+    try {
+      const sl  = detectSourceLang(item.name);
+      const src = item.name[sl];
+      if (!src?.trim()) { setProgress(p => ({ ...p, done: p.done+1 })); continue; }
+      const t   = await translateToAll(src, sl);
+      const ex  = item.name;
+      const merged = {
+        en: t.en || ex.en || src,
+        ta: (ex.ta?.trim() && ex.ta !== ex.en) ? ex.ta : (t.ta || ""),
+        hi: (ex.hi?.trim() && ex.hi !== ex.en) ? ex.hi : (t.hi || ""),
+      };
+      results.push({ _id: item._id, type: item.type, name: merged, _original: { ...item.name } });
+    } catch {
+      results.push({ _id: item._id, type: item.type, name: { ...item.name }, _original: { ...item.name } });
     }
-    setBulkLoad(false);
-    flash(`✓ ${ok} translated${fail ? `, ${fail} failed` : ""}`);
-    load();
-  };
+    setProgress(p => ({ ...p, done: p.done+1 }));
+    await new Promise(r => setTimeout(r, 380));
+  }
+
+  setBulkLoad(false);
+  setPreviewItems(results);   // ← open preview modal instead of saving
+};
+
+  const confirmSaveTranslations = async () => {
+  if (!previewItems?.length) return;
+  setPreviewSaving(true);
+  let ok = 0, fail = 0;
+  for (const item of previewItems) {
+    try {
+      const r = await saveTrans(item._id, item.type, item.name);
+      r.success ? ok++ : fail++;
+    } catch { fail++; }
+  }
+  setPreviewSaving(false);
+  setPreviewItems(null);
+  flash(`✓ ${ok} saved to database${fail ? `, ${fail} failed` : ""}`);
+  load();
+};
 
   // const runMigrate = async () => {
   //   if (!window.confirm("Convert old string names to {en, ta, hi} format and add them to the queue. Continue?")) return;
@@ -455,6 +512,24 @@ function TranslationPage({ token }) {
         (by auto-translation or manual edit), the item is removed from this queue automatically — no full DB scan needed.
         If an admin later edits a name, the item re-enters the queue for re-translation.
       </div>
+
+      {previewItems && (
+  <TranslationPreviewModal
+    items={previewItems}
+    saving={previewSaving}
+    onChange={(id, lang, val) =>
+      setPreviewItems(prev =>
+        prev.map(item =>
+          String(item._id) === id
+            ? { ...item, name: { ...item.name, [lang]: val } }
+            : item
+        )
+      )
+    }
+    onConfirm={confirmSaveTranslations}
+    onCancel={() => setPreviewItems(null)}
+  />
+)}
 
       {toast.msg && <Toast msg={toast.msg} err={toast.type === "err"} onClose={() => setToast({ msg: "" })} />}
     </div>
@@ -667,6 +742,70 @@ function MissingPill() {
 }
 function Toast({ msg, err, onClose }) {
   return <div className={`sa-toast${err ? " error" : ""}`}><span>{msg}</span><button onClick={onClose}>✕</button></div>;
+}
+
+function TranslationPreviewModal({ items, saving, onChange, onConfirm, onCancel }) {
+  const TYPE_COLOR = { menu: "tp-badge-menu", category: "tp-badge-category", grocery: "tp-badge-grocery" };
+  return (
+    <div className="tpm-overlay" onClick={e => e.target === e.currentTarget && !saving && onCancel()}>
+      <div className="tpm-modal">
+        <div className="tpm-header">
+          <div>
+            <div className="tpm-title">Review Translations</div>
+            <div className="tpm-sub">
+              {items.length} item{items.length !== 1 ? "s" : ""} translated · Edit any cell before saving
+            </div>
+          </div>
+          <button className="tpm-close-btn" onClick={onCancel} disabled={saving}>✕</button>
+        </div>
+
+        <div className="tpm-table-wrap">
+          <div className="tpm-table-head">
+            <span>Type</span>
+            <span>English</span>
+            <span>Tamil</span>
+            <span>Hindi</span>
+          </div>
+          {items.map(item => (
+            <div key={String(item._id)} className="tpm-table-row">
+              <span>
+                <span className={`tp-type-badge ${TYPE_COLOR[item.type]}`}>
+                  {TYPE_LABEL[item.type]}
+                </span>
+              </span>
+              {["en", "ta", "hi"].map(lang => (
+                <span key={lang} className="tpm-cell">
+                  <input
+                    className="tpm-cell-input"
+                    value={item.name[lang] || ""}
+                    placeholder={lang === "en" ? "English" : lang === "ta" ? "தமிழ்" : "हिंदी"}
+                    onChange={e => onChange(String(item._id), lang, e.target.value)}
+                  />
+                  {!item.name[lang]?.trim() && (
+                    <span className="tpm-missing-tag">missing</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="tpm-footer">
+          <div className="tpm-footer-hint">
+            ✎ Click any field to edit · All changes save together
+          </div>
+          <div className="tpm-footer-actions">
+            <button className="tp-btn tp-btn-ghost" onClick={onCancel} disabled={saving}>
+              Discard
+            </button>
+            <button className="tp-btn tp-btn-primary" onClick={onConfirm} disabled={saving}>
+              {saving ? "Saving…" : `Confirm & Save ${items.length} item${items.length !== 1 ? "s" : ""}`}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 

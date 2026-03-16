@@ -1103,6 +1103,8 @@ export default function Admin() {
   const [groceries, setGroceries] = useState([]);
   const { settings } = useSettings();
   const [showHelp, setShowHelp] = useState(true);
+  const [transNotice, setTransNotice] = useState(null);
+// { type: "item"|"category", action: "added"|"edited", name: string }
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
@@ -1158,37 +1160,72 @@ export default function Admin() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    const payload = { ...formData, recipe };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const token = localStorage.getItem("token");
+  //   const payload = { ...formData, recipe };
 
-    if (editId) {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${editId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      setMenu(menu.map(item =>
-        item._id === editId
-          ? { ...data, stock: Number(data.stock), price: Number(data.price) }
-          : item
-      ));
-      setEditId(null);
-    } else {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      setMenu([...menu, { ...data, stock: Number(data.stock), price: Number(data.price) }]);
-    }
-    setFormData({ name: { en: "", ta: "", hi: "" }, price: "", stock: "", category: "", image: "" });
-    setRecipe([]);
-    setShowForm(false);
-  };
+  //   if (editId) {
+  //     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${editId}`, {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  //       body: JSON.stringify(payload),
+  //     });
+  //     const data = await res.json();
+  //     setMenu(menu.map(item =>
+  //       item._id === editId
+  //         ? { ...data, stock: Number(data.stock), price: Number(data.price) }
+  //         : item
+  //     ));
+  //     setEditId(null);
+  //   } else {
+  //     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  //       body: JSON.stringify(payload),
+  //     });
+  //     const data = await res.json();
+  //     setMenu([...menu, { ...data, stock: Number(data.stock), price: Number(data.price) }]);
+  //   }
+  //   setFormData({ name: { en: "", ta: "", hi: "" }, price: "", stock: "", category: "", image: "" });
+  //   setRecipe([]);
+  //   setShowForm(false);
+  // };
+
+   const handleSubmit = async (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem("token");
+  const payload = { ...formData, recipe };
+  const itemDisplayName = formData.name[currentLang] || formData.name.en || "";
+
+  if (editId) {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu/${editId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    setMenu(menu.map(item =>
+      item._id === editId
+        ? { ...data, stock: Number(data.stock), price: Number(data.price) }
+        : item
+    ));
+    setEditId(null);
+    setTransNotice({ type: "item", action: "edited", name: itemDisplayName });
+  } else {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/menu`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    setMenu([...menu, { ...data, stock: Number(data.stock), price: Number(data.price) }]);
+    setTransNotice({ type: "item", action: "added", name: itemDisplayName });
+  }
+  setFormData({ name: { en: "", ta: "", hi: "" }, price: "", stock: "", category: "", image: "" });
+  setRecipe([]);
+  setShowForm(false);
+};
 
   const editItem = (item) => {
     setEditId(item._id);
@@ -1227,35 +1264,67 @@ export default function Admin() {
     setDeleteId(null);
   };
 
+  // const addCategory = async () => {
+  //   if (!newCategory.trim()) return;
+  //   const token = localStorage.getItem("token");
+  //   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  //     body: JSON.stringify({ name: newCategory, nameLang: currentLang }),
+  //   });
+  //   if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
+  //   const data = await res.json();
+  //   setCategories(prev => [...prev, data]);
+  //   setNewCategory("");
+  //   setShowAddCat(false);
+  // };
+
   const addCategory = async () => {
-    if (!newCategory.trim()) return;
-    const token = localStorage.getItem("token");
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ name: newCategory, nameLang: currentLang }),
-    });
-    if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
-    const data = await res.json();
-    setCategories(prev => [...prev, data]);
-    setNewCategory("");
-    setShowAddCat(false);
-  };
+  if (!newCategory.trim()) return;
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ name: newCategory, nameLang: currentLang }),
+  });
+  if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
+  const data = await res.json();
+  setCategories(prev => [...prev, data]);
+  setTransNotice({ type: "category", action: "added", name: newCategory.trim() });
+  setNewCategory("");
+  setShowAddCat(false);
+};
+
+  // const updateCategory = async () => {
+  //   if (!editCatName.trim()) return;
+  //   const token = localStorage.getItem("token");
+  //   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/${editCat._id}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  //     body: JSON.stringify({ name: editCatName.trim(), nameLang: currentLang }),
+  //   });
+  //   if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
+  //   const data = await res.json();
+  //   setCategories(prev => prev.map(c => c._id === data._id ? data : c));
+  //   if (activeCategory?._id === data._id) setActiveCategory(data);
+  //   setEditCat(null);
+  // };
 
   const updateCategory = async () => {
-    if (!editCatName.trim()) return;
-    const token = localStorage.getItem("token");
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/${editCat._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ name: editCatName.trim(), nameLang: currentLang }),
-    });
-    if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
-    const data = await res.json();
-    setCategories(prev => prev.map(c => c._id === data._id ? data : c));
-    if (activeCategory?._id === data._id) setActiveCategory(data);
-    setEditCat(null);
-  };
+  if (!editCatName.trim()) return;
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/${editCat._id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ name: editCatName.trim(), nameLang: currentLang }),
+  });
+  if (!res.ok) { const err = await res.json(); alert(err.msg); return; }
+  const data = await res.json();
+  setCategories(prev => prev.map(c => c._id === data._id ? data : c));
+  if (activeCategory?._id === data._id) setActiveCategory(data);
+  setTransNotice({ type: "category", action: "edited", name: editCatName.trim() });
+  setEditCat(null);
+};
 
   const tryDeleteCategory = (cat) => {
     // category in menu items is stored as a plain English string
@@ -1343,6 +1412,13 @@ export default function Admin() {
         </div>
 
         <div className="content-area">
+
+          {transNotice && (
+  <TranslationNotice
+    notice={transNotice}
+    onClose={() => setTransNotice(null)}
+  />
+)}
 
           {showHelp && (
             <div className="admin-help">
@@ -1628,6 +1704,26 @@ export default function Admin() {
   );
 }
 
+function TranslationNotice({ notice, onClose }) {
+  const typeLabel  = notice.type === "item" ? "menu item" : "category";
+  const actionWord = notice.action === "added" ? "added" : "updated";
+  return (
+    <div className="trans-notice">
+      <div className="trans-notice-icon">🌐</div>
+      <div className="trans-notice-body">
+        <div className="trans-notice-title">
+          "{notice.name}" {actionWord} successfully
+        </div>
+        <div className="trans-notice-sub">
+          This {typeLabel} has been added to the Super Admin's translation queue.
+          Tamil and Hindi translations will be filled in once the Super Admin
+          runs the translation — no action needed from you.
+        </div>
+      </div>
+      <button className="trans-notice-close" onClick={onClose} title="Dismiss">✕</button>
+    </div>
+  );
+}
 
 
 
