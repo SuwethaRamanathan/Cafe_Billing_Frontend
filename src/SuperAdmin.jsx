@@ -78,6 +78,7 @@ export default function SuperAdmin() {
   const [collapsed, setCollapsed]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const meta = PAGE_META[page] || {};
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   return (
     <div className="sa-shell">
@@ -98,7 +99,10 @@ export default function SuperAdmin() {
         </nav>
         <div className="sa-sidebar-footer">
           <button className="sa-nav-item sa-nav-logout"
-            onClick={() => { localStorage.clear(); navigate("/"); }}
+            // onClick={() => { localStorage.clear(); navigate("/"); }}
+
+            onClick={() => setShowLogoutConfirm(true)}
+
             title={collapsed ? "Logout" : undefined}>
             <span className="sa-nav-icon"><IcoLogout /></span>
             {!collapsed && <span className="sa-nav-label">Logout</span>}
@@ -107,7 +111,12 @@ export default function SuperAdmin() {
       </aside>
       <div className="sa-main">
         <div className="sa-topbar">
-          <button className="sa-hamburger-btn" onClick={() => setMobileOpen(v => !v)}><IcoMenu /></button>
+          <button className="sa-hamburger-btn" onClick={() => setMobileOpen(v => !v)}>
+            {/* <IcoMenu /> */}
+
+            {mobileOpen ? "✕" : <IcoMenu />}
+
+          </button>
           <button className="sa-collapse-btn" onClick={() => setCollapsed(v => !v)}>
             <span className="sa-collapse-icon">{collapsed ? "›" : "‹"}</span>
           </button>
@@ -119,6 +128,42 @@ export default function SuperAdmin() {
           {page === "users"       && <UsersPage       token={token} />}
         </div>
       </div>
+      
+      {showLogoutConfirm && (
+  <div
+    className="sa-modal-overlay"
+    onClick={e => e.target === e.currentTarget && setShowLogoutConfirm(false)}
+  >
+    <div className="sa-modal sa-modal-sm">
+      <div className="sa-modal-title">Logout?</div>
+
+      <p className="sa-modal-body">
+        Are you sure you want to logout from the admin panel?
+      </p>
+
+      <div className="sa-modal-actions">
+        <button
+          className="tp-btn tp-btn-danger"
+          onClick={() => {
+            setShowLogoutConfirm(false);
+            localStorage.clear();
+            navigate("/");
+          }}
+        >
+          Yes, Logout
+        </button>
+
+        <button
+          className="tp-btn tp-btn-ghost"
+          onClick={() => setShowLogoutConfirm(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
@@ -136,7 +181,7 @@ function TranslationPage({ token }) {
   const [selMode, setSelMode]     = useState(false);
   const [showMig, setShowMig]     = useState(false);
   const [migrating, setMigrating] = useState(false);
-
+  
   const flash = (msg, type = "ok") => { setToast({ msg, type }); setTimeout(() => setToast({ msg: "" }), 4500); };
   const getN  = (f, l = "en") => !f ? "" : typeof f === "string" ? f : f[l] || "";
 
@@ -372,6 +417,7 @@ function TranslationPage({ token }) {
                         </span>
                       );
                     }
+
 
                     return (
                       <span key={lang}>
@@ -614,6 +660,7 @@ function UsersPage({ token }) {
     </div>
   );
 }
+
 
 function MissingPill() {
   return <span className="tp-missing-pill"><span className="tp-missing-dot" />not translated</span>;

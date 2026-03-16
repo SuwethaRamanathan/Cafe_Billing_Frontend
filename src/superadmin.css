@@ -852,25 +852,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;600;700&display=swap');
 
-/* ─────────────────────────────────────────────────────────
-   RESET
-───────────────────────────────────────────────────────── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.tp-stat-num,
-.tp-tab-pill,
-.tp-selected-pill,
-.tp-progress-text,
-.up-page-sub,
-.up-role-badge,
-.sa-toast {
-  font-variant-numeric: slashed-zero;
-  font-family: 'Lato', sans-serif;
-}
-
-/* ─────────────────────────────────────────────────────────
-   SHELL
-───────────────────────────────────────────────────────── */
 .sa-shell {
   display: flex;
   height: 100vh;
@@ -881,9 +864,6 @@
   font-size: 15px;
 }
 
-/* ─────────────────────────────────────────────────────────
-   SIDEBAR
-───────────────────────────────────────────────────────── */
 .sa-sidebar {
   width: 230px;
   min-width: 230px;
@@ -1627,9 +1607,6 @@
 
 .sa-modal-actions { display: flex; gap: 11px; margin-top: 24px; flex-wrap: wrap; }
 
-/* ─────────────────────────────────────────────────────────
-   TOAST
-───────────────────────────────────────────────────────── */
 .sa-toast {
   position: fixed;
   bottom: 26px;
@@ -1661,6 +1638,17 @@
 }
 .sa-toast button:hover { background: rgba(255,255,255,0.25); }
 
+.tp-stat-num,
+.tp-tab-pill,
+.tp-selected-pill,
+.tp-progress-text,
+.up-page-sub,
+.up-role-badge,
+.sa-toast {
+  font-variant-numeric: slashed-zero;
+  font-family: 'Lato', sans-serif;
+}
+
 /* ─────────────────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────────────────── */
@@ -1677,6 +1665,22 @@
   .up-table-head > span:nth-child(2),
   .up-table-row  > span:nth-child(2) { display: none; }
 } */
+
+.sa-hamburger-btn {
+  display: none;
+}
+
+.sa-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 200;
+}
+
+.sa-sidebar-overlay.visible {
+  display: block;
+}
 
 @media (max-width: 900px) {
   .sa-shell {
@@ -1750,6 +1754,18 @@
   .sa-role-picker { grid-template-columns: 1fr; }
   .sa-modal-actions { flex-direction: column; }
   .sa-modal-actions .tp-btn { width: 100%; justify-content: center; }
+
+   .sa-hamburger-btn {
+    display: flex;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #e0cfc3;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
