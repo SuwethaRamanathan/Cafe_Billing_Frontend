@@ -179,8 +179,8 @@ function TranslationPage({ token }) {
   const [tab, setTab]             = useState("all");
   const [selected, setSelected]   = useState(new Set());
   const [selMode, setSelMode]     = useState(false);
-  const [showMig, setShowMig]     = useState(false);
-  const [migrating, setMigrating] = useState(false);
+  // const [showMig, setShowMig]     = useState(false);
+  // const [migrating, setMigrating] = useState(false);
   
   const flash = (msg, type = "ok") => { setToast({ msg, type }); setTimeout(() => setToast({ msg: "" }), 4500); };
   const getN  = (f, l = "en") => !f ? "" : typeof f === "string" ? f : f[l] || "";
@@ -313,8 +313,8 @@ function TranslationPage({ token }) {
       <div className="tp-migrate-row">
         {/* <button className="tp-btn tp-btn-ghost tp-btn-sm" onClick={() => setShowMig(v => !v)}>
           <IcoTool /> {showMig ? "Hide Migration" : "Migration Tools"}
-        </button>
-      </div> */}
+        </button> */}
+      </div>
       {/* {showMig && (
         <div className="tp-migrate-panel">
           <p>Converts old <code>"Milk"</code> to <code>{`{en:"Milk", ta:"", hi:""}`}</code> and adds them to this queue. Run once for items added before multilingual support.</p>
