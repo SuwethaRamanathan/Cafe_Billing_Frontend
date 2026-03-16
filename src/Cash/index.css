@@ -586,15 +586,11 @@ body {
   .pos-preview-actions { display: none; }
 }
 
-/* Mobile search bar — hidden on desktop, shown on mobile via media query */
 .pos-mobile-search { display: none; }
 
-/* ══════════════════════════════════════════
-   MOBILE RESPONSIVE — complete rewrite
-   ══════════════════════════════════════════ */
+
 @media (max-width: 900px) {
 
-  /* --- Body & root layout --- */
   body {
     overflow-y: scroll !important;
     overflow-x: hidden !important;
@@ -609,7 +605,6 @@ body {
     flex-direction: column !important;
   }
 
-  /* --- Header: search hidden from header on mobile --- */
   .pos-header {
     position: sticky !important;
     top: 0 !important;
@@ -620,10 +615,8 @@ body {
     gap: 10px !important;
   }
   .pos-logo-name { font-size: 15px !important; }
-  /* Hide search from header on mobile — shown in body search bar instead */
   .pos-search-wrap { display: none !important; }
 
-  /* --- Mobile search bar: full-width bar below header, above categories --- */
   .pos-mobile-search {
     display: flex !important;
     align-items: center !important;
@@ -648,7 +641,6 @@ body {
     border-radius: 50px !important;
   }
 
-  /* --- Body becomes single column --- */
   .pos-body {
     display: flex !important;
     flex-direction: column !important;
@@ -657,20 +649,17 @@ body {
     flex: none !important;
   }
 
-  /* --- LEFT: menu grid, scrollable --- */
   .pos-left {
     display: flex !important;
     flex-direction: column !important;
     height: auto !important;
     overflow: visible !important;
     flex: none !important;
-    /* leave room for fixed billing panel at bottom */
     padding-bottom: 380px !important;
   }
 
   .pos-cat-bar {
     position: sticky !important;
-    /* 54px header + ~54px mobile search bar */
     top: 108px !important;
     z-index: 98 !important;
     background: #fff !important;
@@ -695,7 +684,6 @@ body {
   .pos-card-price { font-size: 13px !important; }
   .pos-add-btn { width: 52px !important; font-size: 11px !important; padding: 6px 0 !important; }
 
-  /* --- RIGHT: fixed billing panel, taller so cart items are visible --- */
   .pos-right {
     position: fixed !important;
     bottom: 0 !important;
@@ -703,7 +691,6 @@ body {
     right: 0 !important;
     width: 100% !important;
     height: auto !important;
-    /* Increased from 295px to 380px so cart list is more visible */
     max-height: 380px !important;
     border-left: none !important;
     border-top: 2px solid #ecdfd4 !important;
@@ -719,7 +706,6 @@ body {
   .pos-bill-title { font-size: 15px !important; }
   .pos-bill-sub { font-size: 11px !important; }
 
-  /* Cart list gets more space — was 70px, now 140px */
   .pos-cart-list {
     max-height: 140px !important;
     overflow-y: auto !important;

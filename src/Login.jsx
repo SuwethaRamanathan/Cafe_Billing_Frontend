@@ -146,9 +146,8 @@ export default function Login() {
     localStorage.setItem("role",  data.role);
     localStorage.setItem("name",  data.name);
 
-    // ── Route based on role ──
     if (data.role === "superadmin") {
-      navigate("/superadmin");       // → your translation dashboard
+      navigate("/superadmin");       
     } else if (data.role === "admin") {
       navigate("/admin");
     } else {

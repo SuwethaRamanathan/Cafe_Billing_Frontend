@@ -732,7 +732,6 @@ body {
   color: #1a0a00;
 }
 
-/* ── Slashed-zero for all numeric displays ── */
 .card-price,
 .card-stock-alert,
 .stock-badge,
@@ -753,7 +752,6 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* KEY FIX: allow vertical scroll so last card is never hidden */
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -1352,7 +1350,7 @@ body {
   .btn-primary { width: 100%; justify-content: center; }
 
   .admin-help {
-    position: relative;   /* keeps help-close anchored inside the panel */
+    position: relative;   
     width: 100%;
     max-width: 100%;
     margin-bottom: 16px;
