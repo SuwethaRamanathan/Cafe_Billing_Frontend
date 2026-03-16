@@ -857,6 +857,17 @@
 ───────────────────────────────────────────────────────── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+.tp-stat-num,
+.tp-tab-pill,
+.tp-selected-pill,
+.tp-progress-text,
+.up-page-sub,
+.up-role-badge,
+.sa-toast {
+  font-variant-numeric: slashed-zero;
+  font-family: 'Lato', sans-serif;
+}
+
 /* ─────────────────────────────────────────────────────────
    SHELL
 ───────────────────────────────────────────────────────── */
@@ -1653,7 +1664,7 @@
 /* ─────────────────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────────────────── */
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .tp-stats      { grid-template-columns: repeat(2, 1fr); }
   .tp-wrap, .up-wrap { padding: 18px; }
 }
@@ -1665,14 +1676,88 @@
   .up-table-head, .up-table-row { grid-template-columns: 1.5fr 140px 60px; }
   .up-table-head > span:nth-child(2),
   .up-table-row  > span:nth-child(2) { display: none; }
+} */
+
+@media (max-width: 900px) {
+  .sa-shell {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    flex-direction: column;
+  }
+
+  .sa-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    width: 240px !important;
+    min-width: 240px !important;
+    transform: translateX(-100%) !important;
+    z-index: 300 !important;
+  }
+  .sa-sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  .sa-sidebar.collapsed {
+    width: 240px !important;
+    min-width: 240px !important;
+  }
+  .sa-sidebar.collapsed .sa-brand-name,
+  .sa-sidebar.collapsed .sa-nav-label { display: block !important; }
+
+  .sa-hamburger-btn { display: flex !important; }
+  .sa-collapse-btn  { display: none !important; }
+  .sa-topbar-sub    { display: none; }
+
+  .sa-main {
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sa-topbar {
+    padding: 0 16px;
+    gap: 12px;
+  }
+  .sa-topbar-title { font-size: 16px; }
+
+  .sa-page-body {
+    padding-bottom: 32px;
+    overflow-y: auto;
+  }
+
+  .tp-wrap { padding: 16px; }
+  .tp-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tp-stat { padding: 14px 16px; }
+  .tp-stat-num { font-size: 24px; }
+
+  .tp-toolbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .tp-toolbar > .tp-btn { width: 100%; justify-content: center; }
+
+  .up-wrap { padding: 16px; }
+  .up-header-row { flex-direction: column; gap: 12px; }
+  .up-header-row .tp-btn { width: 100%; justify-content: center; }
+
+  .up-table-head,
+  .up-table-row { grid-template-columns: 1.2fr 100px 60px; min-width: 320px; }
+
+  .up-table-head > span:nth-child(2),
+  .up-table-row  > span:nth-child(2) { display: none; }
+
+  .sa-modal { padding: 22px 18px; }
+  .sa-role-picker { grid-template-columns: 1fr; }
+  .sa-modal-actions { flex-direction: column; }
+  .sa-modal-actions .tp-btn { width: 100%; justify-content: center; }
 }
 
-/* ─────────────────────────────────────────────────────────
-   CELL — edit pencil button
-   Shown on hover so superadmin knows manual edit is possible.
-   The pencil appears for ALL cells (filled or missing),
-   so superadmin can correct a wrong auto-translation.
-───────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .tp-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tp-stat-num { font-size: 20px; }
+  .tp-tab { padding: 10px 12px; font-size: 13px; }
+}
+
 .tp-cell {
   position: relative;
   justify-content: space-between;
@@ -1684,7 +1769,6 @@
   word-break: break-word;
 }
 
-/* Pencil button — hidden by default, slides in on cell hover */
 .tp-cell-edit-btn {
   flex-shrink: 0;
   border: none;
@@ -1695,12 +1779,11 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
-  opacity: 0;                         /* hidden by default */
+  opacity: 0;                        
   transition: opacity 0.15s, background 0.15s, color 0.15s;
   pointer-events: none;
 }
 
-/* Show pencil when hovering the cell */
 .tp-cell:hover .tp-cell-edit-btn {
   opacity: 1;
   pointer-events: auto;
@@ -1711,10 +1794,6 @@
   color: #c0521a;
 }
 
-/* ─────────────────────────────────────────────────────────
-   QUEUE NOTICE — bottom of translation page
-   Explains how the queue system works to the superadmin.
-───────────────────────────────────────────────────────── */
 .tp-queue-notice {
   margin-top: 16px;
   background: #f5ede4;
