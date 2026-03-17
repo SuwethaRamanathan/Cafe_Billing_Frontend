@@ -1922,3 +1922,32 @@
   .tpm-footer-actions { flex-direction: column; }
   .tpm-footer-actions .tp-btn { width: 100%; justify-content: center; }
 }
+
+.tp-check-cell:first-child {
+  position: relative;
+}
+
+.tp-check-cell:first-child:hover::after {
+  content: "Select All";
+  position: absolute;
+  top: -25px;
+  left: 0;
+  background: black;
+  color: white;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.tp-head-check {
+  justify-content: center;
+  position: relative;
+}
+
+.tp-table-row {
+  cursor: pointer;
+}
+
+.tp-table-row input {
+  cursor: pointer;
+}

@@ -178,27 +178,56 @@ function TranslationPage({ token }) {
   const [editVal, setEditVal]     = useState("");
   const [tab, setTab]             = useState("all");
   const [selected, setSelected]   = useState(new Set());
-  const [selMode, setSelMode]     = useState(false);
   // const [showMig, setShowMig]     = useState(false);
   // const [migrating, setMigrating] = useState(false);
   const [previewItems, setPreviewItems] = useState(null);
-// null = closed; array of { _id, type, name:{en,ta,hi}, _original:{en,ta,hi} } = preview open
 const [previewSaving, setPreviewSaving] = useState(false);
   
   const flash = (msg, type = "ok") => { setToast({ msg, type }); setTimeout(() => setToast({ msg: "" }), 4500); };
   const getN  = (f, l = "en") => !f ? "" : typeof f === "string" ? f : f[l] || "";
 
+  // const load = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/untranslated`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     setData(await res.json());
+  //     setSelected(new Set());
+  //   } catch { flash("Failed to load items", "err"); }
+  //   finally { setLoading(false); }
+  // };
   const load = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/untranslated`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setData(await res.json());
-      setSelected(new Set());
-    } catch { flash("Failed to load items", "err"); }
-    finally { setLoading(false); }
-  };
+  setLoading(true);
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/superadmin/untranslated`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const newData = await res.json();
+    setData(newData);
+
+    const allItems = [
+      ...newData.menu,
+      ...(newData.categories || []),
+      ...newData.groceries,
+    ];
+
+    setSelected(prev =>
+      new Set(
+        [...prev].filter(id =>
+          allItems.some(i => String(i._id) === id && typeof i.name !== "string")
+        )
+      )
+    );
+
+  } catch {
+    flash("Failed to load items", "err");
+  } finally {
+    setLoading(false);
+  }
+};
+
   useEffect(() => { load(); }, []);
 
   const saveTrans = async (id, type, name) => {
@@ -222,41 +251,13 @@ const [previewSaving, setPreviewSaving] = useState(false);
     tab === "category" ? (data.categories || []).map(i => ({ ...i, type: "category" })) :
     data.groceries.map(i => ({ ...i, type: "grocery" }));
 
-  // const translateBulk = async () => {
-  //   const targets = selMode && selected.size > 0
-  //     ? flat().filter(i => selected.has(String(i._id)))
-  //     : displayItems;
-  //   if (!targets.length) { flash("Nothing to translate"); return; }
-  //   setBulkLoad(true);
-  //   setProgress({ done: 0, total: targets.length });
-  //   let ok = 0, fail = 0;
-  //   for (const item of targets) {
-  //     if (typeof item.name === "string") { fail++; setProgress(p => ({ ...p, done: p.done+1 })); continue; }
-  //     try {
-  //       const sl  = detectSourceLang(item.name);
-  //       const src = item.name[sl];
-  //       if (!src?.trim()) { fail++; continue; }
-  //       const t   = await translateToAll(src, sl);
-  //       const ex  = item.name;
-  //       const upd = {
-  //         en: t.en || ex.en || src,
-  //         ta: (ex.ta?.trim() && ex.ta !== ex.en) ? ex.ta : (t.ta || ""),
-  //         hi: (ex.hi?.trim() && ex.hi !== ex.en) ? ex.hi : (t.hi || ""),
-  //       };
-  //       (await saveTrans(item._id, item.type, upd)).success ? ok++ : fail++;
-  //     } catch { fail++; }
-  //     setProgress(p => ({ ...p, done: p.done+1 }));
-  //     await new Promise(r => setTimeout(r, 380));
-  //   }
-  //   setBulkLoad(false);
-  //   flash(`✓ ${ok} translated${fail ? `, ${fail} failed` : ""}`);
-  //   load();
-  // };
    
    const translateBulk = async () => {
-  const targets = selMode && selected.size > 0
-    ? flat().filter(i => selected.has(String(i._id)))
-    : displayItems;
+
+  const targets = selected.size > 0
+  ? displayItems.filter(i => selected.has(String(i._id)))
+  : displayItems;
+
   if (!targets.length) { flash("Nothing to translate"); return; }
   if (targets.some(i => typeof i.name === "string")) {
     flash("Some items are in old format — run Migration Tools first", "err");
@@ -288,7 +289,7 @@ const [previewSaving, setPreviewSaving] = useState(false);
   }
 
   setBulkLoad(false);
-  setPreviewItems(results);   // ← open preview modal instead of saving
+  setPreviewItems(results);   
 };
 
   const confirmSaveTranslations = async () => {
@@ -321,7 +322,6 @@ const [previewSaving, setPreviewSaving] = useState(false);
   // };
 
   // Manual save: one language field edited by superadmin.
-  // Backend returns fullyTranslated:true when all 3 langs are filled → item leaves queue.
   const saveEdit = async () => {
     if (!editCell) return;
     try {
@@ -339,11 +339,28 @@ const [previewSaving, setPreviewSaving] = useState(false);
   };
 
   const showType  = tab === "all";
-  const allSel    = displayItems.length > 0 && displayItems.every(i => selected.has(String(i._id)));
-  const selCount  = displayItems.filter(i => selected.has(String(i._id))).length;
+  // const allSel    = displayItems.length > 0 && displayItems.every(i => selected.has(String(i._id)));
   const toggle    = id => setSelected(p => { const n = new Set(p); n.has(String(id)) ? n.delete(String(id)) : n.add(String(id)); return n; });
-  const toggleAll = () => allSel ? setSelected(new Set()) : setSelected(new Set(displayItems.map(i => String(i._id))));
-  const exitSel   = () => { setSelMode(false); setSelected(new Set()); };
+  // const toggleAll = () => allSel ? setSelected(new Set()) : setSelected(new Set(displayItems.map(i => String(i._id))));
+const toggleAll = () => {
+  if (allSel) {
+    setSelected(new Set());
+  } else {
+    setSelected(new Set(displayItems
+      .filter(i => typeof i.name !== "string")
+      .map(i => String(i._id))));
+  }
+};
+
+const selectableItems = displayItems.filter(i => typeof i.name !== "string");
+
+const allSel =
+  selectableItems.length > 0 &&
+  selectableItems.every(i => selected.has(String(i._id)));
+
+const someSelected =
+  selected.size > 0 && selected.size < selectableItems.length;
+
 
   const tabs = [
     { key: "all",      label: "All",        count: flat().length },
@@ -394,31 +411,27 @@ const [previewSaving, setPreviewSaving] = useState(false);
         <div className="tp-tabs">
           {tabs.map(t => (
             <button key={t.key} className={`tp-tab${tab === t.key ? " active" : ""}`}
-              onClick={() => { setTab(t.key); setSelected(new Set()); setSelMode(false); }}>
+              onClick={() => { setTab(t.key); setSelected(new Set()); }}>
               {t.label}<span className="tp-tab-pill">{t.count}</span>
             </button>
           ))}
         </div>
 
-        <div className="tp-toolbar">
-          <div className="tp-toolbar-left">
-            {!selMode ? (
-              <button className="tp-btn tp-btn-ghost tp-btn-sm" onClick={() => setSelMode(true)}>☑ Select Items</button>
-            ) : (
-              <>
-                <label className="tp-check-all">
-                  <input type="checkbox" checked={allSel} onChange={toggleAll} />
-                  <span>{allSel ? "Deselect all" : "Select all"}</span>
-                </label>
-                {selCount > 0 && <span className="tp-selected-pill">{selCount} selected</span>}
-                <button className="tp-btn tp-btn-ghost tp-btn-sm tp-btn-red" onClick={exitSel}>✕ Cancel</button>
-              </>
-            )}
-          </div>
+        <div className="tp-toolbar">         
+
+            <div className="tp-toolbar-left">
+  {selected.size > 0 && (
+    <span className="tp-selected-pill">
+      {selected.size} selected
+    </span>
+  )}
+</div>
+
+         
           <button className="tp-btn tp-btn-primary" onClick={translateBulk} disabled={bulkLoad}>
             <IcoGlobe />
             {bulkLoad ? `${progress.done}/${progress.total}...`
-              : selMode && selCount > 0 ? `Translate Selected (${selCount})`
+              : selected.size > 0 ? `Translate Selected (${selected.size})`
               : `Translate All (${displayItems.length})`}
           </button>
         </div>
@@ -432,24 +445,57 @@ const [previewSaving, setPreviewSaving] = useState(false);
           </div>
         ) : (
           <div className="tp-table-scroll">
-            <div className={`tp-table-head${showType ? " w-type" : ""}${selMode ? " w-check" : ""}`}>
-              {selMode  && <span></span>}
+
+            <div className={`tp-table-head${showType ? " w-type w-check" : " w-check"}`}>
+
+              <span className="tp-check-cell tp-head-check">
+  <input
+    type="checkbox"
+    checked={allSel}
+      disabled={selectableItems.length === 0}
+    ref={el => {
+    if (el) el.indeterminate = someSelected;
+  }}
+    onChange={toggleAll}
+  />
+</span>
+
               {showType && <span>Type</span>}
               <span>English</span><span>Tamil</span><span>Hindi</span>
             </div>
 
             {displayItems.map(item => {
               const isOld = typeof item.name === "string";
-              const isChk = selected.has(String(item._id));
               return (
-                <div key={item._id}
-                  className={`tp-table-row${showType ? " w-type" : ""}${selMode ? " w-check" : ""}${isChk ? " checked" : ""}${isOld ? " old-fmt" : ""}`}>
+                // <div key={item._id}
+                //  className={`tp-table-row${showType ? " w-type w-check" : " w-check"} `}                 
+                //  >
 
-                  {selMode && (
-                    <span className="tp-check-cell">
-                      <input type="checkbox" checked={isChk} onChange={() => toggle(item._id)} disabled={isOld} />
-                    </span>
-                  )}
+                <div
+  key={item._id}
+  className={`tp-table-row${showType ? " w-type w-check" : " w-check"}`}
+  onClick={(e) => {
+    if (e.target.type !== "checkbox" && typeof item.name !== "string") {
+      toggle(item._id);
+    }
+  }}
+>
+
+                <span className="tp-check-cell ">
+  {/* <input
+    type="checkbox"
+    checked={selected.has(String(item._id))}
+    onChange={() => toggle(item._id)}
+  /> */}
+
+  <input
+  type="checkbox"
+  checked={selected.has(String(item._id))}
+  disabled={isOld}
+  onChange={() => toggle(item._id)}
+/>
+
+</span>
 
                   {showType && (
                     <span><span className={`tp-type-badge tp-badge-${item.type}`}>{TYPE_LABEL[item.type]}</span></span>
@@ -478,9 +524,6 @@ const [previewSaving, setPreviewSaving] = useState(false);
 
                     return (
                       <span key={lang}>
-                        {/* tp-cell wraps the value + the edit pencil icon.
-                            The pencil is always in the DOM but only VISIBLE on hover (via CSS).
-                            Clicking it opens the inline editor for that specific language cell. */}
                         <div className={`tp-cell${bad ? " missing" : ""}${isOld ? " old" : ""}`}
                           title={isOld ? "Run Migration Tools first" : ""}>
                           <span className="tp-cell-content">
@@ -489,11 +532,22 @@ const [previewSaving, setPreviewSaving] = useState(false);
                              bad                    ? <MissingPill /> : val}
                           </span>
                           {!isOld && (
-                            <button className="tp-cell-edit-btn"
-                              title={`Manually edit ${lang === "en" ? "English" : lang === "ta" ? "Tamil" : "Hindi"}`}
-                              onClick={() => { setEditCell({ id: String(item._id), type: item.type, lang }); setEditVal(val); }}>
-                              <IcoEdit />
-                            </button>
+                            // <button className="tp-cell-edit-btn"
+                            //   title={`Manually edit ${lang === "en" ? "English" : lang === "ta" ? "Tamil" : "Hindi"}`}
+                            //   onClick={() => { setEditCell({ id: String(item._id), type: item.type, lang }); setEditVal(val); }}>
+                            //   <IcoEdit />
+                            // </button>
+                            <button
+  className="tp-cell-edit-btn"
+  title={`Manually edit ${lang === "en" ? "English" : lang === "ta" ? "Tamil" : "Hindi"}`}
+  onClick={(e) => {
+    e.stopPropagation(); 
+    setEditCell({ id: String(item._id), type: item.type, lang });
+    setEditVal(val);
+  }}
+>
+  <IcoEdit />
+</button>
                           )}
                         </div>
                       </span>
