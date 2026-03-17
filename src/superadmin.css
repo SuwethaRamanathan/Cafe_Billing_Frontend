@@ -1301,9 +1301,9 @@
   font-size: 12px;
   font-weight: 700;
 }
-.tp-badge-menu     { background: #fff5f0; color: #c0521a; }
-.tp-badge-category { background: #f0e8ff; color: #6040c0; }
-.tp-badge-grocery  { background: #eaf5ee; color: #2d7a4a; }
+.tp-badge-menu     { background: #fff5f0; color: black; }
+.tp-badge-category { background: #f0e8ff; color: black; }
+.tp-badge-grocery  { background: #eaf5ee; color: black; }
 
 .tp-cell {
   padding: 6px 8px;
