@@ -1927,18 +1927,6 @@
   position: relative;
 }
 
-.tp-check-cell:first-child:hover::after {
-  content: "Select All";
-  position: absolute;
-  top: -25px;
-  left: 0;
-  background: black;
-  color: white;
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 6px;
-}
-
 .tp-head-check {
   justify-content: center;
   position: relative;
@@ -1950,4 +1938,32 @@
 
 .tp-table-row input {
   cursor: pointer;
+}
+
+.tp-head-check {
+  position: relative;
+  justify-content: center;
+}
+
+.tp-head-check::after {
+  content: "Select All";
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;   
+  color: #2a1a0e;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #e0cfc3;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.tp-head-check:hover::after {
+  opacity: 1;
 }

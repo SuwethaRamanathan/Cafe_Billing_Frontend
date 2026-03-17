@@ -453,9 +453,6 @@ const someSelected =
     type="checkbox"
     checked={allSel}
       disabled={selectableItems.length === 0}
-    ref={el => {
-    if (el) el.indeterminate = someSelected;
-  }}
     onChange={toggleAll}
   />
 </span>
