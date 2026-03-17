@@ -1104,7 +1104,6 @@ export default function Admin() {
   const { settings } = useSettings();
   const [showHelp, setShowHelp] = useState(true);
   const [transNotice, setTransNotice] = useState(null);
-// { type: "item"|"category", action: "added"|"edited", name: string }
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/menu`)
@@ -1149,7 +1148,6 @@ export default function Admin() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // name field is now { en, ta, hi } — handled separately via handleNameChange
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -1198,7 +1196,6 @@ export default function Admin() {
 
   const editItem = (item) => {
     setEditId(item._id);
-    // Detect which language has content so the selector shows the right one
     const nameObj = typeof item.name === "object"
       ? { en: item.name.en || "", ta: item.name.ta || "", hi: item.name.hi || "" }
       : { en: item.name || "", ta: "", hi: "" };

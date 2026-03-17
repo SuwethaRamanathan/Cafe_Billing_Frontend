@@ -2250,7 +2250,8 @@ function StockPage({ mode }) {
                   <div className="stock-empty">{t("stock.noMaterialsFound")}</div>
                 ) : (
                   filteredGroceries.map((g, i) => {
-                    const status = getStockStatus(g.quantity);
+                    // const status = getStockStatus(g.quantity);
+                    const status = getStockStatus(g.displayQty ?? g.quantity);
                     return (
                       <div key={g._id}
                         className={`stock-table-row ${isUpdateMode ? "update-cols" : "view-cols"} ${showDeleteMode ? "with-check" : ""} ${g.selected ? "row-selected" : ""} ${g.modified ? "row-modified" : ""} ${g.quantity > 0 && g.quantity <= 5 ? "row-low-stock" : ""}`}>
