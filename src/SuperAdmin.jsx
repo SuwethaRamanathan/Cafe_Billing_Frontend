@@ -373,10 +373,10 @@ const someSelected =
     <div className="tp-wrap">
       <div className="tp-stats">
         {[
-          { n: data.menu.length,             l: "Menu Items",  c: "orange" },
-          { n: (data.categories||[]).length,  l: "Categories", c: "purple" },
-          { n: data.groceries.length,         l: "Stock",      c: "green"  },
-          { n: flat().length,                 l: "Pending",    c: "red"    },
+          { n: data.menu.length,             l: "Menu Items",  c: "black" },
+          { n: (data.categories||[]).length,  l: "Categories", c: "black" },
+          { n: data.groceries.length,         l: "Stock",      c: "black"  },
+          { n: flat().length,                 l: "Pending",    c: "black"    },
         ].map((s, i) => (
           <div key={i} className={`tp-stat tp-stat-${s.c}`}>
             <div><div className="tp-stat-num">{s.n}</div><div className="tp-stat-label">{s.l}</div></div>
@@ -751,8 +751,8 @@ function UsersPage({ token }) {
               </div></div>
             <div className="sa-modal-field"><label>Role</label>
               <div className="sa-role-picker">
-                {[{ r:"cashier", icon:"💳", title:"Cashier", desc:"Billing & orders only" },
-                  { r:"admin",   icon:"👑", title:"Admin",   desc:"Full menu & stock access" }
+                {[{ r:"cashier", icon:"", title:"Cashier", desc:"Billing & orders only" },
+                  { r:"admin",   icon:"", title:"Admin",   desc:"Full menu & stock access" }
                 ].map(({ r, icon, title, desc }) => (
                   <button key={r} type="button"
                     className={`sa-role-btn${form.role === r ? " active" : ""}`}
